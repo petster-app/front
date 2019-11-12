@@ -1,10 +1,11 @@
 import React from 'react';
 import {Text} from 'react-native';
 
-export default function HomeScreen() {
+export default function FavoritesScreen() {
+
   return (
     <Text>
-      Welcome to petster!
+      Favorites Page
     </Text>
-  );
+  )
 }
