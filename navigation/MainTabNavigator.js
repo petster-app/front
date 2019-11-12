@@ -4,7 +4,7 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import SearchScreen from '../screens/SearchScreen';
+import InputScreen from '../screens/InputScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 
 const config = Platform.select({
@@ -37,7 +37,7 @@ HomeStack.path = '';
 
 const LinksStack = createStackNavigator(
   {
-    Links: SearchScreen,
+    Links: InputScreen,
   },
   config
 );
