@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Text, Picker, View, Button, TextInput } from 'react-native';
-import HomeScreen from './HomeScreen';
-import RangeSlider from 'react-native-range-slider'
-import GallerySwiper from "react-native-gallery-swiper";
-import superagent from 'superagent';
+import SearchScreen from './SearchScreen';
 
-const API = process.env.REACT_APP_API; 
-
-export default function FavoritesScreen() {
+export default function FavoritesScreen(props) {
 
   const [type, setType] = useState('');
   const [zipCode, setZipCode] = useState('');
@@ -17,16 +12,7 @@ export default function FavoritesScreen() {
   console.log(type,zipCode,travelDistance);
 
   function handleSubmit() {
-    const options = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    }
-    fetch(`http://localhost:3000/search/${type}/${zipCode}/${travelDistance}`, options)
-    .then((results) => results.json())
-    .then((data) => console.log(data))
-    .then((data) => navigate('HomeScreen'))
+    props.navigation.navigate('SearchScreen');
   }
 
   return (
@@ -52,21 +38,6 @@ export default function FavoritesScreen() {
         <Picker.Item label="15-miles" value="15"/>
         <Picker.Item label="25+ miles" value="25"/>
       </Picker>
-
-      <View style={{flex: 1, flexDirection: 'row'}}>
-        <RangeSlider
-          minValue={0}
-          maxValue={100}
-          tintColor={'#da0f22'}
-          handleBorderWidth={1}
-          handleBorderColor="#454d55"
-          selectedMinimum={20}
-          selectedMaximum={40}
-          style={{ flex: 1, height: 70, padding: 10, backgroundColor: '#ddd' }}
-          onChange={ (data)=>{ console.log(data);} }
-        />
-      </View>
-
       <Button title="Submit" onPress={handleSubmit}/>
     </View>
     
@@ -83,4 +54,3 @@ export default function FavoritesScreen() {
   );
 
 }
-
