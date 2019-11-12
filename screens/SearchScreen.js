@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Text, Picker, View, Button, TextInput } from 'react-native';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import HomeScreen from './HomeScreen';
 import GallerySwiper from "react-native-gallery-swiper";
 import superagent from 'superagent';
 
@@ -13,9 +12,6 @@ export default function FavoritesScreen() {
   const [zipCode, setZipCode] = useState('');
   const [travelDistance, setTravelDistance] = useState('');
 
-  // const MainNavigator = createStackNavigator({
-  //   Home : {screen: HomeScreen}
-  // })
 
   console.log(type,zipCode,travelDistance);
 
