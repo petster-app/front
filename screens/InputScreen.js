@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Text, Picker, View, Button, TextInput } from 'react-native';
-import HomeScreen from './HomeScreen';
-import GallerySwiper from "react-native-gallery-swiper";
-import superagent from 'superagent';
+import SearchScreen from './SearchScreen';
 
-const API = process.env.REACT_APP_API; 
-
-export default function FavoritesScreen() {
+export default function FavoritesScreen(props) {
 
   const [type, setType] = useState('');
   const [zipCode, setZipCode] = useState('');
@@ -16,16 +12,7 @@ export default function FavoritesScreen() {
   console.log(type,zipCode,travelDistance);
 
   function handleSubmit() {
-    const options = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    }
-    fetch(`http://localhost:3000/search/${type}/${zipCode}/${travelDistance}`, options)
-    .then((results) => results.json())
-    .then((data) => console.log(data))
-    .then((data) => navigate('HomeScreen'))
+    props.navigation.navigate('SearchScreen');
   }
 
   return (
