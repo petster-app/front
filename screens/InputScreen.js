@@ -7,10 +7,7 @@ export default function FavoritesScreen(props) {
   const [type, setType] = useState('');
   const [zipCode, setZipCode] = useState('');
   const [travelDistance, setTravelDistance] = useState('');
-
-
-  console.log(type,zipCode,travelDistance);
-
+  
   function handleSubmit() {
     props.navigation.navigate('SearchScreen');
   }
