@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Text, Picker, View, Button, TextInput } from 'react-native';
-import SearchScreen from './SearchScreen';
+import {Text, Picker, View, Button, TextInput, Slider, StyleSheet} from 'react-native';
 
 export default function FavoritesScreen(props) {
 
   const [type, setType] = useState('');
   const [zipCode, setZipCode] = useState('');
-  const [travelDistance, setTravelDistance] = useState('');
+  const [travelDistance, setTravelDistance] = useState(10);
   
   function handleSubmit() {
     props.navigation.navigate('SearchScreen');
+  }
+
+  function handleSlider(travelDistance) {
+    setTravelDistance(travelDistance);
   }
 
   return (
@@ -28,14 +31,28 @@ export default function FavoritesScreen(props) {
         setZipCode(value);
         }}/>
 
-      <Picker style={{width: '50%'}} selectedValue={travelDistance} onValueChange={(value) => {
-      setTravelDistance(value);
-      }}>
-        <Picker.Item label="5-miles" value="5"/>
-        <Picker.Item label="15-miles" value="15"/>
-        <Picker.Item label="25+ miles" value="25"/>
-      </Picker>
+      <Text style={styles.text}>{String ('Search within ' + travelDistance + ' miles')}</Text>
+      <Slider
+        step={5}
+        maximumValue={100}
+        onValueChange={handleSlider}
+        value={travelDistance}
+      />
+
       <Button title="Submit" onPress={handleSubmit}/>
     </View>
+
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  text: {
+    fontSize: 35,
+    textAlign: 'center',
+  },
+});

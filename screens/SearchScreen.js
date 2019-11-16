@@ -65,7 +65,7 @@ let mockData = [
         { url: "https://loremflickr.com/1082/1920/dog" },
         { url: "https://loremflickr.com/1082/1920/cat" },
       ]}
-      //initialPage={0}
+      initialPage={1}
       onPress={(event) => console.log('hi')}
       onSingleTapConfirmed={(event) => console.log('hi on tap')}
       onEndReached={(event) => console.log('end reached')}
@@ -74,17 +74,6 @@ let mockData = [
         }
       }
     />
-      //  <View style={{ flex: 1 }}>
-      //   <Swiper
-      //     images={mockPhotos2}
-      //     imageHeight={820}
-      //     swipeTop={(e) => bottom(e)}
-      //     textSize={10}
-      //     textBold={true}
-      //     textColor={'blue'}
-      //     textUnderline={false}
-      //   />
-      // </View>
   );
 
 }
