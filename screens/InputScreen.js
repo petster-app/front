@@ -37,17 +37,5 @@ export default function FavoritesScreen(props) {
       </Picker>
       <Button title="Submit" onPress={handleSubmit}/>
     </View>
-    
-    // <GallerySwiper
-    //   images={[
-    //     { url: "https://loremflickr.com/1080/1920/dog" },
-    //     { url: "https://loremflickr.com/1080/1920/cat" },
-    //     { url: "https://loremflickr.com/1081/1920/dog" },
-    //     { url: "https://loremflickr.com/1081/1920/cat" },
-    //     { url: "https://loremflickr.com/1082/1920/dog" },
-    //     { url: "https://loremflickr.com/1082/1920/cat" },
-    //   ]}
-    // />
   );
-
 }
