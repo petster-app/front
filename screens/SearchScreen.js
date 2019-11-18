@@ -26,14 +26,14 @@ let mockData = [
       "city": "Seattle",
       "state": "WA",
       "description": "**Important Note** You won & #39;t find this kitty at the shelter. This kitty is waiting patiently in foster care for your...",
-      "photo": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/45078342/1/?bust=1561486424",
+      "photo": "https://loremflickr.com/1080/1920/dog",
       "url": "https://www.petfinder.com/cat/adele-43855423/wa/seattle/seattle-animal-shelter-wa27/?referrer_id=37b70a69-da7e-4bee-9150-834f1b2aea8b"
   }] 
   
   export default function InputScreen() {
     
-    const [data, setData] = useState([])
-    let imagesTest = [];
+    const [data, setData] = useState([]);
+    const [imagesTest, setImageTest] = useState([]);
     
     
     useEffect(() => {
@@ -43,29 +43,36 @@ let mockData = [
           'Content-Type': 'application/json'
         },
       }
-      setData(mockData)
-      data.map((pet, index) => {
+      fetch(`http://localhost:3000/search/Dog/98103/5`, options)
+      .then((results) => results.json())
+      .then((data) => data[0])
+      .then((data) => {
         
-        imagesTest.push({ url: pet.photo});
-      });
+        const foo = [];
+        data.map((pet, index) => {  
+          if(pet.photos){
+            foo.push({ url: pet.photos[0].medium});
+          }
+        });
+        if(foo.length){
+        setImageTest(foo);
+        }
+      })
+  }, [])
 
-    // fetch(`http://localhost:3000/search/Rabbit/98103/5`, options)
-    // .then((results) => results.json())
-    // .then((data) => console.log('data:', data))
-
-  })
-
+ 
   return (
     <GallerySwiper
-         images={[
-        { url: "https://loremflickr.com/1080/1920/dog" },
-        { url: "https://loremflickr.com/1080/1920/cat" },
-        { url: "https://loremflickr.com/1081/1920/dog" },
-        { url: "https://loremflickr.com/1081/1920/cat" },
-        { url: "https://loremflickr.com/1082/1920/dog" },
-        { url: "https://loremflickr.com/1082/1920/cat" },
-      ]}
-      initialPage={1}
+    images={imagesTest}
+      // images={[
+      //   { url: "https://loremflickr.com/1080/1920/dog" },
+      //   { url: "https://loremflickr.com/1080/1920/cat" },
+      //   { url: "https://loremflickr.com/1081/1920/dog" },
+      //   { url: "https://loremflickr.com/1081/1920/cat" },
+      //   { url: "https://loremflickr.com/1082/1920/dog" },
+      //   { url: "https://loremflickr.com/1082/1920/cat" },
+      // ]}
+      initialPage={0}
       onPress={(event) => console.log('hi')}
       onSingleTapConfirmed={(event) => console.log('hi on tap')}
       onEndReached={(event) => console.log('end reached')}
