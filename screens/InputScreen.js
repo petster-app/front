@@ -17,8 +17,8 @@ export default function FavoritesScreen(props) {
   }
 
   return (
-    <View>
-      <Picker style={{width: '50%'}} selectedValue={type} onValueChange={(value) => {
+    <View style={{border: '3px solid #8AC007', height: '100%'}}>
+      <Picker style={{ width: '100%'}} selectedValue={type} onValueChange={(value) => {
        setType(value);
        }}>
         <Picker.Item label="Dog" value="Dog"/>
@@ -27,7 +27,8 @@ export default function FavoritesScreen(props) {
       </Picker>
 
       <TextInput
-      placeholder="Your zip code"
+        style={{textAlign: 'center'}}
+      placeholder="Enter your zip code zip code"
       maxLength={5} onChangeText={(value) => {
         setZipCode(value);
         }}/>
@@ -40,7 +41,7 @@ export default function FavoritesScreen(props) {
         value={travelDistance}
       />
 
-      <Button title="Submit" onPress={handleSubmit}/>
+      <Button style={{position: 'absolute', bottom: '5%' }} title="Submit" onPress={handleSubmit}/>
     </View>
 
   );
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontSize: 35,
+    fontSize: 25,
     textAlign: 'center',
   },
 });
