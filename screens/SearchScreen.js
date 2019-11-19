@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import GallerySwiper from 'react-native-gallery-swiper';
+
   
-  export default function InputScreen() {
+  export default function InputScreen(props) {
     
     const [tempData, setTempData] = useState([]);
     const [imagesTest, setImageTest] = useState([]);
     
     useEffect(() => {
+      console.log(props.navigation.getParam('type'), '!!!!!!!')
+      let type = props.navigation.getParam('type');
+      let zipCode = props.navigation.getParam('zipCode');
+      let travelDistance = props.navigation.getParam('travelDistance');
+
       let options = {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
         },
       }
-      fetch(`http://localhost:3000/search/Dog/98103/5`, options)
+      fetch(`http://localhost:3000/search/${type}/${zipCode}/${travelDistance}`, options)
       .then((results) => results.json())
       .then((data) => data[0])
       .then((data) => {
