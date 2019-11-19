@@ -9,7 +9,8 @@ export default function FavoritesScreen(props) {
   const [travelDistance, setTravelDistance] = useState(10);
   
   function handleSubmit() {
-    props.navigation.navigate('SearchScreen');
+    console.log(type, travelDistance, zipCode)
+    props.navigation.navigate('SearchScreen', {type: type, zipCode: zipCode, travelDistance: travelDistance});
   }
 
   function handleSlider(travelDistance) {
