@@ -28,7 +28,7 @@ import GallerySwiper from 'react-native-gallery-swiper';
         const foo = [];
         data.map((pet, index) => {  
           if(pet.photos){
-            foo.push({ url: pet.photos[0].medium});
+            foo.push({ url: pet.photo });
           }
         });
         if(foo.length){
