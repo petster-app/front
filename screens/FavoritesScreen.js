@@ -17,12 +17,11 @@ export default function favoritesScreen () {
     fetch(`http://localhost:3000/favorites/${user}`, options)
       .then((results) => results.json())
       .then((data) => {
-        console.log(data)
         setFavorites(data);
       })
   }, [])
 
-    console.log(favorites)
+    //console.log(favorites)
     return (
       <View style={styles.container}>
         <Text>Favorite Pets</Text>
@@ -39,9 +38,16 @@ export default function favoritesScreen () {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    backgroundColor: '#003366',
+  },
   text: {
     fontSize: 15,
     textAlign: 'center',
+    color: '#ffffff',
   },
   image: {
     textAlign: 'center'

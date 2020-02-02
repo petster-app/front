@@ -9,7 +9,6 @@ export default function FavoritesScreen(props) {
   const [travelDistance, setTravelDistance] = useState(10);
   
   function handleSubmit() {
-    console.log(type, travelDistance, zipCode)
     props.navigation.navigate('SearchScreen', {type: type, zipCode: zipCode, travelDistance: travelDistance});
   }
 
@@ -18,19 +17,17 @@ export default function FavoritesScreen(props) {
   }
 
   return (
-    <View style={{border: '3px solid #8AC007', height: '100%'}}>
-      <Picker style={{ width: '100%'}} selectedValue={type} onValueChange={(value) => {
-       setType(value);
-       }}>
-        <Picker.Item label="Dog" value="Dog"/>
-        <Picker.Item label="Cat" value="Cat"/>
-        <Picker.Item label="Rabbit" value="Rabbit"/>
+    <View style={styles.container}>
+       <Text style={styles.text}>Choose your animal</Text>
+      <Picker style={styles.picker} selectedValue={type} onValueChange={(value) => setType(value)}>
+        <Picker.Item color="#ffffff" label="Dog" value="Dog"/>
+        <Picker.Item color="#ffffff" label="Cat" value="Cat"/>
+        <Picker.Item color="#ffffff" label="Rabbit" value="Rabbit"/>
       </Picker>
 
-      <TextInput
-        style={{textAlign: 'center'}}
-      placeholder="Enter your zip code zip code"
-      maxLength={5} onChangeText={(value) => {
+
+      <Text style={styles.text}>Enter your zip code</Text>
+      <TextInput style={styles.input} placeholder='' maxLength={5} onChangeText={(value) => {
         setZipCode(value);
         }}/>
 
@@ -53,10 +50,25 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
+    backgroundColor: '#003366',
   },
-  text: {
-    fontSize: 25,
+  text: { 
+    fontSize: 20,
     textAlign: 'center',
+    color: '#ffffff',
   },
+  picker: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: '#ffffff',
+  },
+  input: {
+    height: 40,
+    margin: 20,
+    padding: 10,
+    color: '#ffffff',
+    borderColor: 'gray',
+    borderWidth: 1
+  }
 });
 
