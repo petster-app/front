@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
 import GallerySwiper from 'react-native-gallery-swiper';
+import PetProfile from '../components/PetProfile';
 
   
   export default function InputScreen(props) {
     
     const [tempData, setTempData] = useState([]);
     const [petImages, setPetImages] = useState([]);
+    const [currentPet, setCurrentPet] = useState(1);
     
     useEffect(() => {
       setTempData( [
@@ -620,36 +622,36 @@ import GallerySwiper from 'react-native-gallery-swiper';
         },
 
     ])
-      // let type = props.navigation.getParam('type');
-      // let zipCode = props.navigation.getParam('zipCode');
-      // let travelDistance = props.navigation.getParam('travelDistance');
+      let type = props.navigation.getParam('type');
+      let zipCode = props.navigation.getParam('zipCode');
+      let travelDistance = props.navigation.getParam('travelDistance');
   
 
-      // let options = {
-      //   method: 'GET',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      // }
-      // fetch(`http://localhost:3000/search/dog/98103/10`, options)
-      // .then((results) => {
-      //   return results.json();
-      // })
-      // .then((data) => {
-      //   return data[0];
-      // })
-      // .then((data) => {
-      //   setTempData(data);
-      //   const tempPetImages = [];
-      //   data.map((pet) => {  
-      //     if(pet.photo){
-      //       tempPetImages.push({ url: pet.photo });
-      //     }
-      //   });
-      //   if(tempPetImages.length){
-      //   setPetImages(tempPetImages);
-      //   }
-      // })
+      let options = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }
+      fetch(`http://localhost:3000/search/dog/98103/10`, options)
+      .then((results) => {
+        return results.json();
+      })
+      .then((data) => {
+        return data[0];
+      })
+      .then((data) => {
+        setTempData(data);
+        const tempPetImages = [];
+        data.map((pet) => {  
+          if(pet.photo){
+            tempPetImages.push({ url: pet.photo });
+          }
+        });
+        if(tempPetImages.length){
+        setPetImages(tempPetImages);
+        }
+      })
   }, [])
 
   function saveToFavorites(event) {
@@ -667,12 +669,13 @@ import GallerySwiper from 'react-native-gallery-swiper';
 
   return (
     <View style={styles.container}>
-      {tempData.map((pet, index) => 
+      {/* {tempData.map((pet, index) => 
         <View key={index}>
           <Image key={index} style={{width: 200, height: 200}} source={{uri: pet.photo}} />
         <Text style={styles.text}>{pet.name}</Text>
         </View>
-        )} 
+        )}  */}
+        { tempData.length ? <PetProfile pet={tempData[0]} /> : null}
     </View>
   );
 
