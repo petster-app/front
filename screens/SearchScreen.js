@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, Image, StyleSheet } from 'react-native';
+import { Text, View, Image, StyleSheet, TouchableHighlight, Button } from 'react-native';
 import GallerySwiper from 'react-native-gallery-swiper';
 import PetProfile from '../components/PetProfile';
 
@@ -9,6 +9,7 @@ import PetProfile from '../components/PetProfile';
     const [tempData, setTempData] = useState([]);
     const [petImages, setPetImages] = useState([]);
     const [currentPet, setCurrentPet] = useState(0);
+    const [likedPets, setLikedPets] = useState([]);
     
     useEffect(() => {
       setTempData( [
@@ -654,23 +655,38 @@ import PetProfile from '../components/PetProfile';
       })
   }, [])
 
-  function saveToFavorites(event) {
+
+  function handleLeftClick() {
+    setCurrentPet(currentPet-1);
+  }
+
+  function handleRightClick() {
+    setCurrentPet(currentPet+1);
+  }
+
+  function handleLike() {
     let options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(tempData[event]),
+      body: JSON.stringify(tempData[currentPet]),
     }
     fetch(`http://localhost:3000/favorites`, options)
-    .then(() => {
+    .then((result) => {
+      console.log(result)
     })
   }
 
-  return (
-    <View style={styles.container}>
-        { tempData.length? <PetProfile onLongPress={()=>{console.log("pressed")}} onClick pet={tempData[currentPet]} /> : null}
-    </View>
+  return ( 
+      <View style={styles.container}>
+          { tempData.length ? <PetProfile pet={tempData[currentPet]} /> : null}
+          <View style={styles.buttons}>
+            <Button onPress={handleLeftClick} title="Left"></Button>
+            <Button onPress={handleLike} title="Like"></Button>
+            <Button onPress={handleRightClick} title="Right"></Button>
+          </View>
+      </View>
   );
 
 } 
@@ -687,5 +703,9 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlign: 'center',
     color: '#ffffff',
+  },
+  buttons: {
+    flexDirection: 'row',
+    justifyContent: 'center'
   },
 });
