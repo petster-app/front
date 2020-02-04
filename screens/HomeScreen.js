@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, Button } from 'react-native';
+import { Text, View, Button, StyleSheet } from 'react-native';
+import { AuthSession } from 'expo';
 
 export default function HomeScreen(props) {
 
@@ -8,11 +9,27 @@ export default function HomeScreen(props) {
   }
 
   return (
-    <View>
-      <Text>
+    <View style={styles.container}>
+      <Text style={styles.text}>
         Welcome to petster!
       </Text>
-      <Button title="Go to input page" onPress={handleSubmit}/>
+      <Button style={styles.text} title="Find your companion!" onPress={handleSubmit}/>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: { 
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    backgroundColor: '#003366',
+  },
+  text: {
+    fontSize: 35,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#ffffff',
+  },
+});
+
