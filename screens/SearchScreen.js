@@ -8,7 +8,7 @@ import PetProfile from '../components/PetProfile';
     
     const [tempData, setTempData] = useState([]);
     const [petImages, setPetImages] = useState([]);
-    const [currentPet, setCurrentPet] = useState(1);
+    const [currentPet, setCurrentPet] = useState(0);
     
     useEffect(() => {
       setTempData( [
@@ -669,13 +669,7 @@ import PetProfile from '../components/PetProfile';
 
   return (
     <View style={styles.container}>
-      {/* {tempData.map((pet, index) => 
-        <View key={index}>
-          <Image key={index} style={{width: 200, height: 200}} source={{uri: pet.photo}} />
-        <Text style={styles.text}>{pet.name}</Text>
-        </View>
-        )}  */}
-        { tempData.length ? <PetProfile pet={tempData[0]} /> : null}
+        { tempData.length? <PetProfile onLongPress={()=>{console.log("pressed")}} onClick pet={tempData[currentPet]} /> : null}
     </View>
   );
 
@@ -687,6 +681,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     backgroundColor: '#003366',
+    alignItems: 'center'
   },
   text: {
     fontSize: 15,

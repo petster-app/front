@@ -2,14 +2,28 @@ import React, { useState } from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
 
 export default function PetProfile(props) {
-  console.log(props.pet, 'hi this is the name')
+
   return (
-    <View>
-      <Image style={{width: 400, height: 400}} source={{uri: props.pet.photo}} />
-    <Text>{props.pet.name}</Text>
-    <Text>{props.pet.primaryBreed}</Text>
-    <Text>{props.pet.age}</Text>
-    <Text>{props.pet.gender}</Text>
+    <View style={styles.container}>
+      <Image style={styles.image} source={{uri: props.pet.photo}} />
+      <Text style={styles.text}>{props.pet.name}</Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  image: {
+    borderColor: 'black',
+    borderRadius: 4,
+    borderWidth: 2,
+    width: 400,
+    height: 400,
+    padding: 75,
+  },
+  text: {
+    marginTop: 10, 
+    fontSize: 25,
+    textAlign: 'center',
+    color: '#ffffff',
+  },
+});
