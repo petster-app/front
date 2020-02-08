@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, Image, StyleSheet, TouchableHighlight, Button } from 'react-native';
-import GallerySwiper from 'react-native-gallery-swiper';
+import { Text, View, Image, StyleSheet, TouchableHighlight, Button, Animated } from 'react-native';
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import PetProfile from '../components/PetProfile';
 
   
@@ -664,7 +664,22 @@ import PetProfile from '../components/PetProfile';
     setCurrentPet(currentPet+1);
   }
 
+  function onSwipeDown() {
+    console.log('you swiped down')
+  }
+
+  function onSwipeLeft() {
+    console.log('you swiped left')
+    setCurrentPet(currentPet-1);
+  }
+
+  function onSwipeRight() {
+    console.log('you swiped right')
+    setCurrentPet(currentPet+1);
+  }
+
   function handleLike() {
+    console.log('handle like', tempData[currentPet])
     let options = {
       method: 'POST',
       headers: {
@@ -680,12 +695,14 @@ import PetProfile from '../components/PetProfile';
 
   return ( 
       <View style={styles.container}>
+        <GestureRecognizer
+        onSwipeUp={handleLike}
+        onSwipeDown={onSwipeDown}
+        onSwipeLeft={onSwipeLeft}
+        onSwipeRight={onSwipeRight}
+        >
           { tempData.length ? <PetProfile pet={tempData[currentPet]} /> : null}
-          <View style={styles.buttons}>
-            <Button onPress={handleLeftClick} title="Left"></Button>
-            <Button onPress={handleLike} title="Like"></Button>
-            <Button onPress={handleRightClick} title="Right"></Button>
-          </View>
+        </GestureRecognizer>
       </View>
   );
 

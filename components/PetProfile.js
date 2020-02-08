@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, Image, StyleSheet, Button } from 'react-native';
+import { Text, View, Image, StyleSheet, Button, Animated } from 'react-native';
 
 export default function PetProfile(props) {
 
@@ -7,8 +7,6 @@ export default function PetProfile(props) {
       <View style={styles.container}>
         <Image style={styles.image} source={{uri: props.pet.photo}} />
         <Text style={styles.text}>{props.pet.name}</Text>
-        <View style={styles.buttons}>
-        </View>
       </View>
   );
 }
@@ -16,9 +14,9 @@ export default function PetProfile(props) {
 const styles = StyleSheet.create({
   image: {
     borderColor: 'black',
-    borderRadius: 4,
+    borderRadius: 1,
     borderWidth: 2,
-    width: 400,
+    width: 415,
     height: 400,
     padding: 75,
   },
