@@ -21,16 +21,14 @@ export default function favoritesScreen () {
   }, [])
 
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView>
         <ScrollView>
           <View style={styles.container}>
-            <Text styles={styles.header}>Favorite Pets</Text>
+            <Text style={styles.header}>Favorite Pets</Text>
             {favorites.map((pet, index) => 
-            <View key={index}>
+            <View style={styles.container} key={index}>
               <Image style={styles.image} source={{uri : pet.photo }} />
-              <Text style={styles.text}>{pet.name}</Text>
-              <Text style={styles.text}>{pet.age}</Text>
-              <Text style={styles.text}>{pet.description}</Text>
+              <Text style={[styles.name,styles.text]}>{pet.name}</Text>
             </View>
             )}
           </View>
@@ -45,21 +43,28 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     backgroundColor: '#003366',
-    alignItems: 'center'
+    alignItems: 'center',
+    padding: 10,
   },
   text: {
-    fontSize: 15,
+    fontFamily: 'AmaticSC-Regular',
     textAlign: 'center',
     color: '#ffffff',
+    width: 300
+  },
+  name: {
+    margin: 5,
+    fontSize: 30,
   },
   header: {
-    fontSize: 25,
-    textAlign: 'center',
-    color: '#ffffff'
+    fontFamily: 'AmaticSC-Bold',
+    color: '#ffffff',
+    fontSize: 40,
+    margin: 10,
   },
   image: {
-    alignItems: 'center',
-    width: 300,
-    height: 300,
-  }
+    width: 415,
+    height: 400,
+    padding: 75,
+  },
 });

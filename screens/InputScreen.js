@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Text, Picker, View, Button, TextInput, Slider, StyleSheet} from 'react-native';
+import {Text, Picker, View, Button, TextInput, Slider, StyleSheet, TouchableHighlight} from 'react-native';
 
 
 export default function FavoritesScreen(props) {
@@ -19,10 +19,10 @@ export default function FavoritesScreen(props) {
   return (
     <View style={styles.container}>
        <Text style={styles.text}>Choose your animal</Text>
-      <Picker style={styles.picker} selectedValue={type} onValueChange={(value) => setType(value)}>
-        <Picker.Item color="#ffffff" label="Dog" value="Dog"/>
-        <Picker.Item color="#ffffff" label="Cat" value="Cat"/>
-        <Picker.Item color="#ffffff" label="Rabbit" value="Rabbit"/>
+      <Picker itemStyle={styles.picker} style={styles.picker} selectedValue={type} onValueChange={(value) => setType(value)}>
+        <Picker.Item label="Dog" value="Dog"/>
+        <Picker.Item label="Cat" value="Cat"/>
+        <Picker.Item label="Rabbit" value="Rabbit"/>
       </Picker>
 
 
@@ -38,8 +38,9 @@ export default function FavoritesScreen(props) {
         onValueChange={handleSlider}
         value={travelDistance}
       />
-
-      <Button style={{position: 'absolute', bottom: '5%' }} title="Submit" onPress={handleSubmit}/>
+      <TouchableHighlight onPress={handleSubmit}>
+        <Text style={styles.submit}>Submit</Text>
+      </TouchableHighlight>
     </View>
 
   );
@@ -53,22 +54,41 @@ const styles = StyleSheet.create({
     backgroundColor: '#003366',
   },
   text: { 
-    fontSize: 20,
+    fontSize: 35,
     textAlign: 'center',
     color: '#ffffff',
+    fontFamily: 'AmaticSC-Regular',
+  },
+  submit: { 
+    fontSize: 35,
+    textAlign: 'center',
+    color: '#ffffff',
+    fontFamily: 'AmaticSC-Regular',
+    // flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#ffffff',
+    justifyContent: 'center',
+    // width: 300, 
   },
   picker: {
-    fontSize: 20,
+    fontSize: 25,
     textAlign: 'center',
     color: '#ffffff',
+    fontFamily: 'AmaticSC-Regular',
   },
   input: {
     height: 40,
     margin: 20,
     padding: 10,
+    fontSize: 25,
     color: '#ffffff',
     borderColor: 'gray',
-    borderWidth: 1
+    textAlign: 'center',
+    borderWidth: 1,
+    fontFamily: 'AmaticSC-Regular',
   }
 });
 
