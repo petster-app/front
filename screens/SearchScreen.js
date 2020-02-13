@@ -13,7 +13,7 @@ import PetProfile from '../components/PetProfile';
     let type = props.navigation.getParam('type');
     let zipCode = props.navigation.getParam('zipCode');
     let travelDistance = props.navigation.getParam('travelDistance');
-    console.log(type, zipCode, travelDistance)
+    console.log(type, zipCode, travelDistance);
     
     useEffect(() => {
   
@@ -31,20 +31,20 @@ import PetProfile from '../components/PetProfile';
       .then((data) => {
         setTempData(data[0]);
       })
-  }, [type, zipCode, travelDistance])
+  }, [type, zipCode, travelDistance]);
 
   function onSwipeLeft() {
-    console.log('you swiped left')
-    setCurrentPet(currentPet-1);
-  }
-
-  function onSwipeRight() {
-    console.log('you swiped right')
+    console.log('you swiped left');
     setCurrentPet(currentPet+1);
   }
 
+  function onSwipeRight() {
+    console.log('you swiped right');
+    setCurrentPet(currentPet-1);
+  }
+
   function handleLike() {
-    console.log('handle like', tempData[currentPet])
+    console.log('handle like', tempData[currentPet]);
     let options = {
       method: 'POST',
       headers: {
