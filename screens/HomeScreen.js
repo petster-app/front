@@ -13,7 +13,6 @@ export default function HomeScreen(props) {
       <Text style={styles.text}>
         Welcome to petster!
       </Text>
-      <Button style={styles.text} title="Find your companion!" onPress={handleSubmit}/>
     </View>
   );
 }
@@ -26,10 +25,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#003366',
   },
   text: {
-    fontSize: 35,
+    fontSize: 65,
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#ffffff',
+    fontFamily: 'AmaticSC-Bold',
   },
 });
 
