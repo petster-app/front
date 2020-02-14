@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Text, View, Image, StyleSheet, Button, Animated } from 'react-native';
 
 export default function PetProfile(props) {
-  console.log(props.pet)
   return (
       <View style={styles.container}>
         <Image style={styles.image} source={{uri: props.pet.photo}} />

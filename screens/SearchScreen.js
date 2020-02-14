@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, Image, StyleSheet, TouchableHighlight, Button, Animated } from 'react-native';
-import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import { Image, View, StyleSheet } from 'react-native';
+import GestureRecognizer from 'react-native-swipe-gestures';
 import PetProfile from '../components/PetProfile';
+import heart from '../assets/images/icon.png'
 
   
   export default function InputScreen(props) {
-    
+
     const [tempData, setTempData] = useState([]);
     const [petImages, setPetImages] = useState([]);
     const [currentPet, setCurrentPet] = useState(0);
@@ -16,14 +17,12 @@ import PetProfile from '../components/PetProfile';
     console.log(type, zipCode, travelDistance);
     
     useEffect(() => {
-  
-
       let options = {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
         },
-      }
+      };
       fetch(`http://localhost:3000/search/${type}/${zipCode}/${travelDistance}`, options)
       .then((results) => {
         return results.json();
@@ -48,7 +47,7 @@ import PetProfile from '../components/PetProfile';
   }
 
   function handleLike() {
-    console.log('handle like', tempData[currentPet]);
+    console.log('you swiped up');
     let options = {
       method: 'POST',
       headers: {
@@ -58,11 +57,11 @@ import PetProfile from '../components/PetProfile';
     };
     fetch(`http://localhost:3000/favorites`, options)
     .then((result) => {
-      console.log(result)
     })
   }
 
-  return ( 
+  return (
+    <>
       <View style={styles.container}>
         <GestureRecognizer
         onSwipeUp={handleLike}
@@ -72,6 +71,9 @@ import PetProfile from '../components/PetProfile';
           { tempData.length ? <PetProfile pet={tempData[currentPet]} /> : null}
         </GestureRecognizer>
       </View>
+
+      {/*<Image class='heart' source={heart} width="20" height="50" />*/}
+    </>
   );
 
 } 
