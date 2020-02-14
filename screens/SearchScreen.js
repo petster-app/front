@@ -35,12 +35,16 @@ import PetProfile from '../components/PetProfile';
 
   function onSwipeLeft() {
     console.log('you swiped left');
-    setCurrentPet(currentPet+1);
+    if (currentPet + 1 < tempData.length) {
+      setCurrentPet(currentPet + 1);
+    }
   }
 
   function onSwipeRight() {
     console.log('you swiped right');
-    setCurrentPet(currentPet-1);
+    if (currentPet > 0) {
+      setCurrentPet(currentPet - 1);
+    }
   }
 
   function handleLike() {
@@ -51,7 +55,7 @@ import PetProfile from '../components/PetProfile';
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(tempData[currentPet]),
-    }
+    };
     fetch(`http://localhost:3000/favorites`, options)
     .then((result) => {
       console.log(result)
