@@ -24,12 +24,14 @@ import PetProfile from '../components/PetProfile';
           'Content-Type': 'application/json'
         },
       }
-      fetch(`http://localhost:3000/search/${type}/${zipCode}/${travelDistance}`, options)
+      // fetch(`http://localhost:3000/search/${type}/${zipCode}/${travelDistance}`, options)
+      // MOCK
+      fetch(`http://localhost:3000/search/dog/98103/10`, options)
       .then((results) => {
         return results.json();
       })
       .then((data) => {
-        setTempData(data[0]);
+       setTempData(data[0]);
       })
   }, [type, zipCode, travelDistance]);
 
