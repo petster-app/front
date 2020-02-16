@@ -4,11 +4,28 @@ import PetDetails from '../components/PetDetails';
 
 export default function favoritesScreen (props) {
   const [favorites, setFavorites] = useState([]);
+  const [updatePage, setUpdatePage] = useState(false);
 
   let user = 'Bob'
   function handleDetails(pet){
     console.log('in handle details')
     props.navigation.navigate('PetDetails', {pet: pet});
+  }
+
+  function handleDelete(pet){
+    let options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(pet),
+    }
+    fetch(`http://localhost:3000/favorites`, options)
+    .then((result) => {
+      console.log(result)
+    })
+
+    setUpdatePage(true);
   }
 
   useEffect(() => {
@@ -18,12 +35,13 @@ export default function favoritesScreen (props) {
         'Content-Type': 'application/json'
       },
     }
-    fetch(`http://localhost:3000/favorites`, options)
+    fetch(`http://localhost:3000/favorites/${user}`, options)
       .then((results) => results.json())
       .then((data) => {
+        console.log('in fav', data)
         setFavorites(data);
       })
-  }, [])
+  }, [updatePage])
 
     return (
       <SafeAreaView>
@@ -39,6 +57,7 @@ export default function favoritesScreen (props) {
                 <TouchableHighlight onPress= {()=> handleDetails(pet)}>
                   <Text style={[styles.link, styles.text]}>MORE INFO</Text>
                 </TouchableHighlight>
+                <Text style={[styles.link, styles.text]} onPress= {()=> handleDelete(pet)}>DELETE</Text>
               </View>
             </View>
             )}
@@ -64,7 +83,7 @@ const styles = StyleSheet.create({
   buttons: {
     flex: 1,
     flexDirection: 'row',
-    width: 200,
+    width: 300,
     justifyContent: 'space-around',
   },
   link: {

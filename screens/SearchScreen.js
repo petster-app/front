@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Text, View, Image, StyleSheet, TouchableHighlight, Button, Animated } from 'react-native';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import PetProfile from '../components/PetProfile';
+import { UserInterfaceIdiom } from 'expo-constants';
 
   
   export default function InputScreen(props) {
-    
+    const user = 'Bob';
     const [tempData, setTempData] = useState([]);
     const [petImages, setPetImages] = useState([]);
     const [currentPet, setCurrentPet] = useState(0);
@@ -46,13 +47,15 @@ import PetProfile from '../components/PetProfile';
   }
 
   function handleLike() {
-    console.log('handle like', tempData[currentPet]);
+    let data = tempData[currentPet];
+    data.userName = user;
+    
     let options = {
       method: 'POST',
-      headers: {
+      headers: { 
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(tempData[currentPet]),
+      body: JSON.stringify(data),
     }
     fetch(`http://localhost:3000/favorites`, options)
     .then((result) => {
