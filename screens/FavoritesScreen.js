@@ -8,7 +8,6 @@ export default function favoritesScreen (props) {
 
   let user = 'Bob'
   function handleDetails(pet){
-    console.log('in handle details')
     props.navigation.navigate('PetDetails', {pet: pet});
   }
 
@@ -38,16 +37,15 @@ export default function favoritesScreen (props) {
     fetch(`http://localhost:3000/favorites/${user}`, options)
       .then((results) => results.json())
       .then((data) => {
-        console.log('in fav', data)
         setFavorites(data);
       })
   }, [updatePage])
 
     return (
-      <SafeAreaView>
+      <SafeAreaView style={styles.container}>
         <ScrollView>
-          <View style={styles.container}>
-            <Text style={styles.header}>Favorite Pets</Text>
+          <View>
+            <Text style={[styles.header, styles.text]}>Favorite Pets</Text>
             {favorites.map((pet, index) => 
             <View style={styles.container} key={index}>
               <Image style={styles.image} source={{uri : pet.photo }} />
@@ -71,7 +69,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    //justifyContent: 'center',
+    justifyContent: 'center',
     backgroundColor: '#003366',
     alignItems: 'center',
     padding: 10,
@@ -101,13 +99,11 @@ const styles = StyleSheet.create({
   },
   header: {
     fontFamily: 'AmaticSC-Bold',
-    color: '#ffffff',
     fontSize: 40,
     margin: 10,
   },
   image: {
-    width: 415,
+    width: 395,
     height: 400,
-    padding: 75,
   },
 });

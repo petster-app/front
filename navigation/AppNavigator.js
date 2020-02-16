@@ -12,7 +12,10 @@ const AppNavigator = createStackNavigator({
   HomeScreen: HomeScreen,
   InputScreen: InputScreen,
   SearchScreen: SearchScreen,
-  PetDetails: PetDetails,
+  PetDetails: { screen: PetDetails, 
+    navigationOptions: ({ navigation }) => ({
+      header: null,
+  }) },
 });
 
 export default createAppContainer(
