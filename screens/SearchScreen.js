@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, Image, StyleSheet, TouchableHighlight, Button, Animated } from 'react-native';
-import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import { Image, View, StyleSheet } from 'react-native';
+import GestureRecognizer from 'react-native-swipe-gestures';
 import PetProfile from '../components/PetProfile';
+import heart from '../assets/images/icon.png'
 import { UserInterfaceIdiom } from 'expo-constants';
-
   
   export default function InputScreen(props) {
     const user = 'Bob';
@@ -18,15 +18,13 @@ import { UserInterfaceIdiom } from 'expo-constants';
   
     
     useEffect(() => {
-  
-
       let options = {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
         },
       }
-      // fetch(`http://localhost:3000/search/${type}/${zipCode}/${travelDistance}`, options)
+      // fetch(`https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}`, options)
       // MOCK
       fetch(`https://petster3-back-end.herokuapp.com/search/dog/98103/10`, options)
       .then((results) => {
@@ -39,18 +37,22 @@ import { UserInterfaceIdiom } from 'expo-constants';
 
   function onSwipeLeft() {
     console.log('you swiped left');
-    setCurrentPet(currentPet+1);
+    if (currentPet + 1 < tempData.length) {
+      setCurrentPet(currentPet + 1);
+    }
   }
 
   function onSwipeRight() {
     console.log('you swiped right');
-    setCurrentPet(currentPet-1);
+    if (currentPet > 0) {
+      setCurrentPet(currentPet - 1);
+    }
   }
 
   function handleLike() {
+    console.log('you swiped up');
     let data = tempData[currentPet];
     data.userName = user;
-    
     let options = {
       method: 'POST',
       headers: { 
@@ -60,11 +62,11 @@ import { UserInterfaceIdiom } from 'expo-constants';
     }
     fetch(`http://localhost:3000/favorites`, options)
     .then((result) => {
-      console.log(result)
     })
   }
 
-  return ( 
+  return (
+    <>
       <View style={styles.container}>
         <GestureRecognizer
         onSwipeUp={handleLike}
@@ -74,6 +76,9 @@ import { UserInterfaceIdiom } from 'expo-constants';
           { tempData.length ? <PetProfile pet={tempData[currentPet]} /> : null}
         </GestureRecognizer>
       </View>
+
+      {/*<Image class='heart' source={heart} width="20" height="50" />*/}
+    </>
   );
 
 } 
