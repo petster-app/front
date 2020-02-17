@@ -15,7 +15,9 @@ export default function PetProfile(props) {
             <Text style={styles.text}>{pet.size}</Text>
           </View>
           <Text style={styles.text}>{pet.description}</Text>
-          <Text style={[styles.text,styles.link]} onPress={() => Linking.openURL(pet.url)}>ADOPT ME!</Text>
+          <View style={styles.button}>
+            <Text style={[styles.text,styles.link]} onPress={() => Linking.openURL(pet.url)}>ADOPT ME!</Text>
+          </View>
       </ScrollView>
       </SafeAreaView>
       </View>
@@ -36,9 +38,10 @@ const styles = StyleSheet.create({
     padding: 75,
   },
   row: {
+    flex: 1,
     flexDirection: 'row',
-    width: 200,
-    justifyContent: 'space-around',
+    width: 400,
+    justifyContent: 'center',
   },
   name: {
     margin: 10,
@@ -46,14 +49,17 @@ const styles = StyleSheet.create({
     fontFamily: 'AmaticSC-Bold',
   },
   text: {
-    margin: 5, 
-    fontSize: 30,
+    margin: 10, 
+    fontSize: 25,
     textAlign: 'center',
     color: '#ffffff',
     fontFamily: 'AmaticSC-Regular',
   },
-  link: {
+  button: {
     alignItems: 'center',
+    justifyContent: 'center',
+  },
+  link: {
     fontFamily: 'AmaticSC-Regular',
     fontSize: 25,
     borderRadius: 4,
