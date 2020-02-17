@@ -5,6 +5,7 @@ import PetDetails from '../components/PetDetails';
 export default function favoritesScreen (props) {
   const [favorites, setFavorites] = useState([]);
   const [updatePage, setUpdatePage] = useState(false);
+  console.log(process.env.REACT_APP_API, process.env.REACT_APP_TEST_VAR)
 
   let user = 'Bob'
   function handleDetails(pet){
@@ -19,7 +20,7 @@ export default function favoritesScreen (props) {
       },
       body: JSON.stringify(pet),
     }
-    fetch(`http://localhost:3000/favorites`, options)
+    fetch(`https://petster3-back-end.herokuapp.com/favorites`, options)
     .then((result) => {
       console.log(result)
     })
@@ -34,7 +35,7 @@ export default function favoritesScreen (props) {
         'Content-Type': 'application/json'
       },
     }
-    fetch(`http://localhost:3000/favorites/${user}`, options)
+    fetch(`https://petster3-back-end.herokuapp.com/favorites/${user}`, options)
       .then((results) => results.json())
       .then((data) => {
         setFavorites(data);
