@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import {Text, Picker, View, Button, TextInput, Slider, StyleSheet, TouchableHighlight} from 'react-native';
+import React, { useState } from 'react';
+import {Text, Picker, View, TextInput, Slider, StyleSheet, TouchableHighlight} from 'react-native';
 
 
 export default function FavoritesScreen(props) {
@@ -27,7 +27,7 @@ export default function FavoritesScreen(props) {
 
 
       <Text style={styles.text}>Enter your zip code</Text>
-      <TextInput style={styles.input} placeholder='' maxLength={5} onChangeText={(value) => {
+      <TextInput style={styles.input} maxLength={5} onChangeText={(value) => {
         setZipCode(value);
         }}/>
 
