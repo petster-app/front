@@ -60,7 +60,7 @@ import { UserInterfaceIdiom } from 'expo-constants';
       },
       body: JSON.stringify(data),
     }
-    fetch(`http://localhost:3000/favorites`, options)
+    fetch(`https://petster3-back-end.herokuapp.com/favorites`, options)
     .then((result) => {
     })
   }
