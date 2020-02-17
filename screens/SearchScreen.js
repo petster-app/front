@@ -15,6 +15,7 @@ import { UserInterfaceIdiom } from 'expo-constants';
     let zipCode = props.navigation.getParam('zipCode');
     let travelDistance = props.navigation.getParam('travelDistance');
     console.log(type, zipCode, travelDistance);
+  
     
     useEffect(() => {
   
@@ -27,7 +28,7 @@ import { UserInterfaceIdiom } from 'expo-constants';
       }
       // fetch(`http://localhost:3000/search/${type}/${zipCode}/${travelDistance}`, options)
       // MOCK
-      fetch(`http://localhost:3000/search/dog/98103/10`, options)
+      fetch(`https://petster3-back-end.herokuapp.com/search/dog/98103/10`, options)
       .then((results) => {
         return results.json();
       })
