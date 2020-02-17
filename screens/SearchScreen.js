@@ -3,10 +3,10 @@ import { Image, View, StyleSheet } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import PetProfile from '../components/PetProfile';
 import heart from '../assets/images/icon.png'
-
+import { UserInterfaceIdiom } from 'expo-constants';
   
   export default function InputScreen(props) {
-
+    const user = 'Bob';
     const [tempData, setTempData] = useState([]);
     const [petImages, setPetImages] = useState([]);
     const [currentPet, setCurrentPet] = useState(0);
@@ -22,13 +22,12 @@ import heart from '../assets/images/icon.png'
         headers: {
           'Content-Type': 'application/json'
         },
-      };
-      fetch(`http://localhost:3000/search/${type}/${zipCode}/${travelDistance}`, options)
+      fetch(`http://localhost:3000/search/dog/98103/10`, options)
       .then((results) => {
         return results.json();
       })
       .then((data) => {
-        setTempData(data[0]);
+       setTempData(data[0]);
       })
   }, [type, zipCode, travelDistance]);
 
@@ -48,13 +47,15 @@ import heart from '../assets/images/icon.png'
 
   function handleLike() {
     console.log('you swiped up');
+    let data = tempData[currentPet];
+    data.userName = user;
     let options = {
       method: 'POST',
-      headers: {
+      headers: { 
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(tempData[currentPet]),
-    };
+      body: JSON.stringify(data),
+    }
     fetch(`http://localhost:3000/favorites`, options)
     .then((result) => {
     })
