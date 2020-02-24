@@ -32,7 +32,7 @@ export default createBottomTabNavigator({
       tabBarLabel: 'Favorites',
       tabBarIcon: ({ focused }) => (
         <TabBarIcon
-          focused={focused}
+          screenProps={true}
           name={
             Platform.OS === 'ios'
               ? `ios-information-circle${focused ? '' : '-outline'}`

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import {StyleSheet, Text, View, Image, SafeAreaView, ScrollView, Linking, TouchableHighlight } from 'react-native';
 import PetDetails from '../components/PetDetails';
+import { connect } from 'react-redux';
+import favoriteActions  from '../store/actions/favorites';
+import PropTypes from 'prop-types';
+import FavoritesScreen from './InputScreen';
 
-export default function favoritesScreen (props) {
-  const [favorites, setFavorites] = useState([]);
+const favoritesScreen =  (props) => {
   const [updatePage, setUpdatePage] = useState(false);
-  console.log(process.env.REACT_APP_API, process.env.REACT_APP_TEST_VAR)
 
   let user = 'Bob'
   function handleDetails(pet){
@@ -13,41 +15,32 @@ export default function favoritesScreen (props) {
   }
 
   function handleDelete(pet){
-    let options = {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(pet),
-    }
-    fetch(`https://petster3-back-end.herokuapp.com/favorites`, options)
-    .then((result) => {
-      console.log(result)
-    })
+    // let options = {
+    //   method: 'DELETE',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(pet),
+    // }
+    // fetch(`https://petster3-back-end.herokuapp.com/favorites`, options)
+    // .then((result) => {
+    //   console.log(result)
+    // })
 
-    setUpdatePage(true);
+    // setUpdatePage(true);
+    props.deleteFavorite(pet);
   }
 
   useEffect(() => {
-    let options = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    }
-    fetch(`https://petster3-back-end.herokuapp.com/favorites/${user}`, options)
-      .then((results) => results.json())
-      .then((data) => {
-        setFavorites(data);
-      })
-  }, [updatePage])
+    props.fetchFavorites();
+  }, [])
 
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView>
           <View>
             <Text style={[styles.header, styles.text]}>Favorite Pets</Text>
-            {favorites.map((pet, index) => 
+            {props.favorites.map((pet, index) => 
             <View style={styles.container} key={index}>
               <Image style={styles.image} source={{uri : pet.photo }} />
               <Text style={[styles.name,styles.text]}>{pet.name}</Text>
@@ -65,6 +58,25 @@ export default function favoritesScreen (props) {
       </SafeAreaView>
     );
 }
+
+const mapStateToProps = (state) => ({
+  favorites: state.favorites,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchFavorites: () => dispatch(favoriteActions.fetchFavorites()),
+  deleteFavorite: (favorite) => dispatch(favoriteActions.deleteFavorite(favorite)),
+});
+
+favoritesScreen.propTypes = {
+  fetchFavorites: PropTypes.func,
+  deleteFavorite: PropTypes.func,
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(favoritesScreen)
 
 const styles = StyleSheet.create({
   container: {
