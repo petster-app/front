@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Image, View, StyleSheet } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import PetProfile from '../components/PetProfile';
+import { connect } from 'react-redux';
 import heart from '../assets/images/icon.png'
 import { UserInterfaceIdiom } from 'expo-constants';
+import favoriteActions  from '../store/actions/favorites';
+import PropTypes from 'prop-types';
   
-  export default function InputScreen(props) {
+const InputScreen = (props) => {
     const user = 'Bob';
     const [tempData, setTempData] = useState([]);
     const [petImages, setPetImages] = useState([]);
@@ -53,16 +56,18 @@ import { UserInterfaceIdiom } from 'expo-constants';
     console.log('you swiped up');
     let data = tempData[currentPet];
     data.userName = user;
-    let options = {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data),
-    }
-    fetch(`https://petster3-back-end.herokuapp.com/favorites`, options)
-    .then((result) => {
-    })
+    props.addFavorite(data);
+    //console.log('from search screen',props.favorites)
+    // let options = {
+    //   method: 'POST',
+    //   headers: { 
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(data),
+    // }
+    // fetch(`https://petster3-back-end.herokuapp.com/favorites`, options)
+    // .then((result) => {
+    // })
   }
 
   return (
@@ -82,6 +87,23 @@ import { UserInterfaceIdiom } from 'expo-constants';
   );
 
 } 
+
+const mapStateToProps = (state) => ({
+  favorites: state.favorites,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addFavorite: (payload) => dispatch(favoriteActions.addFavorite(payload)),
+});
+
+InputScreen.propTypes = {
+  addFavorite: PropTypes.func,
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(InputScreen)
 
 const styles = StyleSheet.create({
   container: {
