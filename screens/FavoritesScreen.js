@@ -20,7 +20,7 @@ const favoritesScreen =  (props) => {
 
   useEffect(() => {
     props.fetchFavorites();
-  }, [])
+  }, []);
 
     return (
       <SafeAreaView style={styles.container}>

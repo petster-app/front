@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, TextInput, View, Button }  from 'react-native';
-
+import SignUp from "./SignUp";
+import Loading from "./loading";
 
 export default function HomeScreen(props) {
   const [email, setEmail] = useState('');
@@ -42,6 +43,11 @@ export default function HomeScreen(props) {
         title="Don't have an account? Sign Up"
         onPress={() => props.navigation.navigate('SignUp')}
       />
+      <Button
+        title="Loading"
+        onPress={() => props.navigation.navigate('Loading')}
+      />
+
     </View>
   );
 }
@@ -49,8 +55,8 @@ export default function HomeScreen(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#003366',
   },
   text: {
