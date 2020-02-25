@@ -37,15 +37,10 @@ const addFavorite = (favorite) => (dispatch) => {
   };
 
   return fetch(`https://petster3-back-end.herokuapp.com/favorites`, options)
-    .then(dispatch(add(favorite)))
-    // .then((data) => {
-    //   // console.log('from add', favo)
-    //   dispatch(add(data))
-    // });
+  .then(dispatch(add(favorite)));
 };
 
 const deleteFavorite = (favorite) => (dispatch) => {
-  
   const options = {
     method: 'DELETE',
     body: JSON.stringify(favorite),
@@ -54,11 +49,9 @@ const deleteFavorite = (favorite) => (dispatch) => {
       Accept: 'application/json',
     },
   };
-  console.log(favorite)
-  dispatch(deletePet(favorite));
-  // return fetch(`https://petster3-back-end.herokuapp.com/favorites`, options)
-    // .then(dispatch(deleteFavorite(favorite)))
-    // .then(dispatch(deleteFavorite(favorite)));
+
+  return fetch(`https://petster3-back-end.herokuapp.com/favorites`, options)
+  .then(dispatch(deletePet(favorite)))
 };
 
 export default {

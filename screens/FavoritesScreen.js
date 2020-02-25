@@ -15,19 +15,6 @@ const favoritesScreen =  (props) => {
   }
 
   function handleDelete(pet){
-    // let options = {
-    //   method: 'DELETE',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(pet),
-    // }
-    // fetch(`https://petster3-back-end.herokuapp.com/favorites`, options)
-    // .then((result) => {
-    //   console.log(result)
-    // })
-
-    // setUpdatePage(true);
     props.deleteFavorite(pet);
   }
 
