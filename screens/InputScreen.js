@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 0.5,
     borderColor: '#ffffff',
-    justifyContent: 'center',
   },
   picker: {
     fontSize: 25,

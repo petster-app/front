@@ -40,7 +40,7 @@ export default function HomeScreen(props) {
       <Button title="Login" onPress={handleLogin} />
       <Button
         title="Don't have an account? Sign Up"
-        onPress={() => this.props.navigation.navigate('SignUp')}
+        onPress={() => props.navigation.navigate('SignUp')}
       />
     </View>
   );
