@@ -9,6 +9,8 @@ import PetDetails from '../components/PetDetails'
 import TabNavigator from './TabNavigator';
 import Loading from "../screens/loading";
 
+import firebase from "../components/firebase";
+
 const AppNavigator = createStackNavigator({
   HomeScreen: HomeScreen,
   InputScreen: InputScreen,

@@ -1,17 +1,24 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, TextInput, View, Button }  from 'react-native';
 import SignUp from "./SignUp";
 import Loading from "./loading";
+import firebase from "../components/firebase";
+import InputScreen from "./InputScreen";
 
 export default function HomeScreen(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
 
-  function handleLogin () {
-    // TODO: Firebase stuff...
-    console.log('handleLogin')
-  }
+    async function handleLogin() {
+      try {
+        await firebase.login(email, password);
+        await setPassword('catfish');
+        props.navigation.navigate('InputScreen')
+      } catch(error) {
+        alert(error.message);
+      }
+    }
 
   return (
     <View style={styles.container}>
