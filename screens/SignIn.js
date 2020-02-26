@@ -5,7 +5,7 @@ import Loading from "./loading";
 import firebase from "../components/firebase";
 import InputScreen from "./InputScreen";
 
-export default function HomeScreen(props) {
+export default function SignIn(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
@@ -13,7 +13,7 @@ export default function HomeScreen(props) {
     async function handleLogin() {
       try {
         await firebase.login(email, password);
-        await setPassword('catfish');
+        await setPassword('');
         props.navigation.navigate('InputScreen')
       } catch(error) {
         alert(error.message);

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
-import HomeScreen from "./HomeScreen";
+import SignIn from "./SignIn";
 import firebase from "firebase";
 
 const firebaseConfig = {
@@ -16,9 +16,9 @@ const firebaseConfig = {
 
 export default function SignUp (props) {
 
-  useEffect(() => {
-    firebase.initializeApp(firebaseConfig);
-  }, []);
+  // useEffect(() => {
+  //   firebase.initializeApp(firebaseConfig);
+  // }, []);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,7 +29,7 @@ export default function SignUp (props) {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(() => props.navigation.navigate('HomeScreen'))
+      .then(() => props.navigation.navigate('SignIn'))
       .catch(error => console.log(error));
     console.log('handleLogin')
   }
@@ -58,7 +58,7 @@ export default function SignUp (props) {
       <Button title="Sign Up" onPress={handleSignUp} />
       <Button
         title="Already have an account? Login"
-        onPress={() => props.navigation.navigate('HomeScreen')}
+        onPress={() => props.navigation.navigate('SignIn')}
       />
     </View>
   )

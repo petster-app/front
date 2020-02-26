@@ -1,7 +1,7 @@
 import React from 'react';
-import { createAppContainer, createStackNavigator } from 'react-navigation';
+import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation';
 
-import HomeScreen from '../screens/HomeScreen'
+import SignIn from '../screens/SignIn'
 import InputScreen from '../screens/InputScreen'
 import SearchScreen from '../screens/SearchScreen'
 import SignUp from "../screens/SignUp";
@@ -12,7 +12,7 @@ import Loading from "../screens/loading";
 import firebase from "../components/firebase";
 
 const AppNavigator = createStackNavigator({
-  HomeScreen: HomeScreen,
+  HomeScreen: SignIn,
   InputScreen: InputScreen,
   SearchScreen: SearchScreen,
   SignUp: { screen: SignUp,
@@ -29,11 +29,14 @@ const AppNavigator = createStackNavigator({
   })},
 });
 
-export default createAppContainer(
-  createStackNavigator({
+const homeStack = createStackNavigator({
     Tab : {screen: TabNavigator},
-    App : {screen: AppNavigator}
-  }),
-);
+    App : {screen: AppNavigator},
+  });
 
+const MainStack = createSwitchNavigator({
+  Auth: SignIn,
+  Home: homeStack,
+});
 
+export default createAppContainer(MainStack);
