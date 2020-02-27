@@ -5,9 +5,9 @@ import firebase from "../components/firebase";
 import InputScreen from "./InputScreen";
 
 export default function SignIn(props) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
+  const [email, setEmail] = useState('testuser@test.com');
+  const [password, setPassword] = useState('testtest');
+  
     async function handleLogin() {
       try {
         await firebase.login(email, password);

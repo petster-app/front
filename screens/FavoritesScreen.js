@@ -5,21 +5,24 @@ import { connect } from 'react-redux';
 import favoriteActions  from '../store/actions/favorites';
 import PropTypes from 'prop-types';
 import FavoritesScreen from './InputScreen';
+import firebase from "../components/firebase";
 
 const favoritesScreen =  (props) => {
   const [updatePage, setUpdatePage] = useState(false);
+  const user = firebase.getCurrentUsername();
+  console.log(user);
 
-  let user = 'Bob'
   function handleDetails(pet){
     props.navigation.navigate('PetDetails', {pet: pet});
   }
 
   function handleDelete(pet){
+    console.log(pet)
     props.deleteFavorite(pet);
   }
 
   useEffect(() => {
-    props.fetchFavorites();
+    props.fetchFavorites(user);
   }, []);
 
     return (
@@ -51,7 +54,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchFavorites: () => dispatch(favoriteActions.fetchFavorites()),
+  fetchFavorites: (user) => dispatch(favoriteActions.fetchFavorites(user)),
   deleteFavorite: (favorite) => dispatch(favoriteActions.deleteFavorite(favorite)),
 });
 

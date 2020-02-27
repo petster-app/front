@@ -7,9 +7,10 @@ import heart from '../assets/images/icon.png'
 import { UserInterfaceIdiom } from 'expo-constants';
 import favoriteActions  from '../store/actions/favorites';
 import PropTypes from 'prop-types';
+import firebase from "../components/firebase";
   
 const InputScreen = (props) => {
-    const user = 'Bob';
+    const user = firebase.getCurrentUsername();
     const [tempData, setTempData] = useState([]);
     const [petImages, setPetImages] = useState([]);
     const [currentPet, setCurrentPet] = useState(0);
@@ -57,17 +58,6 @@ const InputScreen = (props) => {
     let data = tempData[currentPet];
     data.userName = user;
     props.addFavorite(data);
-    //console.log('from search screen',props.favorites)
-    // let options = {
-    //   method: 'POST',
-    //   headers: { 
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(data),
-    // }
-    // fetch(`https://petster3-back-end.herokuapp.com/favorites`, options)
-    // .then((result) => {
-    // })
   }
 
   return (
