@@ -5,21 +5,19 @@ import SignIn from '../screens/SignIn'
 import InputScreen from '../screens/InputScreen'
 import SearchScreen from '../screens/SearchScreen'
 import SignUp from "../screens/SignUp";
+import MyAccountScreen from "../screens/MyAccountScreen";
 import PetDetails from '../components/PetDetails'
 import TabNavigator from './TabNavigator';
-import Loading from "../screens/loading";
-
-import firebase from "../components/firebase";
 
 const AppNavigator = createStackNavigator({
-  HomeScreen: SignIn,
+  MyAccountScreen: MyAccountScreen,
   InputScreen: InputScreen,
   SearchScreen: SearchScreen,
-  SignUp: { screen: SignUp,
+  SignIn: { screen: SignIn,
     navigationOptions: ({ navigation }) => ({
       header: null,
     })},
-  Loading: { screen: Loading,
+  SignUp: { screen: SignUp,
     navigationOptions: ({ navigation }) => ({
       header: null,
     })},

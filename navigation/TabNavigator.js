@@ -4,7 +4,8 @@ import { createBottomTabNavigator } from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon'
 import InputScreen from '../screens/InputScreen'
 import SearchScreen from '../screens/SearchScreen'
-import FavoritesScreen from '../screens/FavoritesScreen';;
+import FavoritesScreen from '../screens/FavoritesScreen';
+import MyAccountScreen from "../screens/MyAccountScreen";
 
 export default createBottomTabNavigator({
   InputScreen: {
@@ -36,6 +37,22 @@ export default createBottomTabNavigator({
     screen: SearchScreen,
     navigationOptions: {
       tabBarLabel: 'Search',
+      tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+          focused={focused}
+          name={
+            Platform.OS === 'ios'
+              ? `ios-information-circle${focused ? '' : '-outline'}`
+              : 'md-information-circle'
+          }
+        />
+      ),
+    }
+  },
+  MyAccountScreen: {
+    screen: MyAccountScreen,
+    navigationOptions: {
+      tabBarLabel: 'Account',
       tabBarIcon: ({ focused }) => (
         <TabBarIcon
           focused={focused}
