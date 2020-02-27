@@ -1,14 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, TextInput, View, Button }  from 'react-native';
 import SignUp from "./SignUp";
-import Loading from "./loading";
 import firebase from "../components/firebase";
 import InputScreen from "./InputScreen";
 
 export default function SignIn(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState(null);
 
     async function handleLogin() {
       try {
@@ -26,10 +24,6 @@ export default function SignIn(props) {
         Welcome to petster!
       </Text>
       <Text style={styles.bodyText}>Sign In</Text>
-      {errorMessage &&
-      <Text style={{ color: 'red' }}>
-        {errorMessage}
-      </Text>}
       <TextInput
         style={styles.textInput}
         autoCapitalize="none"
@@ -50,11 +44,6 @@ export default function SignIn(props) {
         title="Don't have an account? Sign Up"
         onPress={() => props.navigation.navigate('SignUp')}
       />
-      <Button
-        title="Loading"
-        onPress={() => props.navigation.navigate('Loading')}
-      />
-
     </View>
   );
 }
@@ -83,7 +72,6 @@ const styles = StyleSheet.create({
   textInput: {
     height: 40,
     width: '90%',
-    marginLeft: '5%',
     borderColor: 'white',
     borderWidth: 1,
     marginTop: 8,
