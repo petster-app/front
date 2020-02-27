@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
 import SignIn from "./SignIn";
 import firebase from "../components/firebase";
+import { UserInterfaceIdiom } from 'expo-constants';
 
 export default function SignUp (props) {
 
@@ -13,6 +14,16 @@ export default function SignUp (props) {
     try {
       console.log('handle sign up', password);
       await firebase.register(name, email, password);
+      const options = {
+        method: 'POST',
+        body: JSON.stringify({userName: email}),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      };
+    
+      fetch(`https://petster3-back-end.herokuapp.com/users`, options)
       props.navigation.navigate('SignIn')
     } catch(error) {
       alert(error.message)

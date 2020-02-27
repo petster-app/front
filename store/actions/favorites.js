@@ -20,8 +20,8 @@ const deletePet = (payload) => {
 };
 
 
-const fetchFavorites = () => (dispatch) => {
-  return fetch(`https://petster3-back-end.herokuapp.com/favorites/Bob`)
+const fetchFavorites = (user) => (dispatch) => {
+  return fetch(`https://petster3-back-end.herokuapp.com/favorites/${user}`)
     .then((results) => results.json())
     .then((data) => dispatch(get(data)));
 };
