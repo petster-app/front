@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Image, View, StyleSheet } from 'react-native';
+import { Image, View, StyleSheet, ActivityIndicator, Text } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import PetProfile from '../components/PetProfile';
 import { connect } from 'react-redux';
@@ -12,14 +12,10 @@ import firebase from "../components/firebase";
 const InputScreen = (props) => {
     const user = firebase.getCurrentUsername();
     const [tempData, setTempData] = useState([]);
-    const [petImages, setPetImages] = useState([]);
     const [currentPet, setCurrentPet] = useState(0);
-    const [likedPets, setLikedPets] = useState([]);
     let type = props.navigation.getParam('type');
     let zipCode = props.navigation.getParam('zipCode');
     let travelDistance = props.navigation.getParam('travelDistance');
-    console.log(type, zipCode, travelDistance);
-  
     
     useEffect(() => {
       let options = {
@@ -68,7 +64,11 @@ const InputScreen = (props) => {
         onSwipeLeft={onSwipeLeft}
         onSwipeRight={onSwipeRight}
         >
-          { tempData.length ? <PetProfile pet={tempData[currentPet]} /> : null}
+          { tempData.length ? <PetProfile pet={tempData[currentPet]} /> :    
+          <View>
+        <Text style={[styles.text, styles.loading]}>Loading Pets</Text>
+        <ActivityIndicator size="large" color="#ffffff" />
+      </View>}
         </GestureRecognizer>
       </View>
 
@@ -113,4 +113,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center'
   },
+  loading: {
+    fontSize: 45,
+    margin: 10,
+  }
 });

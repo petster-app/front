@@ -10,14 +10,12 @@ import firebase from "../components/firebase";
 const favoritesScreen =  (props) => {
   const [updatePage, setUpdatePage] = useState(false);
   const user = firebase.getCurrentUsername();
-  console.log(user);
 
   function handleDetails(pet){
     props.navigation.navigate('PetDetails', {pet: pet});
   }
 
   function handleDelete(pet){
-    console.log(pet)
     props.deleteFavorite(pet);
   }
 
@@ -106,7 +104,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   image: {
-    width: 395,
+    width: 375,
     height: 400,
   },
 });

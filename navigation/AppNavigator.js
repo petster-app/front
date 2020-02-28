@@ -13,10 +13,6 @@ const AppNavigator = createStackNavigator({
   MyAccountScreen: MyAccountScreen,
   InputScreen: InputScreen,
   SearchScreen: SearchScreen,
-  // SignUp: { screen: SignUp,
-  //   navigationOptions: ({ navigation }) => ({
-  //     header: null,
-  //   })},
   PetDetails: { screen: PetDetails, 
     navigationOptions: ({ navigation }) => ({
       header: null,
