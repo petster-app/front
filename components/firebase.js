@@ -51,6 +51,10 @@ class Firebase {
     })
   }
 
+  getCurrentName() {
+    return this.auth.currentUser.displayName
+  }
+
   getCurrentUsername() {
     return this.auth.currentUser && this.auth.currentUser.email
   }
