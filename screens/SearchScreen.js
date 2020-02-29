@@ -57,6 +57,10 @@ const InputScreen = (props) => {
     setLiked(true);
   }
 
+  function handleDislike() {
+    console.log('you swiped down');
+    setLiked(false);
+  }
   return (
 
     <>
@@ -65,6 +69,7 @@ const InputScreen = (props) => {
         onSwipeUp={handleLike}
         onSwipeLeft={onSwipeLeft}
         onSwipeRight={onSwipeRight}
+        onSwipeDown={handleDislike}
         >
           { tempData.length ? <PetProfile pet={tempData[currentPet]} /> :
             <View>
@@ -81,22 +86,6 @@ const InputScreen = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  favorites: state.favorites,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  addFavorite: (payload) => dispatch(favoriteActions.addFavorite(payload)),
-});
-
-InputScreen.propTypes = {
-  addFavorite: PropTypes.func,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(InputScreen)
 
 const styles = StyleSheet.create({
   container: {
@@ -121,3 +110,21 @@ const styles = StyleSheet.create({
     margin: 10,
   }
 });
+
+
+const mapStateToProps = (state) => ({
+  favorites: state.favorites,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addFavorite: (payload) => dispatch(favoriteActions.addFavorite(payload)),
+});
+
+InputScreen.propTypes = {
+  addFavorite: PropTypes.func,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(InputScreen)
