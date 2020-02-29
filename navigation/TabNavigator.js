@@ -13,23 +13,7 @@ export default createBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: 'Input',
       tabBarIcon: ({ focused }) => (
-        <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
-      ),
-    }
-  },
-  FavoritesScreen: {
-    screen: FavoritesScreen,
-    navigationOptions: {
-      tabBarLabel: 'Favorites',
-      tabBarIcon: ({ focused }) => (
-        <TabBarIcon
-          screenProps={true}
-          name={
-            Platform.OS === 'ios'
-              ? `ios-information-circle${focused ? '' : '-outline'}`
-              : 'md-options'
-          }
-        />
+        <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-paper' : 'ios-paper'} />
       ),
     }
   },
@@ -38,30 +22,26 @@ export default createBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: 'Search',
       tabBarIcon: ({ focused }) => (
-        <TabBarIcon
-          focused={focused}
-          name={
-            Platform.OS === 'ios'
-              ? `ios-information-circle${focused ? '' : '-outline'}`
-              : 'md-information-circle'
-          }
-        />
+        <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'} />
       ),
     }
   },
+  FavoritesScreen: {
+    screen: FavoritesScreen,
+    navigationOptions: {
+      tabBarLabel: 'Favorites',
+      tabBarIcon: ({ focused }) => (
+        <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'md-heart' : 'md-heart'} />
+      ),
+    }
+  },
+
   MyAccountScreen: {
     screen: MyAccountScreen,
     navigationOptions: {
       tabBarLabel: 'Account',
       tabBarIcon: ({ focused }) => (
-        <TabBarIcon
-          focused={focused}
-          name={
-            Platform.OS === 'ios'
-              ? `ios-information-circle${focused ? '' : '-outline'}`
-              : 'md-information-circle'
-          }
-        />
+        <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-settings' : 'md-settings'} />
       ),
     }
   },
