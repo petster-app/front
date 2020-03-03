@@ -25,8 +25,6 @@ const InputScreen = (props) => {
           'Content-Type': 'application/json'
         },
       };
-      // fetch(`https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}`, options)
-      // MOCK
       fetch(`https://petster3-back-end.herokuapp.com/search/dog/98103/10`, options)
       .then((results) => {
         return results.json();
@@ -38,23 +36,25 @@ const InputScreen = (props) => {
 
   function onSwipeLeft() {
     console.log('you swiped left');
+    if (currentPet + 1 < tempData.length) {
+      data = tempData[currentPet + 1];
+      setCurrentPet(currentPet + 1);
+    }
     setLiked(false);
     if (data.userName) {
       setLiked(true);
-    }
-    if (currentPet + 1 < tempData.length) {
-      setCurrentPet(currentPet + 1);
     }
   }
 
   function onSwipeRight() {
     console.log('you swiped right');
+    if (currentPet > 0) {
+      data = tempData[currentPet - 1];
+      setCurrentPet(currentPet - 1);
+    }
     setLiked(false);
     if (data.userName) {
       setLiked(true);
-    }
-    if (currentPet > 0) {
-      setCurrentPet(currentPet - 1);
     }
   }
 
@@ -62,17 +62,16 @@ const InputScreen = (props) => {
     console.log('you swiped up');
     data.userName = user;
     props.addFavorite(data);
-    console.log(data);
     setLiked(true);
   }
 
   function handleDislike() {
     console.log('you swiped down');
     setLiked(false);
+    data.userName = undefined;
     props.deleteFavorite(data)
   }
   return (
-
     <>
       <View style={styles.container}>
         <GestureRecognizer
@@ -96,6 +95,23 @@ const InputScreen = (props) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  favorites: state.favorites,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addFavorite: (payload) => dispatch(favoriteActions.addFavorite(payload)),
+  deleteFavorite: (favorite) => dispatch(favoriteActions.deleteFavorite(favorite)),
+});
+
+InputScreen.propTypes = {
+  addFavorite: PropTypes.func,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(InputScreen)
 
 const styles = StyleSheet.create({
   container: {
@@ -120,22 +136,3 @@ const styles = StyleSheet.create({
     margin: 10,
   }
 });
-
-
-const mapStateToProps = (state) => ({
-  favorites: state.favorites,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  addFavorite: (payload) => dispatch(favoriteActions.addFavorite(payload)),
-  deleteFavorite: (favorite) => dispatch(favoriteActions.deleteFavorite(favorite)),
-});
-
-InputScreen.propTypes = {
-  addFavorite: PropTypes.func,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(InputScreen)
