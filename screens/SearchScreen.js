@@ -16,7 +16,8 @@ const InputScreen = (props) => {
     let type = props.navigation.getParam('type');
     let zipCode = props.navigation.getParam('zipCode');
     let travelDistance = props.navigation.getParam('travelDistance');
-    
+    let data = tempData[currentPet];
+
     useEffect(() => {
       let options = {
         method: 'GET',
@@ -37,6 +38,10 @@ const InputScreen = (props) => {
 
   function onSwipeLeft() {
     console.log('you swiped left');
+    setLiked(false);
+    if (data.userName) {
+      setLiked(true);
+    }
     if (currentPet + 1 < tempData.length) {
       setCurrentPet(currentPet + 1);
     }
@@ -44,6 +49,10 @@ const InputScreen = (props) => {
 
   function onSwipeRight() {
     console.log('you swiped right');
+    setLiked(false);
+    if (data.userName) {
+      setLiked(true);
+    }
     if (currentPet > 0) {
       setCurrentPet(currentPet - 1);
     }
@@ -51,15 +60,16 @@ const InputScreen = (props) => {
 
   function handleLike() {
     console.log('you swiped up');
-    let data = tempData[currentPet];
     data.userName = user;
     props.addFavorite(data);
+    console.log(data);
     setLiked(true);
   }
 
   function handleDislike() {
     console.log('you swiped down');
     setLiked(false);
+    props.deleteFavorite(data)
   }
   return (
 
@@ -118,6 +128,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addFavorite: (payload) => dispatch(favoriteActions.addFavorite(payload)),
+  deleteFavorite: (favorite) => dispatch(favoriteActions.deleteFavorite(favorite)),
 });
 
 InputScreen.propTypes = {

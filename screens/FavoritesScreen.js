@@ -4,7 +4,6 @@ import PetDetails from '../components/PetDetails';
 import { connect } from 'react-redux';
 import favoriteActions  from '../store/actions/favorites';
 import PropTypes from 'prop-types';
-import FavoritesScreen from './InputScreen';
 import firebase from "../components/firebase";
 
 const favoritesScreen =  (props) => {
@@ -59,7 +58,7 @@ const mapDispatchToProps = (dispatch) => ({
 favoritesScreen.propTypes = {
   fetchFavorites: PropTypes.func,
   deleteFavorite: PropTypes.func,
-}
+};
 
 export default connect(
   mapStateToProps,

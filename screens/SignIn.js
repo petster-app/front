@@ -5,8 +5,8 @@ import firebase from "../components/firebase";
 import InputScreen from "./InputScreen";
 
 export default function SignIn(props) {
-  const [email, setEmail] = useState('testuser@test.com');
-  const [password, setPassword] = useState('testtest');
+  const [email, setEmail] = useState('evanbc1@gmail.com');
+  const [password, setPassword] = useState('1234Asdf');
   
     async function handleLogin() {
       try {
