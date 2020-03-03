@@ -1,5 +1,5 @@
-import React from 'react'
-import { StyleSheet, View, Button } from 'react-native'
+import React, {useState} from 'react'
+import { StyleSheet, Text, View, Button } from 'react-native'
 import firebase from "../components/firebase";
 import SignIn from "./SignIn";
 
@@ -13,6 +13,7 @@ export default function SignOut (props) {
 
   return (
     <View style={styles.container}>
+      <Text>Hello { firebase.getCurrentName() } </Text>
       <Button title="Log Out" onPress={handleLogout} />
     </View>
   )

@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
 import SignIn from "./SignIn";
 import firebase from "../components/firebase";
-import { UserInterfaceIdiom } from 'expo-constants';
 
 export default function SignUp (props) {
 

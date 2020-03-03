@@ -4,8 +4,8 @@ import {Text, Picker, View, TextInput, Slider, StyleSheet, TouchableHighlight} f
 
 export default function FavoritesScreen(props) {
 
-  const [type, setType] = useState('');
-  const [zipCode, setZipCode] = useState('');
+  const [type, setType] = useState('cat');
+  const [zipCode, setZipCode] = useState('98105');
   const [travelDistance, setTravelDistance] = useState(10);
   
   function handleSubmit() {
