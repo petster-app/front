@@ -24,11 +24,11 @@ export default function PetProfile(props) {
           <Text style={styles.text}>{props.pet.primaryBreed}</Text>
         </View>
       </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
+      {/* <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={handleLike}>
           <Icon name="heart" color="white" size={35}></Icon>
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 }
@@ -38,17 +38,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center"
-  },
-  button: {
-    backgroundColor: "#00CDBC",
-    borderRadius: 10,
-    width: 390,
-    height: 50,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  buttonContainer: {
-    margin: 10
   },
   signUp: {
     fontSize: 30,
