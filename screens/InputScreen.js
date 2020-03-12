@@ -37,7 +37,7 @@ export default function FavoritesScreen(props) {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Choose your animal</Text>
-      <View>
+      <View style={styles.typeContainer}>
         <Text style={styles.title}>Animal type</Text>
         <View style={styles.typeSelector}>
           <TouchableOpacity
@@ -103,7 +103,6 @@ const styles = StyleSheet.create({
   header: {
     fontFamily: "Nunito-Bold",
     fontSize: 30,
-    // marginBottom: "10%",
     marginTop: "10%"
   },
   container: {
@@ -131,15 +130,10 @@ const styles = StyleSheet.create({
   slider: {
     width: "100%"
   },
-  // animalType: {
-  //   alignSelf: "flex-start"
-  // },
   typeSelector: {
     flexDirection: "row",
     width: "100%",
-    justifyContent: "space-between",
-    marginTop: "5%",
-    marginBottom: "5%"
+    justifyContent: "space-between"
   },
   type: {
     backgroundColor: "#ECECEC",
@@ -153,27 +147,27 @@ const styles = StyleSheet.create({
   title: {
     color: "gray",
     fontSize: 20,
-    alignSelf: "flex-start"
+    alignSelf: "flex-start",
+    marginBottom: "5%"
   },
   submit: {
     textAlign: "center",
+    fontFamily: "Nunito-Bold",
     color: "white",
     fontSize: 20
   },
   zipCodeContainer: {
     width: "100%"
   },
-  // picker: {
-  //   fontSize: 25,
-  //   textAlign: "center"
-  // },
+  typeContainer: {
+    width: "100%"
+  },
   input: {
-    height: 40,
-    // width: "100%",
-    // padding: 10,
     fontSize: 20,
     borderBottomColor: "gray",
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
+    textAlign: "center",
+    fontFamily: "Nunito"
   },
   button: {
     backgroundColor: "#00CDBC",
