@@ -86,13 +86,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
-    backgroundColor: "#003366",
     alignItems: "center",
     padding: 10
   },
   text: {
     textAlign: "center",
-    color: "#ffffff"
+    color: "black"
   },
   buttons: {
     flex: 1,
@@ -101,7 +100,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around"
   },
   link: {
-    fontFamily: "AmaticSC-Regular",
+    fontFamily: "Nunito",
     fontSize: 20,
     borderRadius: 4,
     borderWidth: 0.5,
@@ -111,10 +110,10 @@ const styles = StyleSheet.create({
   name: {
     margin: 5,
     fontSize: 30,
-    fontFamily: "AmaticSC-Bold"
+    fontFamily: "Nunito-Bold"
   },
   header: {
-    fontFamily: "AmaticSC-Bold",
+    fontFamily: "Nunito-Bold",
     fontSize: 40,
     margin: 10
   },

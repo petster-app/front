@@ -13,41 +13,42 @@ import SignUp from "./SignUp";
 import firebase from "../components/firebase";
 import InputScreen from "./InputScreen";
 
-export default function SignIn(props) {
+export default function HomeScreen(props) {
   const [email, setEmail] = useState("evanbc1@gmail.com");
   const [password, setPassword] = useState("1234Asdf");
 
   async function handleLogin() {
-    try {
-      await firebase.login(email, password);
-      await setPassword("");
-      props.navigation.navigate("InputScreen");
-    } catch (error) {
-      alert(error.message);
-    }
+    props.navigation.navigate("SignIn");
+  }
+
+  function handleSignUp() {
+    props.navigation.navigate("SignUp");
   }
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.textInput}
-        autoCapitalize="none"
-        placeholder="Email"
-        onChangeText={email => setEmail(email)}
-        value={email}
-      />
-      <TextInput
-        secureTextEntry
-        style={styles.textInput}
-        autoCapitalize="none"
-        placeholder="Password"
-        onChangeText={password => setPassword(password)}
-        value={password}
-      />
+      <View style={styles.header}>
+        <View style={styles.headerTitle}>
+          <Icon name="paw" color="#00CDBC" size={40}></Icon>
+          <Text style={[styles.text, styles.headerText]}>PETSTER</Text>
+        </View>
+        <Text style={styles.bodyText}>
+          Connecting fury friends with their forever home.
+        </Text>
+      </View>
+
       <View>
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.signUp}>Sign In</Text>
+        <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+          <Text style={styles.signUp}>Sign Up</Text>
         </TouchableOpacity>
+        <View style={styles.loginContainer}>
+          <Text style={styles.text}>
+            Already have an account?{" "}
+            <Text onPress={handleLogin} style={styles.login}>
+              Login
+            </Text>
+          </Text>
+        </View>
       </View>
     </View>
   );
@@ -56,8 +57,8 @@ export default function SignIn(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "space-around",
+    alignItems: "center"
   },
   login: {
     color: "#00CDBC"

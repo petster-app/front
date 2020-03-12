@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Image, View, StyleSheet, ActivityIndicator, Text } from "react-native";
+import {
+  Image,
+  View,
+  StyleSheet,
+  ActivityIndicator,
+  Text,
+  TouchableOpacity
+} from "react-native";
 import GestureRecognizer from "react-native-swipe-gestures";
 import PetProfile from "../components/PetProfile";
 import { connect } from "react-redux";
@@ -105,12 +112,17 @@ const InputScreen = props => {
               </View>
             </View>
             <GestureRecognizer
-              onSwipeUp={handleLike}
               onSwipeLeft={onSwipeLeft}
               onSwipeRight={onSwipeRight}
               onSwipeDown={handleDislike}
-            ></GestureRecognizer>
-            <PetProfile pet={tempData[currentPet]} />
+            >
+              <PetProfile pet={tempData[currentPet]} />
+            </GestureRecognizer>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={styles.button} onPress={handleLike}>
+                <Icon name="heart" color="white" size={35}></Icon>
+              </TouchableOpacity>
+            </View>
             {/* </View> */}
           </>
         ) : (
@@ -157,6 +169,17 @@ const styles = StyleSheet.create({
 
   loading: {
     fontSize: 30,
+    margin: 10
+  },
+  button: {
+    backgroundColor: "#00CDBC",
+    borderRadius: 10,
+    width: 390,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  buttonContainer: {
     margin: 10
   }
 });
