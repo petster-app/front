@@ -39,41 +39,54 @@ export default function SignUp(props) {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Let's get started</Text>
-      <Text style={styles.inputLabel}>First name</Text>
-      <TextInput
-        label="First name"
-        autoCapitalize="none"
-        style={styles.textInput}
-        onChangeText={firstName => setFirstName(firstName)}
-        value={firstName}
-      />
-      <Text style={styles.inputLabel}>Last name</Text>
-      <TextInput
-        label="First name"
-        autoCapitalize="none"
-        style={styles.textInput}
-        onChangeText={lastName => setLastName(lastName)}
-        value={lastName}
-      />
-      <Text style={styles.inputLabel}>Email address</Text>
-      <TextInput
-        autoCapitalize="none"
-        style={styles.textInput}
-        onChangeText={email => setEmail(email)}
-        value={email}
-      />
-      <Text style={styles.inputLabel}>Password (6+ characters)</Text>
-      <TextInput
-        secureTextEntry
-        autoCapitalize="none"
-        style={styles.textInput}
-        onChangeText={password => setPassword(password)}
-        value={password}
-      />
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>First name</Text>
+        <TextInput
+          label="First name"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={firstName => setFirstName(firstName)}
+          value={firstName}
+        />
+      </View>
 
-      <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-        <Text style={styles.signUp}>GET STARTED</Text>
-      </TouchableOpacity>
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>Last name</Text>
+        <TextInput
+          label="First name"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={lastName => setLastName(lastName)}
+          value={lastName}
+        />
+      </View>
+
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>Email address</Text>
+        <TextInput
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={email => setEmail(email)}
+          value={email}
+        />
+      </View>
+
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>Password (6+ characters)</Text>
+        <TextInput
+          secureTextEntry
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={password => setPassword(password)}
+          value={password}
+        />
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+          <Text style={styles.submit}>GET STARTED</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -83,8 +96,7 @@ const styles = StyleSheet.create({
     fontFamily: "Nunito-Bold",
     fontSize: 50,
     width: "80%",
-    marginBottom: "10%",
-    marginTop: "10%"
+    marginTop: "2.5%"
   },
   container: {
     flex: 1,
@@ -93,30 +105,36 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     width: "80%"
   },
+  inputContainer: {
+    width: "100%"
+  },
   textInput: {
-    height: "3%",
-    width: "100%",
     borderBottomColor: "gray",
     borderBottomWidth: 1,
-    marginTop: "5%"
+    marginTop: "5%",
+    fontSize: 20,
+    fontFamily: "Nunito"
   },
   inputLabel: {
     alignSelf: "flex-start",
     marginTop: "3%",
     color: "gray"
   },
-  signUp: {
-    fontSize: 15,
+  submit: {
+    textAlign: "center",
     fontFamily: "Nunito-Bold",
-    color: "white"
+    color: "white",
+    fontSize: 20
+  },
+  buttonContainer: {
+    marginBottom: "10%"
   },
   button: {
     backgroundColor: "#00CDBC",
     borderRadius: 40,
-    width: "100%",
+    width: 340,
     height: 50,
-    margin: 30,
     justifyContent: "center",
-    alignItems: "center"
+    alignContent: "center"
   }
 });

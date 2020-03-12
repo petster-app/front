@@ -8,13 +8,21 @@ import {
   StyleSheet,
   TouchableHighlight
 } from "react-native";
-import RangeSlider from "react-native-range-slider";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function FavoritesScreen(props) {
-  const [type, setType] = useState("Dog");
+  const toggleColors = [
+    { backgroundColor: "#00CDBC", color: "white" },
+    { backgroundColor: "#ECECEC", color: "black" }
+  ];
+
+  const [type, setType] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [travelDistance, setTravelDistance] = useState(5);
+  const [dogTypeColor, setDogTypeColor] = useState(1);
+  const [catTypeColor, setCatTypeColor] = useState(1);
+  const [bunnyTypeColor, setBunnyTypeColor] = useState(1);
+  const [selected, setSelected] = useState([]);
 
   function handleSubmit() {
     let regex = /^\d{5}$/;
@@ -34,31 +42,82 @@ export default function FavoritesScreen(props) {
     setTravelDistance(travelDistance);
   }
 
+  function handleToggle(type) {
+    let value;
+
+    if (selected.length) {
+      value = selected.pop();
+      eval(`set${value}TypeColor(1)`);
+    }
+
+    if (eval(`${type.toLowerCase()}TypeColor`) === 1) {
+      eval(`set${type}TypeColor(0)`);
+    } else {
+      eval(`set${type}TypeColor(1)`);
+    }
+
+    setSelected([type]);
+    setType(type);
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Choose your animal</Text>
+
       <View style={styles.typeContainer}>
         <Text style={styles.title}>Animal type</Text>
         <View style={styles.typeSelector}>
           <TouchableOpacity
-            style={styles.type}
-            onPress={() => console.log("pressed")}
+            style={[
+              styles.type,
+              { backgroundColor: toggleColors[dogTypeColor].backgroundColor }
+            ]}
+            onPress={() => handleToggle("Dog")}
           >
-            <Text style={styles.typeText}>Dog</Text>
+            <Text
+              style={[
+                styles.typeText,
+                { color: toggleColors[dogTypeColor].color }
+              ]}
+            >
+              Dog
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.type}
-            onPress={() => console.log("pressed")}
+            style={[
+              styles.type,
+              { backgroundColor: toggleColors[catTypeColor].backgroundColor }
+            ]}
+            onPress={() => handleToggle("Cat")}
           >
-            <Text style={styles.typeText}>Cat</Text>
+            <Text
+              style={[
+                styles.typeText,
+                { color: toggleColors[catTypeColor].color }
+              ]}
+            >
+              Cat
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.type}
-            onPress={() => console.log("pressed")}
+            style={[
+              styles.type,
+              { backgroundColor: toggleColors[bunnyTypeColor].backgroundColor }
+            ]}
+            onPress={() => handleToggle("Bunny")}
           >
-            <Text style={styles.typeText}>Bunny</Text>
+            <Text
+              style={[
+                styles.typeText,
+                {
+                  backgroundColor: toggleColors[bunnyTypeColor].backgroundColor
+                }
+              ]}
+            >
+              Bunny
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -136,7 +195,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   type: {
-    backgroundColor: "#ECECEC",
     flexDirection: "column",
     borderRadius: 40,
     width: 90,
@@ -168,6 +226,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     textAlign: "center",
     fontFamily: "Nunito"
+  },
+  buttonContainer: {
+    marginBottom: "10%"
   },
   button: {
     backgroundColor: "#00CDBC",
