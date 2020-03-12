@@ -1,18 +1,17 @@
-import { AppLoading } from 'expo';
-import { Asset } from 'expo-asset';
-import * as Font from 'expo-font';
-import React, { useState } from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { Provider } from 'react-redux';
-import createStore from './store';
+import { AppLoading } from "expo";
+import { Asset } from "expo-asset";
+import * as Font from "expo-font";
+import React, { useState } from "react";
+import { Platform, StatusBar, StyleSheet, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { Provider } from "react-redux";
+import createStore from "./store";
 
 const store = createStore();
 
-import AppNavigator from './navigation/AppNavigator';
+import AppNavigator from "./navigation/AppNavigator";
 
 export default function App(props) {
-
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
@@ -26,7 +25,7 @@ export default function App(props) {
   } else {
     return (
       <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+        {Platform.OS === "ios" && <StatusBar barStyle="default" />}
         <Provider store={store}>
           <AppNavigator />
         </Provider>
@@ -38,13 +37,16 @@ export default function App(props) {
 async function loadResourcesAsync() {
   await Promise.all([
     Asset.loadAsync([
-      require('./assets/images/robot-dev.png'),
-      require('./assets/images/robot-prod.png'),
+      require("./assets/images/robot-dev.png"),
+      require("./assets/images/robot-prod.png")
     ]),
     Font.loadAsync({
       ...Ionicons.font,
-      'AmaticSC-Regular': require('./assets/fonts/AmaticSC-Regular.ttf'),'AmaticSC-Bold': require('./assets/fonts/AmaticSC-Bold.ttf')
-    }),
+      "AmaticSC-Regular": require("./assets/fonts/AmaticSC-Regular.ttf"),
+      "AmaticSC-Bold": require("./assets/fonts/AmaticSC-Bold.ttf"),
+      Nunito: require("./assets/fonts/Nunito-ExtraLight.ttf"),
+      "Nunito-Bold": require("./assets/fonts/Nunito-SemiBold.ttf")
+    })
   ]);
 }
 
@@ -59,6 +61,6 @@ function handleFinishLoading(setLoadingComplete) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#003366',
-  },
+    backgroundColor: "#003366"
+  }
 });
