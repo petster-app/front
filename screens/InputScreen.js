@@ -17,7 +17,7 @@ export default function FavoritesScreen(props) {
   ];
 
   const [type, setType] = useState("");
-  const [zipCode, setZipCode] = useState("");
+  const [zipCode, setZipCode] = useState("98103");
   const [travelDistance, setTravelDistance] = useState(5);
   const [dogTypeColor, setDogTypeColor] = useState(1);
   const [catTypeColor, setCatTypeColor] = useState(1);

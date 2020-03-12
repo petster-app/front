@@ -7,6 +7,7 @@ import heart from "../assets/images/heart.png";
 import favoriteActions from "../store/actions/favorites";
 import PropTypes from "prop-types";
 import firebase from "../components/firebase";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const InputScreen = props => {
   const user = firebase.getCurrentUsername();
@@ -19,24 +20,21 @@ const InputScreen = props => {
   let data = tempData[currentPet];
 
   useEffect(() => {
-    console.log(
-      `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/2020-03-03T21:06:38-00:00/100`
-    );
     let options = {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
       }
     };
+    // fetch(
+    //   `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/2020-03-03T21:06:38-00:00/100`,
+    //   options
+    // )
+    //   MOCK
     fetch(
-      `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/2020-03-03T21:06:38-00:00/100`,
+      `https://petster3-back-end.herokuapp.com/search/dog/98103/10/2020-03-03T21:06:38-00:00/100`,
       options
     )
-      // MOCK
-      // fetch(
-      //   `https://petster3-back-end.herokuapp.com/search/dog/98103/10/2020-03-03T21:06:38-00:00/100`,
-      //   options
-      // )
       .then(results => {
         return results.json();
       })
@@ -85,50 +83,80 @@ const InputScreen = props => {
   }
   return (
     <>
-      <View style={styles.container}>
+      {/* <View style={styles.container}> */}
+      {/* <View style={styles.headerTitle}>
+          <Icon name="paw" color="#00CDBC" size={40}></Icon>
+          <Text style={[styles.text, styles.headerText]}>PETSTER</Text>
+        </View>
         <GestureRecognizer
           onSwipeUp={handleLike}
           onSwipeLeft={onSwipeLeft}
           onSwipeRight={onSwipeRight}
           onSwipeDown={handleDislike}
-        >
-          {tempData.length ? (
-            <PetProfile pet={tempData[currentPet]} />
-          ) : (
-            <View>
-              <Text style={[styles.text, styles.loading]}>Loading Pets</Text>
-              <ActivityIndicator size="large" color="#ffffff" />
+        > */}
+      <View style={styles.container}>
+        {tempData.length ? (
+          <>
+            {/* <View style={styles.container}> */}
+            <View style={styles.headerContainer}>
+              <View style={styles.headerTitle}>
+                <Icon name="paw" color="#00CDBC" size={40}></Icon>
+                <Text style={[styles.text, styles.headerText]}>petster</Text>
+              </View>
             </View>
-          )}
-          {liked && (
+            <GestureRecognizer
+              onSwipeUp={handleLike}
+              onSwipeLeft={onSwipeLeft}
+              onSwipeRight={onSwipeRight}
+              onSwipeDown={handleDislike}
+            ></GestureRecognizer>
+            <PetProfile pet={tempData[currentPet]} />
+            {/* </View> */}
+          </>
+        ) : (
+          <View>
+            <Text style={[styles.text, styles.loading]}>Loading Pets</Text>
+            <ActivityIndicator size="large" color="black" />
+          </View>
+        )}
+        {/* {liked && (
             <Image class="heart" source={heart} width="64" height="64" />
-          )}
-        </GestureRecognizer>
+          )} */}
+        {/* </GestureRecognizer> */}
+        {/* </View> */}
       </View>
     </>
   );
 };
 
 const styles = StyleSheet.create({
+  headerTitle: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  headerText: {
+    marginLeft: 10,
+    fontSize: 20,
+    fontFamily: "Nunito-Bold"
+  },
+  headerContainer: {
+    padding: 20
+  },
   container: {
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
-    backgroundColor: "#003366",
     alignItems: "center"
   },
   text: {
     fontSize: 15,
     textAlign: "center",
-    color: "#ffffff",
-    fontFamily: "AmaticSC-Regular"
+    fontFamily: "Nunito-Bold"
   },
-  buttons: {
-    flexDirection: "row",
-    justifyContent: "center"
-  },
+
   loading: {
-    fontSize: 45,
+    fontSize: 30,
     margin: 10
   }
 });

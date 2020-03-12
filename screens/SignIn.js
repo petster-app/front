@@ -86,11 +86,6 @@ const styles = StyleSheet.create({
   loginContainer: {
     margin: 15
   },
-  header: {
-    // flex: 1,
-    // justifyContent: "center",
-    // alignItems: "center"
-  },
   headerTitle: {
     flexDirection: "row",
     alignItems: "center"
