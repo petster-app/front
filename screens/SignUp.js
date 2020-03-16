@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -15,6 +15,30 @@ export default function SignUp(props) {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [inputComplete, setInputComplete] = useState(false);
+  const [buttonColor, setButtonColor] = useState("rgb(202,202,202)");
+
+  useEffect(() => {
+    if (inputComplete) {
+      setButtonColor("rgb(239,89,68)");
+    } else {
+      setButtonColor("rgb(202,202,202)");
+    }
+  }, [inputComplete]);
+
+  function checkInput() {
+    console.log("checkin input", firstName.length, firstName);
+    if (
+      firstName.length &&
+      lastName.length &&
+      email.length &&
+      password.length
+    ) {
+      setInputComplete(true);
+    } else {
+      setInputComplete(false);
+    }
+  }
 
   async function handleSignUp() {
     try {
@@ -40,50 +64,65 @@ export default function SignUp(props) {
     <View style={styles.container}>
       <Text style={styles.header}>Let's get started</Text>
       <View style={styles.inputContainer}>
-        <Text style={styles.inputLabel}>First name</Text>
         <TextInput
+          placeholder="First Name"
           label="First name"
           autoCapitalize="none"
           style={styles.textInput}
-          onChangeText={firstName => setFirstName(firstName)}
+          onChangeText={firstName => {
+            setFirstName(firstName);
+            checkInput();
+          }}
           value={firstName}
         />
       </View>
 
       <View style={styles.inputContainer}>
-        <Text style={styles.inputLabel}>Last name</Text>
         <TextInput
+          placeholder="Last name"
           label="First name"
           autoCapitalize="none"
           style={styles.textInput}
-          onChangeText={lastName => setLastName(lastName)}
+          onChangeText={lastName => {
+            setLastName(lastName);
+            checkInput();
+          }}
           value={lastName}
         />
       </View>
 
       <View style={styles.inputContainer}>
-        <Text style={styles.inputLabel}>Email address</Text>
         <TextInput
+          placeholder="Email address"
           autoCapitalize="none"
           style={styles.textInput}
-          onChangeText={email => setEmail(email)}
+          onChangeText={email => {
+            setEmail(email);
+            checkInput();
+          }}
           value={email}
         />
       </View>
 
       <View style={styles.inputContainer}>
-        <Text style={styles.inputLabel}>Password (6+ characters)</Text>
         <TextInput
+          placeholder="Password (6+ characters)"
           secureTextEntry
           autoCapitalize="none"
           style={styles.textInput}
-          onChangeText={password => setPassword(password)}
+          onChangeText={password => {
+            setPassword(password);
+            checkInput();
+          }}
           value={password}
         />
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: buttonColor }]}
+          onPress={handleSignUp}
+        >
           <Text style={styles.submit}>GET STARTED</Text>
         </TouchableOpacity>
       </View>
@@ -113,24 +152,25 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginTop: "5%",
     fontSize: 20,
-    fontFamily: "Nunito"
+    fontFamily: "Nunito",
+    paddingBottom: 5
   },
   inputLabel: {
     alignSelf: "flex-start",
     marginTop: "3%",
-    color: "gray"
+    color: "rgb(74,74,74)",
+    fontSize: 16
   },
   submit: {
     textAlign: "center",
     fontFamily: "Nunito-Bold",
     color: "white",
-    fontSize: 20
+    fontSize: 15
   },
   buttonContainer: {
     marginBottom: "10%"
   },
   button: {
-    backgroundColor: "#00CDBC",
     borderRadius: 40,
     width: 340,
     height: 50,

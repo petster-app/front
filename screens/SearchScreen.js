@@ -90,37 +90,47 @@ const InputScreen = props => {
   }
   return (
     <>
-      {/* <View style={styles.container}> */}
-      {/* <View style={styles.headerTitle}>
-          <Icon name="paw" color="#00CDBC" size={40}></Icon>
-          <Text style={[styles.text, styles.headerText]}>PETSTER</Text>
-        </View>
-        <GestureRecognizer
-          onSwipeUp={handleLike}
-          onSwipeLeft={onSwipeLeft}
-          onSwipeRight={onSwipeRight}
-          onSwipeDown={handleDislike}
-        > */}
       <View style={styles.container}>
         {tempData.length ? (
           <>
             {/* <View style={styles.container}> */}
             <View style={styles.headerContainer}>
               <View style={styles.headerTitle}>
-                <Icon name="paw" color="#00CDBC" size={40}></Icon>
-                <Text style={[styles.text, styles.headerText]}>petster</Text>
+                <Icon name="paw" color="rgb(239,89,68)" size={40}></Icon>
+                <Text style={[styles.text, styles.headerText]}>PETSTER</Text>
               </View>
             </View>
-            <GestureRecognizer
-              onSwipeLeft={onSwipeLeft}
-              onSwipeRight={onSwipeRight}
-              onSwipeDown={handleDislike}
+
+            <View
+              style={{
+                backgroundColor: "white",
+                borderRadius: 20,
+                overflow: "hidden",
+                width: 375,
+                zIndex: 1
+              }}
             >
-              <PetProfile pet={tempData[currentPet]} />
-            </GestureRecognizer>
-            <View style={styles.buttonContainer}>
+              <GestureRecognizer
+                onSwipeLeft={onSwipeLeft}
+                onSwipeRight={onSwipeRight}
+                onSwipeDown={handleDislike}
+              >
+                <PetProfile pet={tempData[currentPet]} />
+              </GestureRecognizer>
+            </View>
+            <View
+              style={[
+                styles.buttonContainer,
+                {
+                  zIndex: 2,
+                  position: "absolute",
+                  left: 300,
+                  bottom: 0
+                }
+              ]}
+            >
               <TouchableOpacity style={styles.button} onPress={handleLike}>
-                <Icon name="heart" color="white" size={35}></Icon>
+                <Icon name="heart" color="white" size={45}></Icon>
               </TouchableOpacity>
             </View>
             {/* </View> */}
@@ -149,17 +159,19 @@ const styles = StyleSheet.create({
   },
   headerText: {
     marginLeft: 10,
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: "Nunito-Bold"
   },
   headerContainer: {
-    padding: 20
+    padding: 20,
+    zIndex: 3
   },
   container: {
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: "rgb(248,248,248)"
   },
   text: {
     fontSize: 15,
@@ -172,10 +184,10 @@ const styles = StyleSheet.create({
     margin: 10
   },
   button: {
-    backgroundColor: "#00CDBC",
-    borderRadius: 10,
-    width: 390,
-    height: 50,
+    backgroundColor: "rgb(239,89,68)",
+    borderRadius: 150,
+    width: 90,
+    height: 90,
     justifyContent: "center",
     alignItems: "center"
   },

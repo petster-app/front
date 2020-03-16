@@ -10,25 +10,36 @@ import {
   TouchableHighlight,
   TouchableOpacity
 } from "react-native";
-import Icon from "react-native-vector-icons/Entypo";
 
 export default function PetProfile(props) {
   return (
     <View style={styles.container}>
-      <View style={styles.imageContainer}>
+      <View style={[styles.imageContainer, { zIndex: 1 }]}>
         <Image style={styles.image} source={{ uri: props.pet.photo }} />
+      </View>
+      <View
+        style={{
+          borderTopColor: "black",
+          backgroundColor: "black",
+          borderTopWidth: 10,
+          height: 10,
+          width: "100%",
+          // borderTopWidth: 10,
+          zIndex: 2,
+          position: "absolute",
+          borderRadius: 150,
+          // borderTopEndRadius: 300,
+          // borderRadius: 300,
+          bottom: 70
+        }}
+      ></View>
+      <View style={{ backgroundColor: "white" }}>
         <Text style={styles.name}>{props.pet.name}</Text>
         <View style={styles.details}>
           <Text style={styles.text}>{props.pet.age}</Text>
-          <Icon name="dot-single" color="black" size={35}></Icon>
-          <Text style={styles.text}>{props.pet.primaryBreed}</Text>
+          <Text style={styles.text}>{props.pet.gender}</Text>
         </View>
       </View>
-      {/* <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={handleLike}>
-          <Icon name="heart" color="white" size={35}></Icon>
-        </TouchableOpacity>
-      </View> */}
     </View>
   );
 }
@@ -49,29 +60,26 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   image: {
-    width: 390,
-    height: 450,
-    padding: 75,
-    borderRadius: 10
+    width: "100%",
+    height: 460
   },
   text: {
     marginTop: 10,
-    fontSize: 15,
+    fontSize: 16,
     textAlign: "center",
     color: "black",
     fontFamily: "Nunito-Bold"
   },
   name: {
     marginTop: 10,
-    fontSize: 30,
+    fontSize: 21,
     textAlign: "center",
     color: "black",
     fontFamily: "Nunito-Bold"
   },
   imageContainer: {
-    width: 390,
-    height: 550,
-    // borderRadius: 10,
+    width: "100%",
+    // height: 550,
     overflow: "hidden"
   }
 });

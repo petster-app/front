@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
   Text,
-  Picker,
+  Image,
   View,
   TextInput,
   Slider,
@@ -9,11 +9,12 @@ import {
   TouchableHighlight
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function FavoritesScreen(props) {
   const toggleColors = [
-    { backgroundColor: "#00CDBC", color: "white" },
-    { backgroundColor: "#ECECEC", color: "black" }
+    { display: "flex", color: "rgb(239,89,68)" },
+    { display: "none", color: "rgb(74,74,74)" }
   ];
 
   const [type, setType] = useState("");
@@ -62,7 +63,7 @@ export default function FavoritesScreen(props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Choose your animal</Text>
+      <Text style={styles.header}>Filters</Text>
 
       <View style={styles.typeContainer}>
         <Text style={styles.title}>Animal type</Text>
@@ -74,14 +75,27 @@ export default function FavoritesScreen(props) {
             ]}
             onPress={() => handleToggle("Dog")}
           >
-            <Text
-              style={[
-                styles.typeText,
-                { color: toggleColors[dogTypeColor].color }
-              ]}
-            >
-              Dog
-            </Text>
+            <Image
+              style={styles.image}
+              source={require("../assets/images/dog.png")}
+            ></Image>
+
+            <View style={styles.typeTitle}>
+              <Text
+                style={[
+                  styles.typeText,
+                  { color: toggleColors[dogTypeColor].color }
+                ]}
+              >
+                Dog
+              </Text>
+              <Icon
+                style={{ display: toggleColors[dogTypeColor].display }}
+                name="check"
+                color="rgb(239,89,68)"
+                size={20}
+              ></Icon>
+            </View>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -91,14 +105,27 @@ export default function FavoritesScreen(props) {
             ]}
             onPress={() => handleToggle("Cat")}
           >
-            <Text
-              style={[
-                styles.typeText,
-                { color: toggleColors[catTypeColor].color }
-              ]}
-            >
-              Cat
-            </Text>
+            <Image
+              style={styles.image}
+              source={require("../assets/images/cat.png")}
+            ></Image>
+
+            <View style={styles.typeTitle}>
+              <Text
+                style={[
+                  styles.typeText,
+                  { color: toggleColors[catTypeColor].color }
+                ]}
+              >
+                Cat
+              </Text>
+              <Icon
+                style={{ display: toggleColors[catTypeColor].display }}
+                name="check"
+                color="rgb(239,89,68)"
+                size={20}
+              ></Icon>
+            </View>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -108,16 +135,30 @@ export default function FavoritesScreen(props) {
             ]}
             onPress={() => handleToggle("Bunny")}
           >
-            <Text
-              style={[
-                styles.typeText,
-                {
-                  backgroundColor: toggleColors[bunnyTypeColor].backgroundColor
-                }
-              ]}
-            >
-              Bunny
-            </Text>
+            <Image
+              style={styles.image}
+              source={require("../assets/images/bunny.png")}
+            ></Image>
+
+            <View style={styles.typeTitle}>
+              <Text
+                style={[
+                  styles.typeText,
+                  {
+                    backgroundColor:
+                      toggleColors[bunnyTypeColor].backgroundColor
+                  }
+                ]}
+              >
+                Bunny
+              </Text>
+              <Icon
+                style={{ display: toggleColors[bunnyTypeColor].display }}
+                name="check"
+                color="rgb(239,89,68)"
+                size={20}
+              ></Icon>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
@@ -145,7 +186,7 @@ export default function FavoritesScreen(props) {
           onValueChange={handleSlider}
           value={travelDistance}
           style={styles.slider}
-          minimumTrackTintColor="#00CDBC"
+          minimumTrackTintColor="rgb(239,89,68)"
         />
       </View>
 
@@ -177,14 +218,19 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginBottom: "10%"
   },
+  typeTitle: {
+    flexDirection: "row"
+  },
   distanceContainer: {
     width: "100%"
   },
   distance: {
-    color: "#00CDBC"
+    color: "rgb(239,89,68)"
   },
   typeText: {
-    justifyContent: "center"
+    justifyContent: "center",
+    marginTop: 5,
+    fontSize: 16
   },
   slider: {
     width: "100%"
@@ -198,21 +244,24 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     borderRadius: 40,
     width: 90,
-    height: 40,
+    height: 120,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    color: "rgb(74,74,74)"
   },
   title: {
-    color: "gray",
+    color: "rgb(74,74,74)",
     fontSize: 20,
     alignSelf: "flex-start",
-    marginBottom: "5%"
+    textAlign: "left",
+    marginBottom: "5%",
+    fontSize: 16
   },
   submit: {
     textAlign: "center",
     fontFamily: "Nunito-Bold",
     color: "white",
-    fontSize: 20
+    fontSize: 14
   },
   zipCodeContainer: {
     width: "100%"
@@ -220,18 +269,22 @@ const styles = StyleSheet.create({
   typeContainer: {
     width: "100%"
   },
+  image: {
+    width: 50,
+    height: 60
+  },
   input: {
-    fontSize: 20,
-    borderBottomColor: "gray",
+    fontSize: 16,
+    borderBottomColor: "rgb(74,74,74)",
     borderBottomWidth: 1,
-    textAlign: "center",
+    textAlign: "left",
     fontFamily: "Nunito"
   },
   buttonContainer: {
     marginBottom: "10%"
   },
   button: {
-    backgroundColor: "#00CDBC",
+    backgroundColor: "rgb(239,89,68)",
     borderRadius: 40,
     width: 340,
     height: 50,
