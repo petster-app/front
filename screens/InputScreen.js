@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import {
   Text,
-  Image,
   View,
   TextInput,
   Slider,
   StyleSheet,
   TouchableHighlight
 } from "react-native";
+import Image from "react-native-scalable-image";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -76,6 +76,7 @@ export default function FavoritesScreen(props) {
             onPress={() => handleToggle("Dog")}
           >
             <Image
+              height={70}
               style={styles.image}
               source={require("../assets/images/dog.png")}
             ></Image>
@@ -90,7 +91,12 @@ export default function FavoritesScreen(props) {
                 Dog
               </Text>
               <Icon
-                style={{ display: toggleColors[dogTypeColor].display }}
+                style={[
+                  {
+                    display: toggleColors[dogTypeColor].display
+                  },
+                  styles.icon
+                ]}
                 name="check"
                 color="rgb(239,89,68)"
                 size={20}
@@ -106,6 +112,7 @@ export default function FavoritesScreen(props) {
             onPress={() => handleToggle("Cat")}
           >
             <Image
+              height={70}
               style={styles.image}
               source={require("../assets/images/cat.png")}
             ></Image>
@@ -120,7 +127,10 @@ export default function FavoritesScreen(props) {
                 Cat
               </Text>
               <Icon
-                style={{ display: toggleColors[catTypeColor].display }}
+                style={[
+                  { display: toggleColors[catTypeColor].display },
+                  styles.icon
+                ]}
                 name="check"
                 color="rgb(239,89,68)"
                 size={20}
@@ -136,7 +146,8 @@ export default function FavoritesScreen(props) {
             onPress={() => handleToggle("Bunny")}
           >
             <Image
-              style={styles.image}
+              height={70}
+              style={[styles.image]}
               source={require("../assets/images/bunny.png")}
             ></Image>
 
@@ -153,7 +164,10 @@ export default function FavoritesScreen(props) {
                 Bunny
               </Text>
               <Icon
-                style={{ display: toggleColors[bunnyTypeColor].display }}
+                style={[
+                  { display: toggleColors[bunnyTypeColor].display },
+                  styles.icon
+                ]}
                 name="check"
                 color="rgb(239,89,68)"
                 size={20}
@@ -192,7 +206,7 @@ export default function FavoritesScreen(props) {
 
       <View style={styles.buttonContainer}>
         <TouchableHighlight style={styles.button} onPress={handleSubmit}>
-          <Text style={styles.submit}>FIND YOUR MATCH</Text>
+          <Text style={styles.submit}>SAVE FILTERS</Text>
         </TouchableHighlight>
       </View>
     </View>
@@ -211,7 +225,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     alignSelf: "center",
-    color: "gray",
     fontFamily: "Nunito",
     width: "80%"
   },
@@ -227,10 +240,15 @@ const styles = StyleSheet.create({
   distance: {
     color: "rgb(239,89,68)"
   },
+  icon: {
+    marginLeft: 5,
+    alignSelf: "center"
+  },
   typeText: {
     justifyContent: "center",
     marginTop: 5,
-    fontSize: 16
+    fontSize: 16,
+    color: "rgb(74,74,74)"
   },
   slider: {
     width: "100%"
@@ -251,7 +269,6 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "rgb(74,74,74)",
-    fontSize: 20,
     alignSelf: "flex-start",
     textAlign: "left",
     marginBottom: "5%",
@@ -275,10 +292,11 @@ const styles = StyleSheet.create({
   },
   input: {
     fontSize: 16,
-    borderBottomColor: "rgb(74,74,74)",
+    borderBottomColor: "rgb(193, 193, 193)",
     borderBottomWidth: 1,
     textAlign: "left",
-    fontFamily: "Nunito"
+    fontFamily: "Nunito",
+    color: "rgb(74, 74, 74)"
   },
   buttonContainer: {
     marginBottom: "10%"

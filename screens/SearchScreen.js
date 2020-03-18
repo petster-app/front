@@ -10,11 +10,12 @@ import {
 import GestureRecognizer from "react-native-swipe-gestures";
 import PetProfile from "../components/PetProfile";
 import { connect } from "react-redux";
-import heart from "../assets/images/heart.png";
 import favoriteActions from "../store/actions/favorites";
 import PropTypes from "prop-types";
 import firebase from "../components/firebase";
 import Icon from "react-native-vector-icons/FontAwesome";
+import Navigation from "../components/Navigation";
+import { Dimensions } from "react-native";
 
 const InputScreen = props => {
   const user = firebase.getCurrentUsername();
@@ -94,23 +95,34 @@ const InputScreen = props => {
         {tempData.length ? (
           <>
             {/* <View style={styles.container}> */}
-            <View style={styles.headerContainer}>
-              <View style={styles.headerTitle}>
-                <Icon name="paw" color="rgb(239,89,68)" size={40}></Icon>
-                <Text style={[styles.text, styles.headerText]}>PETSTER</Text>
-              </View>
-            </View>
+            <Navigation />
 
             <View
               style={{
                 backgroundColor: "white",
                 borderRadius: 20,
-                overflow: "hidden",
+                shadowColor: "rgb(74,74,74)",
+                shadowOpacity: 0.5,
+                shadowRadius: 5,
+                shadowOffset: {
+                  height: 0.5,
+                  width: 0.5
+                },
                 width: 375,
-                zIndex: 1
+                zIndex: 2
               }}
             >
               <GestureRecognizer
+                // style={{
+                //   width: "100%",
+                //   shadowColor: "rgb(74,74,74)",
+                //   shadowOpacity: 0.8,
+                //   shadowRadius: 2,
+                //   shadowOffset: {
+                //     height: 1,
+                //     width: 1
+                //   }
+                // }}
                 onSwipeLeft={onSwipeLeft}
                 onSwipeRight={onSwipeRight}
                 onSwipeDown={handleDislike}
@@ -118,14 +130,33 @@ const InputScreen = props => {
                 <PetProfile pet={tempData[currentPet]} />
               </GestureRecognizer>
             </View>
+
+            <View
+              style={{
+                width: 360,
+                height: 100,
+                backgroundColor: "white",
+                borderRadius: 10,
+                zIndex: 1,
+                position: "absolute",
+                top: 605,
+                shadowColor: "rgb(74,74,74)",
+                shadowOpacity: 0.5,
+                shadowRadius: 1,
+                shadowOffset: {
+                  height: 0.5,
+                  width: 0.5
+                }
+              }}
+            ></View>
             <View
               style={[
                 styles.buttonContainer,
                 {
-                  zIndex: 2,
+                  zIndex: 3,
                   position: "absolute",
                   left: 300,
-                  bottom: 0
+                  bottom: 75
                 }
               ]}
             >
@@ -136,16 +167,18 @@ const InputScreen = props => {
             {/* </View> */}
           </>
         ) : (
-          <View>
-            <Text style={[styles.text, styles.loading]}>Loading Pets</Text>
-            <ActivityIndicator size="large" color="black" />
+          <View
+            style={{
+              justifyContent: "center",
+              alignContent: "center",
+              width: Dimensions.get("window").width,
+              height: Dimensions.get("window").height / 1.2
+            }}
+          >
+            <Text style={styles.loading}>Loading Pets</Text>
+            <ActivityIndicator size="large" color="rgb(239,89,68)" />
           </View>
         )}
-        {/* {liked && (
-            <Image class="heart" source={heart} width="64" height="64" />
-          )} */}
-        {/* </GestureRecognizer> */}
-        {/* </View> */}
       </View>
     </>
   );
@@ -162,14 +195,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "Nunito-Bold"
   },
-  headerContainer: {
-    padding: 20,
+  navContainer: {
+    paddingBottom: 20,
     zIndex: 3
   },
   container: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgb(248,248,248)"
   },
@@ -181,7 +213,10 @@ const styles = StyleSheet.create({
 
   loading: {
     fontSize: 30,
-    margin: 10
+    margin: 10,
+    color: "rgb(74,74,74)",
+    fontFamily: "Nunito",
+    textAlign: "center"
   },
   button: {
     backgroundColor: "rgb(239,89,68)",

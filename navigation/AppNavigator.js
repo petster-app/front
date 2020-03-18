@@ -14,9 +14,24 @@ import HomeScreen from "../screens/HomeScreen";
 import TabNavigator from "./TabNavigator";
 
 const AppNavigator = createStackNavigator({
-  MyAccountScreen: MyAccountScreen,
-  InputScreen: InputScreen,
-  SearchScreen: SearchScreen,
+  MyAccountScreen: {
+    screen: MyAccountScreen,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+    })
+  },
+  InputScreen: {
+    screen: InputScreen,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+    })
+  },
+  SearchScreen: {
+    screen: SearchScreen,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+    })
+  },
   PetDetails: {
     screen: PetDetails,
     navigationOptions: ({ navigation }) => ({
@@ -32,7 +47,7 @@ const AuthStack = createStackNavigator({
 });
 
 const HomeStack = createStackNavigator({
-  Tab: { screen: TabNavigator },
+  // Tab: { screen: TabNavigator },
   App: { screen: AppNavigator }
 });
 

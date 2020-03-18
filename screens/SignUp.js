@@ -14,6 +14,7 @@ export default function SignUp(props) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [zipCode, setZipCode] = useState("");
   const [password, setPassword] = useState("");
   const [inputComplete, setInputComplete] = useState(false);
   const [buttonColor, setButtonColor] = useState("rgb(202,202,202)");
@@ -62,60 +63,76 @@ export default function SignUp(props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Let's get started</Text>
       <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="First Name"
-          label="First name"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={firstName => {
-            setFirstName(firstName);
-            checkInput();
-          }}
-          value={firstName}
-        />
-      </View>
+        <Text style={styles.header}>Let's get started</Text>
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Last name"
-          label="First name"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={lastName => {
-            setLastName(lastName);
-            checkInput();
-          }}
-          value={lastName}
-        />
-      </View>
+        <View>
+          <TextInput
+            placeholder="First Name"
+            label="First name"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={firstName => {
+              setFirstName(firstName);
+              checkInput();
+            }}
+            value={firstName}
+          />
+        </View>
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Email address"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={email => {
-            setEmail(email);
-            checkInput();
-          }}
-          value={email}
-        />
-      </View>
+        <View>
+          <TextInput
+            placeholder="Last name"
+            label="First name"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={lastName => {
+              setLastName(lastName);
+              checkInput();
+            }}
+            value={lastName}
+          />
+        </View>
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Password (6+ characters)"
-          secureTextEntry
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={password => {
-            setPassword(password);
-            checkInput();
-          }}
-          value={password}
-        />
+        <View>
+          <TextInput
+            placeholder="Zip Code (to search for nearby pets)"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={zipCode => {
+              setZipCode(zipCode);
+              checkInput();
+            }}
+            value={zipCode}
+          />
+        </View>
+
+        <View>
+          <TextInput
+            placeholder="Email address"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={email => {
+              setEmail(email);
+              checkInput();
+            }}
+            value={email}
+          />
+        </View>
+
+        <View>
+          <TextInput
+            placeholder="Password (6+ characters)"
+            secureTextEntry
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={password => {
+              setPassword(password);
+              checkInput();
+            }}
+            value={password}
+          />
+        </View>
       </View>
 
       <View style={styles.buttonContainer}>
@@ -133,7 +150,7 @@ const styles = StyleSheet.create({
   header: {
     alignSelf: "flex-start",
     fontFamily: "Nunito-Bold",
-    fontSize: 50,
+    fontSize: 40,
     width: "80%",
     marginTop: "2.5%"
   },
@@ -148,12 +165,13 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   textInput: {
-    borderBottomColor: "gray",
+    borderBottomColor: "rgb(193, 193, 193)",
     borderBottomWidth: 1,
-    marginTop: "5%",
-    fontSize: 20,
+    marginTop: "15%",
+    fontSize: 16,
     fontFamily: "Nunito",
-    paddingBottom: 5
+    paddingBottom: 5,
+    color: "rgb(74, 74, 74)"
   },
   inputLabel: {
     alignSelf: "flex-start",
@@ -165,7 +183,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: "Nunito-Bold",
     color: "white",
-    fontSize: 15
+    fontSize: 14
   },
   buttonContainer: {
     marginBottom: "10%"

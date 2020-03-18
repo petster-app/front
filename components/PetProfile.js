@@ -17,26 +17,13 @@ export default function PetProfile(props) {
       <View style={[styles.imageContainer, { zIndex: 1 }]}>
         <Image style={styles.image} source={{ uri: props.pet.photo }} />
       </View>
-      <View
-        style={{
-          borderTopColor: "black",
-          backgroundColor: "black",
-          borderTopWidth: 10,
-          height: 10,
-          width: "100%",
-          // borderTopWidth: 10,
-          zIndex: 2,
-          position: "absolute",
-          borderRadius: 150,
-          // borderTopEndRadius: 300,
-          // borderRadius: 300,
-          bottom: 70
-        }}
-      ></View>
-      <View style={{ backgroundColor: "white" }}>
+      <View style={{}}></View>
+      <View style={{}}>
         <Text style={styles.name}>{props.pet.name}</Text>
         <View style={styles.details}>
-          <Text style={styles.text}>{props.pet.age}</Text>
+          <Text style={[styles.text, { marginRight: 40 }]}>
+            {props.pet.age}
+          </Text>
           <Text style={styles.text}>{props.pet.gender}</Text>
         </View>
       </View>
@@ -57,7 +44,8 @@ const styles = StyleSheet.create({
   },
   details: {
     flexDirection: "row",
-    justifyContent: "center"
+    justifyContent: "center",
+    paddingBottom: 30
   },
   image: {
     width: "100%",

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { Dimensions } from "react-native";
 import {
   StyleSheet,
   Text,
@@ -47,32 +48,34 @@ export default function SignIn(props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Log in</Text>
       <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textInput}
-          autoCapitalize="none"
-          placeholder="Email"
-          onChangeText={email => {
-            setEmail(email);
-            checkInput();
-          }}
-          value={email}
-        />
-      </View>
+        <Text style={styles.header}>Log in</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.textInput}
+            autoCapitalize="none"
+            placeholder="Email address"
+            onChangeText={email => {
+              setEmail(email);
+              checkInput();
+            }}
+            value={email}
+          />
+        </View>
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          secureTextEntry
-          style={styles.textInput}
-          autoCapitalize="none"
-          placeholder="Password"
-          onChangeText={password => {
-            setPassword(password);
-            checkInput();
-          }}
-          value={password}
-        />
+        <View style={styles.inputContainer}>
+          <TextInput
+            secureTextEntry
+            style={styles.textInput}
+            autoCapitalize="none"
+            placeholder="Password (6+ characters)"
+            onChangeText={password => {
+              setPassword(password);
+              checkInput();
+            }}
+            value={password}
+          />
+        </View>
       </View>
 
       <View style={styles.buttonContainer}>
@@ -92,12 +95,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     alignSelf: "center",
-    width: "80%"
+    width: "80%",
+    justifyContent: "space-between"
   },
   header: {
     alignSelf: "flex-start",
     fontFamily: "Nunito-Bold",
-    fontSize: 50,
+    fontSize: 40,
     width: "80%",
     marginBottom: 10,
     marginTop: 50
@@ -107,14 +111,6 @@ const styles = StyleSheet.create({
   },
   loginContainer: {
     margin: 15
-  },
-  headerTitle: {
-    flexDirection: "row",
-    alignItems: "center"
-  },
-  headerText: {
-    marginLeft: 10,
-    fontSize: 50
   },
   text: {
     textAlign: "center",
@@ -130,15 +126,16 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   textInput: {
-    borderBottomColor: "gray",
+    borderBottomColor: "rgb(193, 193, 193)",
     borderBottomWidth: 1,
     marginTop: 60,
     paddingBottom: 5,
-    fontSize: 20,
-    fontFamily: "Nunito"
+    fontSize: 16,
+    fontFamily: "Nunito",
+    color: "rgb(74, 74, 74)"
   },
   buttonContainer: {
-    marginTop: 380
+    marginBottom: "20%"
   },
   button: {
     borderRadius: 40,
@@ -151,6 +148,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: "Nunito-Bold",
     color: "white",
-    fontSize: 15
+    fontSize: 14
   }
 });

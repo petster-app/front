@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
+import { Dimensions } from "react-native";
+import Image from "react-native-scalable-image";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import IconOcticons from "react-native-vector-icons/Octicons";
 import SignUp from "./SignUp";
 import firebase from "../components/firebase";
 import InputScreen from "./InputScreen";
@@ -30,16 +33,16 @@ export default function HomeScreen(props) {
           <Text style={[styles.text, styles.headerText]}>PETSTER</Text>
         </View>
         <Text style={styles.bodyText}>
-          Connecting fury friends with their forever home
+          Connecting furry friends with their forever home
         </Text>
       </View>
 
       <View styles={styles.bottomContainer}>
-        <View style={{ width: "50%" }}>
+        <View style={[styles.image]}>
           <Image
-            style={styles.image}
+            width={Dimensions.get("window").width / 1.3}
             source={require("../assets/images/animals-group.png")}
-          ></Image>
+          />
         </View>
         <TouchableOpacity style={styles.button} onPress={handleSignUp}>
           <Text style={styles.signUp}>Sign Up</Text>
@@ -60,11 +63,10 @@ export default function HomeScreen(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: "space-around",
     alignItems: "center"
   },
   login: {
-    color: "rgb(239,89,68)"
+    color: "rgb(3,121,251)"
   },
   loginContainer: {
     margin: 15
@@ -84,8 +86,8 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   image: {
-    height: 200,
-    marginTop: 80
+    alignSelf: "center",
+    marginTop: 70
   },
   text: {
     textAlign: "center",
@@ -93,10 +95,10 @@ const styles = StyleSheet.create({
     fontSize: 14
   },
   bodyText: {
-    fontSize: 40,
+    fontSize: 36,
     textAlign: "left",
     fontFamily: "Nunito-Bold",
-    width: 400,
+    width: 350,
     marginTop: 30
   },
   bottomContainer: {
