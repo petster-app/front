@@ -44,17 +44,6 @@ function Navigation(props) {
             <Icon name="navicon" color="rgb(232,118,46)" size={50}></Icon>
           </TouchableOpacity>
         </View>
-
-        <Text
-          style={{
-            color: "rgb(181, 181, 181)",
-            fontSize: 16,
-            textAlign: "center",
-            marginTop: 10
-          }}
-        >
-          200 results
-        </Text>
       </View>
     </>
   );

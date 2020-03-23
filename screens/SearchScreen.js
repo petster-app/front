@@ -19,13 +19,13 @@ import { Dimensions } from "react-native";
 
 const InputScreen = props => {
   const user = firebase.getCurrentUsername();
-  const [tempData, setTempData] = useState([]);
+  const [petArray, setPetArray] = useState([]);
   const [currentPet, setCurrentPet] = useState(10);
   const [liked, setLiked] = useState(false);
   let type = props.navigation.getParam("type");
   let zipCode = props.navigation.getParam("zipCode");
   let travelDistance = props.navigation.getParam("travelDistance");
-  let data = tempData[currentPet];
+  let data = petArray[currentPet];
 
   useEffect(() => {
     let options = {
@@ -47,7 +47,7 @@ const InputScreen = props => {
         return results.json();
       })
       .then(data => {
-        setTempData(data[0]);
+        setPetArray(data[0]);
       })
       .catch(error => {
         alert("Please try again!");
@@ -60,7 +60,7 @@ const InputScreen = props => {
     if (data.userName) {
       setLiked(true);
     }
-    if (currentPet + 1 < tempData.length) {
+    if (currentPet + 1 < data.length) {
       setCurrentPet(currentPet + 1);
     }
   }
@@ -89,13 +89,28 @@ const InputScreen = props => {
     setLiked(false);
     props.deleteFavorite(data);
   }
+
+  function handleDetails() {
+    props.navigation.navigate("PetDetails", { pet: petArray[currentPet] });
+  }
+
   return (
     <>
       <View style={styles.container}>
-        {tempData.length ? (
+        {petArray.length ? (
           <>
             {/* <View style={styles.container}> */}
             <Navigation />
+            <Text
+              style={{
+                color: "rgb(181, 181, 181)",
+                fontSize: 16,
+                textAlign: "center",
+                marginBottom: 20
+              }}
+            >
+              {petArray.length} results
+            </Text>
 
             <View
               style={{
@@ -113,21 +128,12 @@ const InputScreen = props => {
               }}
             >
               <GestureRecognizer
-                // style={{
-                //   width: "100%",
-                //   shadowColor: "rgb(74,74,74)",
-                //   shadowOpacity: 0.8,
-                //   shadowRadius: 2,
-                //   shadowOffset: {
-                //     height: 1,
-                //     width: 1
-                //   }
-                // }}
                 onSwipeLeft={onSwipeLeft}
                 onSwipeRight={onSwipeRight}
                 onSwipeDown={handleDislike}
+                onSwipeUp={handleDetails}
               >
-                <PetProfile pet={tempData[currentPet]} />
+                <PetProfile pet={petArray[currentPet]} />
               </GestureRecognizer>
             </View>
 
@@ -139,7 +145,7 @@ const InputScreen = props => {
                 borderRadius: 10,
                 zIndex: 1,
                 position: "absolute",
-                top: 605,
+                top: 620,
                 shadowColor: "rgb(74,74,74)",
                 shadowOpacity: 0.5,
                 shadowRadius: 1,
@@ -156,7 +162,14 @@ const InputScreen = props => {
                   zIndex: 3,
                   position: "absolute",
                   left: 300,
-                  bottom: 75
+                  bottom: 75,
+                  shadowColor: "rgb(74,74,74)",
+                  shadowOpacity: 0.5,
+                  shadowRadius: 1,
+                  shadowOffset: {
+                    height: 0.5,
+                    width: 0.5
+                  }
                 }
               ]}
             >
@@ -176,7 +189,7 @@ const InputScreen = props => {
             }}
           >
             <Text style={styles.loading}>Loading Pets</Text>
-            <ActivityIndicator size="large" color="rgb(239,89,68)" />
+            <ActivityIndicator size="large" color="rgb(74,74,74)" />
           </View>
         )}
       </View>

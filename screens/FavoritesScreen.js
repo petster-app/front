@@ -9,7 +9,7 @@ import {
   Linking,
   TouchableHighlight
 } from "react-native";
-import PetDetails from "../components/PetDetails";
+// import PetDetails from "../components/PetDetails";
 import { connect } from "react-redux";
 import favoriteActions from "../store/actions/favorites";
 import PropTypes from "prop-types";

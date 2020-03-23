@@ -67,7 +67,8 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: "100%",
-    // height: 550,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     overflow: "hidden"
   }
 });

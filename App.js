@@ -44,8 +44,10 @@ async function loadResourcesAsync() {
       ...Ionicons.font,
       "AmaticSC-Regular": require("./assets/fonts/AmaticSC-Regular.ttf"),
       "AmaticSC-Bold": require("./assets/fonts/AmaticSC-Bold.ttf"),
-      Nunito: require("./assets/fonts/Nunito-ExtraLight.ttf"),
-      "Nunito-Bold": require("./assets/fonts/Nunito-SemiBold.ttf")
+      Nunito: require("./assets/fonts/Nunito-Regular.ttf"),
+      "Nunito-Light": require("./assets/fonts/Nunito-ExtraLight.ttf"),
+      "Nunito-Bold": require("./assets/fonts/Nunito-SemiBold.ttf"),
+      "Nunito-ExtraBold": require("./assets/fonts/Nunito-ExtraBold.ttf")
     })
   ]);
 }

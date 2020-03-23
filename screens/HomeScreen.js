@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Icon from "react-native-vector-icons/FontAwesome";
 import { Dimensions } from "react-native";
 import Image from "react-native-scalable-image";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 import IconOcticons from "react-native-vector-icons/Octicons";
 import SignUp from "./SignUp";
 import firebase from "../components/firebase";

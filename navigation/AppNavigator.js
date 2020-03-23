@@ -9,7 +9,7 @@ import InputScreen from "../screens/InputScreen";
 import SearchScreen from "../screens/SearchScreen";
 import SignUp from "../screens/SignUp";
 import MyAccountScreen from "../screens/MyAccountScreen";
-import PetDetails from "../components/PetDetails";
+import PetDetails from "../screens/PetDetails";
 import HomeScreen from "../screens/HomeScreen";
 import TabNavigator from "./TabNavigator";
 

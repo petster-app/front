@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import firebase from "../components/firebase";
-import HomeScreen from "../screens/HomeScreen";
 import Icon from "react-native-vector-icons/FontAwesome";
 import IconOcticons from "react-native-vector-icons/Octicons";
+import IconIonicons from "react-native-vector-icons/Ionicons";
+import IconMaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function SignOut(props) {
   async function handleLogout() {
@@ -40,37 +41,33 @@ export default function SignOut(props) {
 
       <View style={styles.button}>
         <View style={styles.buttonContent}>
-          <Icon
-            style={styles.icon}
-            name="paw"
-            color="rgb(239,89,68)"
-            size={20}
-          ></Icon>
+          <Icon name="heart" color="rgb(239,89,68)" size={20}></Icon>
           <Text style={styles.text}>Favorites</Text>
+          <Text></Text>
         </View>
       </View>
 
       <View style={styles.button}>
         <View style={styles.buttonContent}>
-          <Icon
-            style={styles.icon}
-            name="paw"
+          <IconIonicons
+            name="ios-notifications-outline"
             color="rgb(239,89,68)"
             size={20}
-          ></Icon>
+          ></IconIonicons>
           <Text style={styles.text}>Notifications</Text>
+          <Text></Text>
         </View>
       </View>
 
       <TouchableOpacity onPress={handleLogout} style={styles.button}>
         <View style={styles.buttonContent}>
-          <Icon
-            style={styles.icon}
-            name="paw"
+          <IconMaterialCommunityIcons
+            name="logout"
             color="rgb(239,89,68)"
             size={20}
-          ></Icon>
+          ></IconMaterialCommunityIcons>
           <Text style={styles.text}>Logout</Text>
+          <Text></Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -79,7 +76,6 @@ export default function SignOut(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgb(248,248,248)"
   },
@@ -91,13 +87,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
-  icon: {
-    alignSelf: "flex-start",
-    justifyContent: "flex-start"
-  },
   button: {
     backgroundColor: "rgb(255,255,255)",
-
     width: 340,
     height: 50,
     borderRadius: 40,
@@ -110,13 +101,12 @@ const styles = StyleSheet.create({
     color: "rgb(239,89,68)",
     fontSize: 14,
     fontFamily: "Nunito-Bold",
-    alignSelf: "center",
-    textAlign: "center"
+    justifyContent: "center",
+    alignSelf: "center"
   },
   buttonContent: {
     color: "white",
-    // alignSelf: "",
     flexDirection: "row",
-    justifyContent: "center"
+    justifyContent: "space-around"
   }
 });
