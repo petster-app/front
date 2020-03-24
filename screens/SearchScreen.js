@@ -97,55 +97,66 @@ const InputScreen = props => {
   return (
     <>
       <View style={styles.container}>
+        {/* <View style={{ width: "90%" }}> */}
         {petArray.length ? (
           <>
             {/* <View style={styles.container}> */}
+            {/* <View> */}
             <Navigation />
-            <Text
-              style={{
-                color: "rgb(181, 181, 181)",
-                fontSize: 16,
-                textAlign: "center",
-                marginBottom: 20
-              }}
-            >
-              {petArray.length} results
-            </Text>
-
-            <View
-              style={{
-                backgroundColor: "white",
-                borderRadius: 20,
-                shadowColor: "rgb(74,74,74)",
-                shadowOpacity: 0.5,
-                shadowRadius: 5,
-                shadowOffset: {
-                  height: 0.5,
-                  width: 0.5
-                },
-                width: 375,
-                zIndex: 2
-              }}
-            >
-              <GestureRecognizer
-                onSwipeLeft={onSwipeLeft}
-                onSwipeRight={onSwipeRight}
-                onSwipeDown={handleDislike}
-                onSwipeUp={handleDetails}
+            {/* <Text
+                style={{
+                  color: "rgb(181, 181, 181)",
+                  fontSize: 16,
+                  textAlign: "center"
+                }}
               >
-                <PetProfile pet={petArray[currentPet]} />
-              </GestureRecognizer>
-            </View>
+                {petArray.length} results
+              </Text>
+            </View> */}
 
             <View
               style={{
-                width: 360,
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "space-around",
+                marginTop: Dimensions.get("window").height * 0.05
+              }}
+            >
+              <View
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: 20,
+                  shadowColor: "rgb(74,74,74)",
+                  shadowOpacity: 0.5,
+                  shadowRadius: 5,
+                  shadowOffset: {
+                    height: 0.5,
+                    width: 0.5
+                  },
+                  width: 325,
+                  zIndex: 2,
+                  marginBottom: Dimensions.get("window").height * 0.1
+                }}
+              >
+                <GestureRecognizer
+                  onSwipeLeft={onSwipeLeft}
+                  onSwipeRight={onSwipeRight}
+                  onSwipeDown={handleDislike}
+                  onSwipeUp={handleDetails}
+                >
+                  <PetProfile pet={petArray[currentPet]} />
+                </GestureRecognizer>
+              </View>
+
+              {/* <View
+              style={{
+                width: 325,
                 height: 100,
                 backgroundColor: "white",
                 borderRadius: 10,
                 zIndex: 1,
                 position: "absolute",
-                top: 620,
+                top: 600,
                 shadowColor: "rgb(74,74,74)",
                 shadowOpacity: 0.5,
                 shadowRadius: 1,
@@ -154,30 +165,30 @@ const InputScreen = props => {
                   width: 0.5
                 }
               }}
-            ></View>
-            <View
-              style={[
-                styles.buttonContainer,
-                {
-                  zIndex: 3,
-                  position: "absolute",
-                  left: 300,
-                  bottom: 75,
-                  shadowColor: "rgb(74,74,74)",
-                  shadowOpacity: 0.5,
-                  shadowRadius: 1,
-                  shadowOffset: {
-                    height: 0.5,
-                    width: 0.5
+            ></View> */}
+              <View
+                style={[
+                  styles.buttonContainer,
+                  {
+                    zIndex: 3,
+                    position: "absolute",
+                    left: Dimensions.get("window").width * 0.6,
+                    bottom: Dimensions.get("window").width * 0.05,
+                    shadowColor: "rgb(74,74,74)",
+                    shadowOpacity: 0.5,
+                    shadowRadius: 1,
+                    shadowOffset: {
+                      height: 0.5,
+                      width: 0.5
+                    }
                   }
-                }
-              ]}
-            >
-              <TouchableOpacity style={styles.button} onPress={handleLike}>
-                <Icon name="heart" color="white" size={45}></Icon>
-              </TouchableOpacity>
+                ]}
+              >
+                <TouchableOpacity style={styles.button} onPress={handleLike}>
+                  <Icon name="heart" color="white" size={45}></Icon>
+                </TouchableOpacity>
+              </View>
             </View>
-            {/* </View> */}
           </>
         ) : (
           <View
@@ -193,6 +204,7 @@ const InputScreen = props => {
           </View>
         )}
       </View>
+      {/* </View> */}
     </>
   );
 };

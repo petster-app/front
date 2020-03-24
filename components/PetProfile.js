@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import {
   Text,
   View,
-  Image,
   StyleSheet,
   Button,
   Animated,
   Linking,
   TouchableHighlight,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from "react-native";
+import { Dimensions } from "react-native";
 
 export default function PetProfile(props) {
   return (
@@ -17,15 +18,11 @@ export default function PetProfile(props) {
       <View style={[styles.imageContainer, { zIndex: 1 }]}>
         <Image style={styles.image} source={{ uri: props.pet.photo }} />
       </View>
-      <View style={{}}></View>
-      <View style={{}}>
-        <Text style={styles.name}>{props.pet.name}</Text>
-        <View style={styles.details}>
-          <Text style={[styles.text, { marginRight: 40 }]}>
-            {props.pet.age}
-          </Text>
-          <Text style={styles.text}>{props.pet.gender}</Text>
-        </View>
+
+      <Text style={styles.name}>{props.pet.name}</Text>
+      <View style={styles.details}>
+        <Text style={[styles.text, { marginRight: 40 }]}>{props.pet.age}</Text>
+        <Text style={styles.text}>{props.pet.gender}</Text>
       </View>
     </View>
   );
@@ -35,7 +32,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "space-between"
   },
   signUp: {
     fontSize: 30,
@@ -49,7 +47,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 460
+    height: Dimensions.get("window").height / 2
   },
   text: {
     marginTop: 10,

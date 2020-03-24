@@ -24,7 +24,7 @@ function Navigation(props) {
             flexDirection: "row",
             alignContent: "center",
             justifyContent: "space-between",
-            width: 350
+            width: 325
           }}
         >
           <TouchableOpacity onPress={handleAccountClick}>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     fontFamily: "Nunito-Bold"
   },
   navContainer: {
-    paddingBottom: 20,
+    paddingBottom: 10,
     zIndex: 3,
     marginTop: 20
   },

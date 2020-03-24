@@ -42,8 +42,18 @@ const AppNavigator = createStackNavigator({
 
 const AuthStack = createStackNavigator({
   HomeScreen: HomeScreen,
-  SignIn: SignIn,
-  SignUp: SignUp
+  SignIn: {
+    screen: SignIn,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+    })
+  },
+  SignUp: {
+    screen: SignUp,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+    })
+  }
 });
 
 const HomeStack = createStackNavigator({

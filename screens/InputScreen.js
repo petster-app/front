@@ -63,8 +63,24 @@ export default function FavoritesScreen(props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Filters</Text>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "100%",
+          marginTop: 20
+        }}
+      >
+        <Text></Text>
+        <Text style={styles.header}>Filters</Text>
 
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate("SearchScreen")}
+        >
+          <Image width={22} source={require("../assets/images/x-icon.png")} />
+        </TouchableOpacity>
+      </View>
       <View style={styles.typeContainer}>
         <Text style={styles.title}>Animal type</Text>
         <View style={styles.typeSelector}>
@@ -216,8 +232,7 @@ export default function FavoritesScreen(props) {
 const styles = StyleSheet.create({
   header: {
     fontFamily: "Nunito-Bold",
-    fontSize: 30,
-    marginTop: "10%"
+    fontSize: 30
   },
   container: {
     flex: 1,
@@ -232,7 +247,8 @@ const styles = StyleSheet.create({
     marginBottom: "10%"
   },
   typeTitle: {
-    flexDirection: "row"
+    flexDirection: "row",
+    fontFamily: "Nunito-Light"
   },
   distanceContainer: {
     width: "100%"
@@ -248,7 +264,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 5,
     fontSize: 16,
-    color: "rgb(74,74,74)"
+    color: "rgb(74,74,74)",
+    fontFamily: "Nunito-Light"
   },
   slider: {
     width: "100%"
@@ -272,7 +289,8 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     textAlign: "left",
     marginBottom: "5%",
-    fontSize: 16
+    fontSize: 16,
+    fontFamily: "Nunito-Light"
   },
   submit: {
     textAlign: "center",

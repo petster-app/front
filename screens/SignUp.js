@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import SignIn from "./SignIn";
 import firebase from "../components/firebase";
+import ArrowIcon from "react-native-vector-icons/FontAwesome5";
 
 export default function SignUp(props) {
   const [firstName, setFirstName] = useState("");
@@ -64,6 +65,16 @@ export default function SignUp(props) {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate("HomeScreen")}
+        >
+          <ArrowIcon
+            name="arrow-left"
+            color="rgb(184,184,184)"
+            size={35}
+            style={{ marginBottom: 25, marginTop: 50 }}
+          ></ArrowIcon>
+        </TouchableOpacity>
         <Text style={styles.header}>Let's get started</Text>
 
         <View>
@@ -151,12 +162,11 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     fontFamily: "Nunito-Bold",
     fontSize: 40,
-    width: "80%",
-    marginTop: "2.5%"
+    width: "80%"
   },
   container: {
     flex: 1,
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     alignItems: "center",
     alignSelf: "center",
     width: "80%"
@@ -167,17 +177,11 @@ const styles = StyleSheet.create({
   textInput: {
     borderBottomColor: "rgb(193, 193, 193)",
     borderBottomWidth: 1,
-    marginTop: "15%",
+    marginTop: "12%",
     fontSize: 16,
-    fontFamily: "Nunito",
+    fontFamily: "Nunito-Light",
     paddingBottom: 5,
     color: "rgb(74, 74, 74)"
-  },
-  inputLabel: {
-    alignSelf: "flex-start",
-    marginTop: "3%",
-    color: "rgb(74,74,74)",
-    fontSize: 16
   },
   submit: {
     textAlign: "center",

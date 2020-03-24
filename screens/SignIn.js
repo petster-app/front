@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
+import ArrowIcon from "react-native-vector-icons/FontAwesome5";
 import { Dimensions } from "react-native";
 import {
   StyleSheet,
@@ -10,9 +11,7 @@ import {
   TouchableOpacity,
   Slider
 } from "react-native";
-import SignUp from "./SignUp";
 import firebase from "../components/firebase";
-import InputScreen from "./InputScreen";
 
 export default function SignIn(props) {
   const [email, setEmail] = useState("evanbc1@gmail.com");
@@ -49,33 +48,39 @@ export default function SignIn(props) {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate("HomeScreen")}
+        >
+          <ArrowIcon
+            name="arrow-left"
+            color="rgb(184,184,184)"
+            size={35}
+            style={{ marginBottom: 25, marginTop: 50 }}
+          ></ArrowIcon>
+        </TouchableOpacity>
         <Text style={styles.header}>Log in</Text>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.textInput}
-            autoCapitalize="none"
-            placeholder="Email address"
-            onChangeText={email => {
-              setEmail(email);
-              checkInput();
-            }}
-            value={email}
-          />
-        </View>
+        <TextInput
+          style={styles.textInput}
+          autoCapitalize="none"
+          placeholder="Email address"
+          onChangeText={email => {
+            setEmail(email);
+            checkInput();
+          }}
+          value={email}
+        />
 
-        <View style={styles.inputContainer}>
-          <TextInput
-            secureTextEntry
-            style={styles.textInput}
-            autoCapitalize="none"
-            placeholder="Password (6+ characters)"
-            onChangeText={password => {
-              setPassword(password);
-              checkInput();
-            }}
-            value={password}
-          />
-        </View>
+        <TextInput
+          secureTextEntry
+          style={styles.textInput}
+          autoCapitalize="none"
+          placeholder="Password (6+ characters)"
+          onChangeText={password => {
+            setPassword(password);
+            checkInput();
+          }}
+          value={password}
+        />
       </View>
 
       <View style={styles.buttonContainer}>
@@ -103,8 +108,7 @@ const styles = StyleSheet.create({
     fontFamily: "Nunito-Bold",
     fontSize: 40,
     width: "80%",
-    marginBottom: 10,
-    marginTop: 50
+    marginBottom: 10
   },
   login: {
     color: "#00CDBC"
@@ -131,11 +135,11 @@ const styles = StyleSheet.create({
     marginTop: 60,
     paddingBottom: 5,
     fontSize: 16,
-    fontFamily: "Nunito",
+    fontFamily: "Nunito-Light",
     color: "rgb(74, 74, 74)"
   },
   buttonContainer: {
-    marginBottom: "20%"
+    marginBottom: "10%"
   },
   button: {
     borderRadius: 40,
