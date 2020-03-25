@@ -9,16 +9,38 @@ import InputScreen from "../screens/InputScreen";
 import SearchScreen from "../screens/SearchScreen";
 import SignUp from "../screens/SignUp";
 import MyAccountScreen from "../screens/MyAccountScreen";
-import PetDetails from "../components/PetDetails";
+import PetDetails from "../screens/PetDetails";
 import HomeScreen from "../screens/HomeScreen";
+import FavoritesScreen from "../screens/FavoritesScreen";
 import TabNavigator from "./TabNavigator";
 
 const AppNavigator = createStackNavigator({
-  MyAccountScreen: MyAccountScreen,
-  InputScreen: InputScreen,
-  SearchScreen: SearchScreen,
+  MyAccountScreen: {
+    screen: MyAccountScreen,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+    })
+  },
+  InputScreen: {
+    screen: InputScreen,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+    })
+  },
+  SearchScreen: {
+    screen: SearchScreen,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+    })
+  },
   PetDetails: {
     screen: PetDetails,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+    })
+  },
+  FavoritesScreen: {
+    screen: FavoritesScreen,
     navigationOptions: ({ navigation }) => ({
       header: null
     })
@@ -33,11 +55,16 @@ const AuthStack = createStackNavigator({
       header: null
     })
   },
-  SignUp: SignUp
+  SignUp: {
+    screen: SignUp,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+    })
+  }
 });
 
 const HomeStack = createStackNavigator({
-  Tab: { screen: TabNavigator },
+  // Tab: { screen: TabNavigator },
   App: { screen: AppNavigator }
 });
 

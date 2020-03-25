@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
+import ArrowIcon from "react-native-vector-icons/FontAwesome5";
+import { Dimensions } from "react-native";
 import {
   StyleSheet,
   Text,
@@ -9,13 +11,29 @@ import {
   TouchableOpacity,
   Slider
 } from "react-native";
-import SignUp from "./SignUp";
 import firebase from "../components/firebase";
-import InputScreen from "./InputScreen";
 
 export default function SignIn(props) {
   const [email, setEmail] = useState("evanbc1@gmail.com");
   const [password, setPassword] = useState("1234Asdf");
+  const [inputComplete, setInputComplete] = useState(false);
+  const [buttonColor, setButtonColor] = useState("rgb(202,202,202)");
+
+  useEffect(() => {
+    if (inputComplete) {
+      setButtonColor("rgb(239,89,68)");
+    } else {
+      setButtonColor("rgb(202,202,202)");
+    }
+  }, [inputComplete]);
+
+  function checkInput() {
+    if (email.length && password.length) {
+      setInputComplete(true);
+    } else {
+      setInputComplete(false);
+    }
+  }
 
   async function handleLogin() {
     try {
@@ -29,24 +47,48 @@ export default function SignIn(props) {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.textInput}
-        autoCapitalize="none"
-        placeholder="Email"
-        onChangeText={email => setEmail(email)}
-        value={email}
-      />
-      <TextInput
-        secureTextEntry
-        style={styles.textInput}
-        autoCapitalize="none"
-        placeholder="Password"
-        onChangeText={password => setPassword(password)}
-        value={password}
-      />
-      <View>
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.signUp}>Sign In</Text>
+      <View style={styles.inputContainer}>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate("HomeScreen")}
+        >
+          <ArrowIcon
+            name="arrow-left"
+            color="rgb(184,184,184)"
+            size={35}
+            style={{ marginBottom: 25, marginTop: 50 }}
+          ></ArrowIcon>
+        </TouchableOpacity>
+        <Text style={styles.header}>Log in</Text>
+        <TextInput
+          style={styles.textInput}
+          autoCapitalize="none"
+          placeholder="Email address"
+          onChangeText={email => {
+            setEmail(email);
+            checkInput();
+          }}
+          value={email}
+        />
+
+        <TextInput
+          secureTextEntry
+          style={styles.textInput}
+          autoCapitalize="none"
+          placeholder="Password (6+ characters)"
+          onChangeText={password => {
+            setPassword(password);
+            checkInput();
+          }}
+          value={password}
+        />
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: buttonColor }]}
+          onPress={handleLogin}
+        >
+          <Text style={styles.submit}>GET STARTED</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -57,21 +99,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
+    alignSelf: "center",
+    width: "80%",
+    justifyContent: "space-between"
+  },
+  header: {
+    alignSelf: "flex-start",
+    fontFamily: "Nunito-Bold",
+    fontSize: 40,
+    width: "80%",
+    marginBottom: 10
   },
   login: {
     color: "#00CDBC"
   },
   loginContainer: {
     margin: 15
-  },
-  headerTitle: {
-    flexDirection: "row",
-    alignItems: "center"
-  },
-  headerText: {
-    marginLeft: 10,
-    fontSize: 50
   },
   text: {
     textAlign: "center",
@@ -83,25 +126,32 @@ const styles = StyleSheet.create({
     fontFamily: "Nunito",
     width: 300
   },
+  inputContainer: {
+    width: "100%"
+  },
   textInput: {
-    height: 30,
-    width: "90%",
-    borderColor: "white",
-    borderWidth: 1,
-    marginTop: 8,
-    textAlign: "center"
+    borderBottomColor: "rgb(193, 193, 193)",
+    borderBottomWidth: 1,
+    marginTop: 60,
+    paddingBottom: 5,
+    fontSize: 16,
+    fontFamily: "Nunito-Light",
+    color: "rgb(74, 74, 74)"
+  },
+  buttonContainer: {
+    marginBottom: "10%"
   },
   button: {
-    backgroundColor: "#00CDBC",
     borderRadius: 40,
-    width: 310,
+    width: 340,
     height: 50,
     justifyContent: "center",
-    alignItems: "center"
+    alignContent: "center"
   },
-  signUp: {
-    fontSize: 30,
+  submit: {
+    textAlign: "center",
     fontFamily: "Nunito-Bold",
-    color: "white"
+    color: "white",
+    fontSize: 14
   }
 });

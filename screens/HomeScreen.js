@@ -1,14 +1,9 @@
 import React, { useState } from "react";
+import { Dimensions } from "react-native";
+import Image from "react-native-scalable-image";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Button,
-  TouchableOpacity,
-  Slider
-} from "react-native";
+import IconOcticons from "react-native-vector-icons/Octicons";
 import SignUp from "./SignUp";
 import firebase from "../components/firebase";
 import InputScreen from "./InputScreen";
@@ -29,15 +24,26 @@ export default function HomeScreen(props) {
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerTitle}>
-          <Icon name="paw" color="#00CDBC" size={40}></Icon>
+          <Icon
+            style={{ justifyContent: "center" }}
+            name="paw"
+            color="rgb(239,89,68)"
+            size={30}
+          ></Icon>
           <Text style={[styles.text, styles.headerText]}>PETSTER</Text>
         </View>
         <Text style={styles.bodyText}>
-          Connecting fury friends with their forever home.
+          Connecting furry friends with their forever home
         </Text>
       </View>
 
-      <View>
+      <View styles={styles.bottomContainer}>
+        <View style={[styles.image]}>
+          <Image
+            width={Dimensions.get("window").width / 1.3}
+            source={require("../assets/images/animals-group.png")}
+          />
+        </View>
         <TouchableOpacity style={styles.button} onPress={handleSignUp}>
           <Text style={styles.signUp}>Sign Up</Text>
         </TouchableOpacity>
@@ -57,52 +63,62 @@ export default function HomeScreen(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-around",
     alignItems: "center"
   },
   login: {
-    color: "#00CDBC"
+    color: "rgb(3,121,251)"
   },
   loginContainer: {
     margin: 15
   },
+  header: {
+    width: "80%",
+    marginTop: 20
+  },
   headerTitle: {
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "flex-start"
   },
   headerText: {
     marginLeft: 10,
-    fontSize: 50
+    fontSize: 18,
+    justifyContent: "center",
+    alignSelf: "center"
+  },
+  image: {
+    alignSelf: "center",
+    marginTop: 70
   },
   text: {
     textAlign: "center",
-    fontFamily: "Nunito-Bold"
+    fontFamily: "Nunito-Bold",
+    fontSize: 14
   },
   bodyText: {
-    fontSize: 20,
-    textAlign: "center",
-    fontFamily: "Nunito",
-    width: 300
+    fontSize: 36,
+    textAlign: "left",
+    fontFamily: "Nunito-Bold",
+    width: 350,
+    marginTop: 30
   },
-  textInput: {
-    height: 30,
-    width: "90%",
-    borderColor: "white",
-    borderWidth: 1,
-    marginTop: 8,
-    textAlign: "center"
+  bottomContainer: {
+    justifyContent: "center",
+    alignSelf: "center",
+    alignItems: "center"
   },
   button: {
-    backgroundColor: "#00CDBC",
+    backgroundColor: "rgb(239,89,68)",
     borderRadius: 40,
     width: 310,
     height: 50,
     justifyContent: "center",
-    alignItems: "center"
+    alignSelf: "center",
+    marginTop: 30
   },
   signUp: {
-    fontSize: 30,
+    fontSize: 18,
     fontFamily: "Nunito-Bold",
-    color: "white"
+    color: "white",
+    textAlign: "center"
   }
 });

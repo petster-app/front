@@ -10,21 +10,22 @@ import {
 import GestureRecognizer from "react-native-swipe-gestures";
 import PetProfile from "../components/PetProfile";
 import { connect } from "react-redux";
-import heart from "../assets/images/heart.png";
 import favoriteActions from "../store/actions/favorites";
 import PropTypes from "prop-types";
 import firebase from "../components/firebase";
 import Icon from "react-native-vector-icons/FontAwesome";
+import Navigation from "../components/Navigation";
+import { Dimensions } from "react-native";
 
 const InputScreen = props => {
   const user = firebase.getCurrentUsername();
-  const [tempData, setTempData] = useState([]);
+  const [petArray, setPetArray] = useState([]);
   const [currentPet, setCurrentPet] = useState(10);
   const [liked, setLiked] = useState(false);
   let type = props.navigation.getParam("type");
   let zipCode = props.navigation.getParam("zipCode");
   let travelDistance = props.navigation.getParam("travelDistance");
-  let data = tempData[currentPet];
+  let data = petArray[currentPet];
 
   useEffect(() => {
     let options = {
@@ -36,8 +37,8 @@ const InputScreen = props => {
     // fetch(
     //   `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/2020-03-03T21:06:38-00:00/100`,
     //   options
-    // )
-    //   MOCK
+    // );
+    // MOCK;
     fetch(
       `https://petster3-back-end.herokuapp.com/search/dog/98103/10/2020-03-03T21:06:38-00:00/100`,
       options
@@ -46,7 +47,7 @@ const InputScreen = props => {
         return results.json();
       })
       .then(data => {
-        setTempData(data[0]);
+        setPetArray(data[0]);
       })
       .catch(error => {
         alert("Please try again!");
@@ -59,7 +60,7 @@ const InputScreen = props => {
     if (data.userName) {
       setLiked(true);
     }
-    if (currentPet + 1 < tempData.length) {
+    if (currentPet + 1 < data.length) {
       setCurrentPet(currentPet + 1);
     }
   }
@@ -88,55 +89,122 @@ const InputScreen = props => {
     setLiked(false);
     props.deleteFavorite(data);
   }
+
+  function handleDetails() {
+    props.navigation.navigate("PetDetails", { pet: petArray[currentPet] });
+  }
+
   return (
     <>
-      {/* <View style={styles.container}> */}
-      {/* <View style={styles.headerTitle}>
-          <Icon name="paw" color="#00CDBC" size={40}></Icon>
-          <Text style={[styles.text, styles.headerText]}>PETSTER</Text>
-        </View>
-        <GestureRecognizer
-          onSwipeUp={handleLike}
-          onSwipeLeft={onSwipeLeft}
-          onSwipeRight={onSwipeRight}
-          onSwipeDown={handleDislike}
-        > */}
       <View style={styles.container}>
-        {tempData.length ? (
+        {/* <View style={{ width: "90%" }}> */}
+        {petArray.length ? (
           <>
             {/* <View style={styles.container}> */}
-            <View style={styles.headerContainer}>
-              <View style={styles.headerTitle}>
-                <Icon name="paw" color="#00CDBC" size={40}></Icon>
-                <Text style={[styles.text, styles.headerText]}>petster</Text>
+            {/* <View> */}
+            <Navigation />
+            {/* <Text
+                style={{
+                  color: "rgb(181, 181, 181)",
+                  fontSize: 16,
+                  textAlign: "center"
+                }}
+              >
+                {petArray.length} results
+              </Text>
+            </View> */}
+
+            <View
+              style={{
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "space-around",
+                marginTop: Dimensions.get("window").height * 0.05
+              }}
+            >
+              <View
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: 20,
+                  shadowColor: "rgb(74,74,74)",
+                  shadowOpacity: 0.5,
+                  shadowRadius: 5,
+                  shadowOffset: {
+                    height: 0.5,
+                    width: 0.5
+                  },
+                  width: 340,
+                  zIndex: 2,
+                  marginBottom: Dimensions.get("window").height * 0.1
+                }}
+              >
+                <GestureRecognizer
+                  onSwipeLeft={onSwipeLeft}
+                  onSwipeRight={onSwipeRight}
+                  onSwipeDown={handleDislike}
+                  onSwipeUp={handleDetails}
+                >
+                  <PetProfile pet={petArray[currentPet]} />
+                </GestureRecognizer>
+              </View>
+
+              {/* <View
+                style={{
+                  width: 325,
+                  height: 100,
+                  backgroundColor: "white",
+                  borderRadius: 10,
+                  zIndex: 1,
+                  position: "absolute",
+                  top: 600,
+                  shadowColor: "rgb(74,74,74)",
+                  shadowOpacity: 0.5,
+                  shadowRadius: 1,
+                  shadowOffset: {
+                    height: 0.5,
+                    width: 0.5
+                  }
+                }}
+              ></View> */}
+              <View
+                style={[
+                  styles.buttonContainer,
+                  {
+                    zIndex: 3,
+                    position: "absolute",
+                    left: Dimensions.get("window").width * 0.65,
+                    bottom: Dimensions.get("window").width * 0.055,
+                    shadowColor: "rgb(74,74,74)",
+                    shadowOpacity: 0.5,
+                    shadowRadius: 1,
+                    shadowOffset: {
+                      height: 0.5,
+                      width: 0.5
+                    }
+                  }
+                ]}
+              >
+                <TouchableOpacity style={styles.button} onPress={handleLike}>
+                  <Icon name="heart" color="white" size={45}></Icon>
+                </TouchableOpacity>
               </View>
             </View>
-            <GestureRecognizer
-              onSwipeLeft={onSwipeLeft}
-              onSwipeRight={onSwipeRight}
-              onSwipeDown={handleDislike}
-            >
-              <PetProfile pet={tempData[currentPet]} />
-            </GestureRecognizer>
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.button} onPress={handleLike}>
-                <Icon name="heart" color="white" size={35}></Icon>
-              </TouchableOpacity>
-            </View>
-            {/* </View> */}
           </>
         ) : (
-          <View>
-            <Text style={[styles.text, styles.loading]}>Loading Pets</Text>
-            <ActivityIndicator size="large" color="black" />
+          <View
+            style={{
+              justifyContent: "center",
+              alignContent: "center",
+              width: Dimensions.get("window").width,
+              height: Dimensions.get("window").height / 1.2
+            }}
+          >
+            <Text style={styles.loading}>Loading Pets</Text>
+            <ActivityIndicator size="large" color="rgb(74,74,74)" />
           </View>
         )}
-        {/* {liked && (
-            <Image class="heart" source={heart} width="64" height="64" />
-          )} */}
-        {/* </GestureRecognizer> */}
-        {/* </View> */}
       </View>
+      {/* </View> */}
     </>
   );
 };
@@ -149,17 +217,18 @@ const styles = StyleSheet.create({
   },
   headerText: {
     marginLeft: 10,
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: "Nunito-Bold"
   },
-  headerContainer: {
-    padding: 20
+  navContainer: {
+    paddingBottom: 20,
+    zIndex: 3
   },
   container: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: "rgb(248,248,248)"
   },
   text: {
     fontSize: 15,
@@ -169,13 +238,16 @@ const styles = StyleSheet.create({
 
   loading: {
     fontSize: 30,
-    margin: 10
+    margin: 10,
+    color: "rgb(74,74,74)",
+    fontFamily: "Nunito",
+    textAlign: "center"
   },
   button: {
-    backgroundColor: "#00CDBC",
-    borderRadius: 10,
-    width: 390,
-    height: 50,
+    backgroundColor: "rgb(239,89,68)",
+    borderRadius: 150,
+    width: 90,
+    height: 90,
     justifyContent: "center",
     alignItems: "center"
   },

@@ -2,33 +2,33 @@ import React, { useState } from "react";
 import {
   Text,
   View,
-  Image,
   StyleSheet,
   Button,
   Animated,
   Linking,
   TouchableHighlight,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from "react-native";
-import Icon from "react-native-vector-icons/Entypo";
+//import Image from "react-native-scalable-image";
+import { Dimensions } from "react-native";
 
 export default function PetProfile(props) {
   return (
     <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{ uri: props.pet.photo }} />
-        <Text style={styles.name}>{props.pet.name}</Text>
-        <View style={styles.details}>
-          <Text style={styles.text}>{props.pet.age}</Text>
-          <Icon name="dot-single" color="black" size={35}></Icon>
-          <Text style={styles.text}>{props.pet.primaryBreed}</Text>
-        </View>
+      <View style={[styles.imageContainer, { zIndex: 1 }]}>
+        <Image
+          // width={Dimensions.get("window").width / 1.3}
+          style={[styles.image]}
+          source={{ uri: props.pet.photo }}
+        />
       </View>
-      {/* <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={handleLike}>
-          <Icon name="heart" color="white" size={35}></Icon>
-        </TouchableOpacity>
-      </View> */}
+
+      <Text style={styles.name}>{props.pet.name}</Text>
+      <View style={styles.details}>
+        <Text style={[styles.text, { marginRight: 40 }]}>{props.pet.age}</Text>
+        <Text style={styles.text}>{props.pet.gender}</Text>
+      </View>
     </View>
   );
 }
@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "space-between"
   },
   signUp: {
     fontSize: 30,
@@ -46,32 +47,31 @@ const styles = StyleSheet.create({
   },
   details: {
     flexDirection: "row",
-    justifyContent: "center"
+    justifyContent: "center",
+    paddingBottom: 30
   },
   image: {
-    width: 390,
-    height: 450,
-    padding: 75,
-    borderRadius: 10
+    width: "100%",
+    height: Dimensions.get("window").height / 2
   },
   text: {
     marginTop: 10,
-    fontSize: 15,
+    fontSize: 16,
     textAlign: "center",
     color: "black",
     fontFamily: "Nunito-Bold"
   },
   name: {
     marginTop: 10,
-    fontSize: 30,
+    fontSize: 21,
     textAlign: "center",
     color: "black",
     fontFamily: "Nunito-Bold"
   },
   imageContainer: {
-    width: 390,
-    height: 550,
-    // borderRadius: 10,
+    width: "100%",
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     overflow: "hidden"
   }
 });

@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import {
   Text,
-  Picker,
   View,
   TextInput,
   Slider,
   StyleSheet,
   TouchableHighlight
 } from "react-native";
+import Image from "react-native-scalable-image";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function FavoritesScreen(props) {
   const toggleColors = [
-    { backgroundColor: "#00CDBC", color: "white" },
-    { backgroundColor: "#ECECEC", color: "black" }
+    { display: "flex", color: "rgb(239,89,68)" },
+    { display: "none", color: "rgb(74,74,74)" }
   ];
 
   const [type, setType] = useState("");
@@ -62,8 +63,24 @@ export default function FavoritesScreen(props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Choose your animal</Text>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "100%",
+          marginTop: 20
+        }}
+      >
+        <Text></Text>
+        <Text style={styles.header}>Filters</Text>
 
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate("SearchScreen")}
+        >
+          <Image width={22} source={require("../assets/images/x-icon.png")} />
+        </TouchableOpacity>
+      </View>
       <View style={styles.typeContainer}>
         <Text style={styles.title}>Animal type</Text>
         <View style={styles.typeSelector}>
@@ -74,14 +91,33 @@ export default function FavoritesScreen(props) {
             ]}
             onPress={() => handleToggle("Dog")}
           >
-            <Text
-              style={[
-                styles.typeText,
-                { color: toggleColors[dogTypeColor].color }
-              ]}
-            >
-              Dog
-            </Text>
+            <Image
+              height={70}
+              style={styles.image}
+              source={require("../assets/images/dog.png")}
+            ></Image>
+
+            <View style={styles.typeTitle}>
+              <Text
+                style={[
+                  styles.typeText,
+                  { color: toggleColors[dogTypeColor].color }
+                ]}
+              >
+                Dog
+              </Text>
+              <Icon
+                style={[
+                  {
+                    display: toggleColors[dogTypeColor].display
+                  },
+                  styles.icon
+                ]}
+                name="check"
+                color="rgb(239,89,68)"
+                size={20}
+              ></Icon>
+            </View>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -91,14 +127,31 @@ export default function FavoritesScreen(props) {
             ]}
             onPress={() => handleToggle("Cat")}
           >
-            <Text
-              style={[
-                styles.typeText,
-                { color: toggleColors[catTypeColor].color }
-              ]}
-            >
-              Cat
-            </Text>
+            <Image
+              height={70}
+              style={styles.image}
+              source={require("../assets/images/cat.png")}
+            ></Image>
+
+            <View style={styles.typeTitle}>
+              <Text
+                style={[
+                  styles.typeText,
+                  { color: toggleColors[catTypeColor].color }
+                ]}
+              >
+                Cat
+              </Text>
+              <Icon
+                style={[
+                  { display: toggleColors[catTypeColor].display },
+                  styles.icon
+                ]}
+                name="check"
+                color="rgb(239,89,68)"
+                size={20}
+              ></Icon>
+            </View>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -108,16 +161,34 @@ export default function FavoritesScreen(props) {
             ]}
             onPress={() => handleToggle("Bunny")}
           >
-            <Text
-              style={[
-                styles.typeText,
-                {
-                  backgroundColor: toggleColors[bunnyTypeColor].backgroundColor
-                }
-              ]}
-            >
-              Bunny
-            </Text>
+            <Image
+              height={70}
+              style={[styles.image]}
+              source={require("../assets/images/bunny.png")}
+            ></Image>
+
+            <View style={styles.typeTitle}>
+              <Text
+                style={[
+                  styles.typeText,
+                  {
+                    backgroundColor:
+                      toggleColors[bunnyTypeColor].backgroundColor
+                  }
+                ]}
+              >
+                Bunny
+              </Text>
+              <Icon
+                style={[
+                  { display: toggleColors[bunnyTypeColor].display },
+                  styles.icon
+                ]}
+                name="check"
+                color="rgb(239,89,68)"
+                size={20}
+              ></Icon>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
@@ -145,13 +216,13 @@ export default function FavoritesScreen(props) {
           onValueChange={handleSlider}
           value={travelDistance}
           style={styles.slider}
-          minimumTrackTintColor="#00CDBC"
+          minimumTrackTintColor="rgb(239,89,68)"
         />
       </View>
 
       <View style={styles.buttonContainer}>
         <TouchableHighlight style={styles.button} onPress={handleSubmit}>
-          <Text style={styles.submit}>FIND YOUR MATCH</Text>
+          <Text style={styles.submit}>SAVE FILTERS</Text>
         </TouchableHighlight>
       </View>
     </View>
@@ -161,8 +232,7 @@ export default function FavoritesScreen(props) {
 const styles = StyleSheet.create({
   header: {
     fontFamily: "Nunito-Bold",
-    fontSize: 30,
-    marginTop: "10%"
+    fontSize: 30
   },
   container: {
     flex: 1,
@@ -170,21 +240,32 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     alignSelf: "center",
-    color: "gray",
     fontFamily: "Nunito",
     width: "80%"
   },
   buttonContainer: {
     marginBottom: "10%"
   },
+  typeTitle: {
+    flexDirection: "row",
+    fontFamily: "Nunito-Light"
+  },
   distanceContainer: {
     width: "100%"
   },
   distance: {
-    color: "#00CDBC"
+    color: "rgb(239,89,68)"
+  },
+  icon: {
+    marginLeft: 5,
+    alignSelf: "center"
   },
   typeText: {
-    justifyContent: "center"
+    justifyContent: "center",
+    marginTop: 5,
+    fontSize: 16,
+    color: "rgb(74,74,74)",
+    fontFamily: "Nunito-Light"
   },
   slider: {
     width: "100%"
@@ -198,21 +279,24 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     borderRadius: 40,
     width: 90,
-    height: 40,
+    height: 120,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    color: "rgb(74,74,74)"
   },
   title: {
-    color: "gray",
-    fontSize: 20,
+    color: "rgb(74,74,74)",
     alignSelf: "flex-start",
-    marginBottom: "5%"
+    textAlign: "left",
+    marginBottom: "5%",
+    fontSize: 16,
+    fontFamily: "Nunito-Light"
   },
   submit: {
     textAlign: "center",
     fontFamily: "Nunito-Bold",
     color: "white",
-    fontSize: 20
+    fontSize: 14
   },
   zipCodeContainer: {
     width: "100%"
@@ -220,18 +304,23 @@ const styles = StyleSheet.create({
   typeContainer: {
     width: "100%"
   },
+  image: {
+    width: 50,
+    height: 60
+  },
   input: {
-    fontSize: 20,
-    borderBottomColor: "gray",
+    fontSize: 16,
+    borderBottomColor: "rgb(193, 193, 193)",
     borderBottomWidth: 1,
-    textAlign: "center",
-    fontFamily: "Nunito"
+    textAlign: "left",
+    fontFamily: "Nunito",
+    color: "rgb(74, 74, 74)"
   },
   buttonContainer: {
     marginBottom: "10%"
   },
   button: {
-    backgroundColor: "#00CDBC",
+    backgroundColor: "rgb(239,89,68)",
     borderRadius: 40,
     width: 340,
     height: 50,

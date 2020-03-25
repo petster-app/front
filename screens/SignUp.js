@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -9,12 +9,38 @@ import {
 } from "react-native";
 import SignIn from "./SignIn";
 import firebase from "../components/firebase";
+import ArrowIcon from "react-native-vector-icons/FontAwesome5";
 
 export default function SignUp(props) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [zipCode, setZipCode] = useState("");
   const [password, setPassword] = useState("");
+  const [inputComplete, setInputComplete] = useState(false);
+  const [buttonColor, setButtonColor] = useState("rgb(202,202,202)");
+
+  useEffect(() => {
+    if (inputComplete) {
+      setButtonColor("rgb(239,89,68)");
+    } else {
+      setButtonColor("rgb(202,202,202)");
+    }
+  }, [inputComplete]);
+
+  function checkInput() {
+    console.log("checkin input", firstName.length, firstName);
+    if (
+      firstName.length &&
+      lastName.length &&
+      email.length &&
+      password.length
+    ) {
+      setInputComplete(true);
+    } else {
+      setInputComplete(false);
+    }
+  }
 
   async function handleSignUp() {
     try {
@@ -38,52 +64,93 @@ export default function SignUp(props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Let's get started</Text>
       <View style={styles.inputContainer}>
-        <Text style={styles.inputLabel}>First name</Text>
-        <TextInput
-          label="First name"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={firstName => setFirstName(firstName)}
-          value={firstName}
-        />
-      </View>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate("HomeScreen")}
+        >
+          <ArrowIcon
+            name="arrow-left"
+            color="rgb(184,184,184)"
+            size={35}
+            style={{ marginBottom: 25, marginTop: 50 }}
+          ></ArrowIcon>
+        </TouchableOpacity>
+        <Text style={styles.header}>Let's get started</Text>
 
-      <View style={styles.inputContainer}>
-        <Text style={styles.inputLabel}>Last name</Text>
-        <TextInput
-          label="First name"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={lastName => setLastName(lastName)}
-          value={lastName}
-        />
-      </View>
+        <View>
+          <TextInput
+            placeholder="First Name"
+            label="First name"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={firstName => {
+              setFirstName(firstName);
+              checkInput();
+            }}
+            value={firstName}
+          />
+        </View>
 
-      <View style={styles.inputContainer}>
-        <Text style={styles.inputLabel}>Email address</Text>
-        <TextInput
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={email => setEmail(email)}
-          value={email}
-        />
-      </View>
+        <View>
+          <TextInput
+            placeholder="Last name"
+            label="First name"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={lastName => {
+              setLastName(lastName);
+              checkInput();
+            }}
+            value={lastName}
+          />
+        </View>
 
-      <View style={styles.inputContainer}>
-        <Text style={styles.inputLabel}>Password (6+ characters)</Text>
-        <TextInput
-          secureTextEntry
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={password => setPassword(password)}
-          value={password}
-        />
+        <View>
+          <TextInput
+            placeholder="Zip Code (to search for nearby pets)"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={zipCode => {
+              setZipCode(zipCode);
+              checkInput();
+            }}
+            value={zipCode}
+          />
+        </View>
+
+        <View>
+          <TextInput
+            placeholder="Email address"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={email => {
+              setEmail(email);
+              checkInput();
+            }}
+            value={email}
+          />
+        </View>
+
+        <View>
+          <TextInput
+            placeholder="Password (6+ characters)"
+            secureTextEntry
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={password => {
+              setPassword(password);
+              checkInput();
+            }}
+            value={password}
+          />
+        </View>
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: buttonColor }]}
+          onPress={handleSignUp}
+        >
           <Text style={styles.submit}>GET STARTED</Text>
         </TouchableOpacity>
       </View>
@@ -94,13 +161,12 @@ const styles = StyleSheet.create({
   header: {
     alignSelf: "flex-start",
     fontFamily: "Nunito-Bold",
-    fontSize: 50,
-    width: "80%",
-    marginTop: "2.5%"
+    fontSize: 40,
+    width: "80%"
   },
   container: {
     flex: 1,
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     alignItems: "center",
     alignSelf: "center",
     width: "80%"
@@ -109,28 +175,24 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   textInput: {
-    borderBottomColor: "gray",
+    borderBottomColor: "rgb(193, 193, 193)",
     borderBottomWidth: 1,
-    marginTop: "5%",
-    fontSize: 20,
-    fontFamily: "Nunito"
-  },
-  inputLabel: {
-    alignSelf: "flex-start",
-    marginTop: "3%",
-    color: "gray"
+    marginTop: "12%",
+    fontSize: 16,
+    fontFamily: "Nunito-Light",
+    paddingBottom: 5,
+    color: "rgb(74, 74, 74)"
   },
   submit: {
     textAlign: "center",
     fontFamily: "Nunito-Bold",
     color: "white",
-    fontSize: 20
+    fontSize: 14
   },
   buttonContainer: {
     marginBottom: "10%"
   },
   button: {
-    backgroundColor: "#00CDBC",
     borderRadius: 40,
     width: 340,
     height: 50,
