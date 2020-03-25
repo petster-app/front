@@ -3,13 +3,13 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   SafeAreaView,
   ScrollView,
   Linking,
-  TouchableHighlight
+  TouchableHighlight,
+  TouchableOpacity
 } from "react-native";
-// import PetDetails from "../components/PetDetails";
+import Image from "react-native-scalable-image";
 import { connect } from "react-redux";
 import favoriteActions from "../store/actions/favorites";
 import PropTypes from "prop-types";
@@ -32,36 +32,55 @@ const favoritesScreen = props => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View>
-          <Text style={[styles.header, styles.text]}>Favorite Pets</Text>
-          {props.favorites.map((pet, index) => (
-            <View style={styles.container} key={index}>
-              <Image style={styles.image} source={{ uri: pet.photo }} />
-              <Text style={[styles.name, styles.text]}>{pet.name}</Text>
-              <View style={styles.buttons}>
-                <Text
-                  style={[styles.link, styles.text]}
-                  onPress={() => Linking.openURL(pet.url)}
-                >
-                  ADOPT ME!
-                </Text>
-                <TouchableHighlight onPress={() => handleDetails(pet)}>
-                  <Text style={[styles.link, styles.text]}>MORE INFO</Text>
-                </TouchableHighlight>
-                <Text
-                  style={[styles.link, styles.text]}
-                  onPress={() => handleDelete(pet)}
-                >
-                  DELETE
-                </Text>
+    <>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-around",
+          alignItems: "center",
+          width: "100%",
+          marginTop: 20
+        }}
+      >
+        <Text style={{ width: 22 }}></Text>
+        <Text style={styles.header}>Favorite Pets</Text>
+
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate("MyAccountScreen")}
+        >
+          <Image width={22} source={require("../assets/images/x-icon.png")} />
+        </TouchableOpacity>
+      </View>
+      <SafeAreaView style={styles.container}>
+        <ScrollView>
+          <View>
+            {props.favorites.map((pet, index) => (
+              <View style={styles.container} key={index}>
+                <Image style={styles.image} source={{ uri: pet.photo }} />
+                <Text style={[styles.name, styles.text]}>{pet.name}</Text>
+                <View style={styles.buttons}>
+                  <Text
+                    style={[styles.link, styles.text]}
+                    onPress={() => Linking.openURL(pet.url)}
+                  >
+                    ADOPT ME!
+                  </Text>
+                  <TouchableHighlight onPress={() => handleDetails(pet)}>
+                    <Text style={[styles.link, styles.text]}>MORE INFO</Text>
+                  </TouchableHighlight>
+                  <Text
+                    style={[styles.link, styles.text]}
+                    onPress={() => handleDelete(pet)}
+                  >
+                    DELETE
+                  </Text>
+                </View>
               </View>
-            </View>
-          ))}
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+            ))}
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </>
   );
 };
 
@@ -87,7 +106,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    padding: 10
+    padding: 30
   },
   text: {
     textAlign: "center",
@@ -101,7 +120,7 @@ const styles = StyleSheet.create({
   },
   link: {
     fontFamily: "Nunito",
-    fontSize: 20,
+    fontSize: 14,
     borderRadius: 4,
     borderWidth: 0.5,
     borderColor: "#ffffff",
@@ -109,12 +128,12 @@ const styles = StyleSheet.create({
   },
   name: {
     margin: 5,
-    fontSize: 30,
+    fontSize: 20,
     fontFamily: "Nunito-Bold"
   },
   header: {
     fontFamily: "Nunito-Bold",
-    fontSize: 40,
+    fontSize: 24,
     margin: 10
   },
   image: {

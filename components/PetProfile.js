@@ -10,13 +10,18 @@ import {
   TouchableOpacity,
   Image
 } from "react-native";
+//import Image from "react-native-scalable-image";
 import { Dimensions } from "react-native";
 
 export default function PetProfile(props) {
   return (
     <View style={styles.container}>
       <View style={[styles.imageContainer, { zIndex: 1 }]}>
-        <Image style={styles.image} source={{ uri: props.pet.photo }} />
+        <Image
+          // width={Dimensions.get("window").width / 1.3}
+          style={[styles.image]}
+          source={{ uri: props.pet.photo }}
+        />
       </View>
 
       <Text style={styles.name}>{props.pet.name}</Text>

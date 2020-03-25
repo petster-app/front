@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "petster",
-    "slug": "front-end",
+    "slug": "petster-app",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": [
@@ -25,6 +25,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "",
+    "githubUrl": "https://github.com/petster-app/front"
   }
 }

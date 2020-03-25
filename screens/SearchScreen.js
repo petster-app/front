@@ -37,8 +37,8 @@ const InputScreen = props => {
     // fetch(
     //   `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/2020-03-03T21:06:38-00:00/100`,
     //   options
-    // )
-    //   MOCK
+    // );
+    // MOCK;
     fetch(
       `https://petster3-back-end.herokuapp.com/search/dog/98103/10/2020-03-03T21:06:38-00:00/100`,
       options
@@ -133,7 +133,7 @@ const InputScreen = props => {
                     height: 0.5,
                     width: 0.5
                   },
-                  width: 325,
+                  width: 340,
                   zIndex: 2,
                   marginBottom: Dimensions.get("window").height * 0.1
                 }}
@@ -149,31 +149,31 @@ const InputScreen = props => {
               </View>
 
               {/* <View
-              style={{
-                width: 325,
-                height: 100,
-                backgroundColor: "white",
-                borderRadius: 10,
-                zIndex: 1,
-                position: "absolute",
-                top: 600,
-                shadowColor: "rgb(74,74,74)",
-                shadowOpacity: 0.5,
-                shadowRadius: 1,
-                shadowOffset: {
-                  height: 0.5,
-                  width: 0.5
-                }
-              }}
-            ></View> */}
+                style={{
+                  width: 325,
+                  height: 100,
+                  backgroundColor: "white",
+                  borderRadius: 10,
+                  zIndex: 1,
+                  position: "absolute",
+                  top: 600,
+                  shadowColor: "rgb(74,74,74)",
+                  shadowOpacity: 0.5,
+                  shadowRadius: 1,
+                  shadowOffset: {
+                    height: 0.5,
+                    width: 0.5
+                  }
+                }}
+              ></View> */}
               <View
                 style={[
                   styles.buttonContainer,
                   {
                     zIndex: 3,
                     position: "absolute",
-                    left: Dimensions.get("window").width * 0.6,
-                    bottom: Dimensions.get("window").width * 0.05,
+                    left: Dimensions.get("window").width * 0.65,
+                    bottom: Dimensions.get("window").width * 0.055,
                     shadowColor: "rgb(74,74,74)",
                     shadowOpacity: 0.5,
                     shadowRadius: 1,

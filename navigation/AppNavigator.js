@@ -11,6 +11,7 @@ import SignUp from "../screens/SignUp";
 import MyAccountScreen from "../screens/MyAccountScreen";
 import PetDetails from "../screens/PetDetails";
 import HomeScreen from "../screens/HomeScreen";
+import FavoritesScreen from "../screens/FavoritesScreen";
 import TabNavigator from "./TabNavigator";
 
 const AppNavigator = createStackNavigator({
@@ -34,6 +35,12 @@ const AppNavigator = createStackNavigator({
   },
   PetDetails: {
     screen: PetDetails,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+    })
+  },
+  FavoritesScreen: {
+    screen: FavoritesScreen,
     navigationOptions: ({ navigation }) => ({
       header: null
     })
