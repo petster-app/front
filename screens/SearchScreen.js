@@ -34,15 +34,18 @@ const InputScreen = props => {
         "Content-Type": "application/json"
       }
     };
-    // fetch(
-    //   `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/2020-03-03T21:06:38-00:00/100`,
-    //   options
-    // );
-    // MOCK;
+    console.log(
+      `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/null/100`
+    );
     fetch(
-      `https://petster3-back-end.herokuapp.com/search/dog/98103/10/2020-03-03T21:06:38-00:00/100`,
+      `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/null/100`,
       options
     )
+      // MOCK;
+      // fetch(
+      //   `https://petster3-back-end.herokuapp.com/search/dog/98103/10/2020-03-03T21:06:38-00:00/100`,
+      //   options
+      // )
       .then(results => {
         return results.json();
       })
@@ -54,30 +57,24 @@ const InputScreen = props => {
       });
   }, [type, zipCode, travelDistance]);
 
-  function onSwipeLeft() {
-    console.log("you swiped left");
-    setLiked(false);
-    if (data.userName) {
-      setLiked(true);
-    }
-    if (currentPet + 1 < data.length) {
-      setCurrentPet(currentPet + 1);
-    }
-  }
+  // function onSwipeLeft() {
+  //   console.log("you swiped left");
+  //   setLiked(false);
+  //   if (data.userName) {
+  //     setLiked(true);
+  //   }
+  //   if (currentPet + 1 < data.length) {
+  //     setCurrentPet(currentPet + 1);
+  //   }
+  // }
 
   function onSwipeRight() {
-    console.log("you swiped right");
-    setLiked(false);
-    if (data.userName) {
-      setLiked(true);
-    }
     if (currentPet > 0) {
       setCurrentPet(currentPet - 1);
     }
   }
 
   function handleLike() {
-    console.log("you swiped up");
     data.userName = user;
     props.addFavorite(data);
     console.log(data);
@@ -85,7 +82,6 @@ const InputScreen = props => {
   }
 
   function handleDislike() {
-    console.log("you swiped down");
     setLiked(false);
     props.deleteFavorite(data);
   }
@@ -139,7 +135,6 @@ const InputScreen = props => {
                 }}
               >
                 <GestureRecognizer
-                  onSwipeLeft={onSwipeLeft}
                   onSwipeRight={onSwipeRight}
                   onSwipeDown={handleDislike}
                   onSwipeUp={handleDetails}

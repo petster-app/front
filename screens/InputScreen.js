@@ -18,24 +18,26 @@ export default function FavoritesScreen(props) {
   ];
 
   const [type, setType] = useState("");
-  const [zipCode, setZipCode] = useState("98103");
+  const [zipCode, setZipCode] = useState("");
   const [travelDistance, setTravelDistance] = useState(5);
   const [dogTypeColor, setDogTypeColor] = useState(1);
   const [catTypeColor, setCatTypeColor] = useState(1);
-  const [bunnyTypeColor, setBunnyTypeColor] = useState(1);
+  const [rabbitTypeColor, setRabbitTypeColor] = useState(1);
   const [selected, setSelected] = useState([]);
 
   function handleSubmit() {
     let regex = /^\d{5}$/;
-
-    if (regex.test(zipCode)) {
+    console.log(type, zipCode);
+    if (!regex.test(zipCode)) {
+      alert(`Please Enter A Valid Zip Code`);
+    } else if (type === "") {
+      alert(`Please Select An Animal`);
+    } else {
       props.navigation.navigate("SearchScreen", {
         type: type,
         zipCode: zipCode,
         travelDistance: travelDistance
       });
-    } else {
-      alert(`Please Enter A Valid Zip Code`);
     }
   }
 
@@ -76,7 +78,7 @@ export default function FavoritesScreen(props) {
         <Text style={styles.header}>Filters</Text>
 
         <TouchableOpacity
-          onPress={() => props.navigation.navigate("SearchScreen")}
+          onPress={() => props.navigation.navigate("MyAccountScreen")}
         >
           <Image width={22} source={require("../assets/images/x-icon.png")} />
         </TouchableOpacity>
@@ -157,9 +159,9 @@ export default function FavoritesScreen(props) {
           <TouchableOpacity
             style={[
               styles.type,
-              { backgroundColor: toggleColors[bunnyTypeColor].backgroundColor }
+              { backgroundColor: toggleColors[rabbitTypeColor].backgroundColor }
             ]}
-            onPress={() => handleToggle("Bunny")}
+            onPress={() => handleToggle("Rabbit")}
           >
             <Image
               height={70}
@@ -173,15 +175,15 @@ export default function FavoritesScreen(props) {
                   styles.typeText,
                   {
                     backgroundColor:
-                      toggleColors[bunnyTypeColor].backgroundColor
+                      toggleColors[rabbitTypeColor].backgroundColor
                   }
                 ]}
               >
-                Bunny
+                Rabbit
               </Text>
               <Icon
                 style={[
-                  { display: toggleColors[bunnyTypeColor].display },
+                  { display: toggleColors[rabbitTypeColor].display },
                   styles.icon
                 ]}
                 name="check"

@@ -14,7 +14,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function PetProfile(props) {
   const pet = props.navigation.state.params.pet;
-  console.log(pet.description, pet.name);
+
   return (
     <>
       <View style={styles.container}>
@@ -156,7 +156,7 @@ export default function PetProfile(props) {
                   <View style={{ flexDirection: "row" }}>
                     <View style={{ flexDirection: "column" }}>
                       <Text style={styles.aboutText}>Size</Text>
-                      <Text style={styles.aboutText}>Fur</Text>
+
                       <Text style={styles.aboutText}>Color</Text>
                     </View>
 
@@ -164,18 +164,13 @@ export default function PetProfile(props) {
                       <Text
                         style={[styles.aboutText, { fontFamily: "Nunito" }]}
                       >
-                        {pet.size}
+                        {pet.size ? pet.size : "N/A"}
                       </Text>
 
                       <Text
                         style={[styles.aboutText, { fontFamily: "Nunito" }]}
                       >
-                        TBD - change
-                      </Text>
-                      <Text
-                        style={[styles.aboutText, { fontFamily: "Nunito" }]}
-                      >
-                        TBD - change
+                        {pet.color ? pet.color : "N/A"}
                       </Text>
                     </View>
                   </View>
@@ -187,10 +182,14 @@ export default function PetProfile(props) {
                       HEALTH
                     </Text>
                     <Text style={[styles.aboutText, { fontFamily: "Nunito" }]}>
-                      TBD - change
+                      {pet.spayedNeutered
+                        ? "Spayed / Neutered"
+                        : "Not Spayed / Neutered"}
                     </Text>
                     <Text style={[styles.aboutText, { fontFamily: "Nunito" }]}>
-                      TBD - change
+                      {pet.shotsCurrent
+                        ? "Vaccinations up to date"
+                        : "Vaccinations not up to date"}
                     </Text>
                   </View>
 
@@ -201,13 +200,19 @@ export default function PetProfile(props) {
                       BEHAVIORAL CHARACTERISTICS
                     </Text>
                     <Text style={[styles.aboutText, { fontFamily: "Nunito" }]}>
-                      TBD - change
+                      {pet.houseTrained
+                        ? "House - Trained"
+                        : "Not House - Trained"}
                     </Text>
                     <Text style={[styles.aboutText, { fontFamily: "Nunito" }]}>
-                      TBD - change
+                      {pet.goodWithKids
+                        ? "Good with kids"
+                        : "Not good with kids"}
                     </Text>
                     <Text style={[styles.aboutText, { fontFamily: "Nunito" }]}>
-                      TBD - change
+                      {pet.goodWithDogs
+                        ? "Good with other dogs"
+                        : "Not good with other dogs"}
                     </Text>
                   </View>
                 </View>

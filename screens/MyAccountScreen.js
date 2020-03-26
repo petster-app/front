@@ -9,7 +9,6 @@ import IconMaterialCommunityIcons from "react-native-vector-icons/MaterialCommun
 
 export default function SignOut(props) {
   async function handleLogout() {
-    console.log("logged out");
     await firebase.logout();
     props.navigation.navigate("HomeScreen");
   }
@@ -32,7 +31,7 @@ export default function SignOut(props) {
           size={50}
         ></IconOcticons>
         <TouchableOpacity
-          onPress={() => props.navigation.navigate("SearchScreen")}
+          onPress={() => props.navigation.navigate("InputScreen")}
         >
           <ArrowIcon
             name="arrow-right"
@@ -41,6 +40,7 @@ export default function SignOut(props) {
           ></ArrowIcon>
         </TouchableOpacity>
       </View>
+
       <View style={styles.paw}>
         <Icon name="paw" color="rgb(239,89,68)" size={50}></Icon>
       </View>
