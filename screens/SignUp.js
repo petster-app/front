@@ -29,7 +29,6 @@ export default function SignUp(props) {
   }, [inputComplete]);
 
   function checkInput() {
-    console.log("checkin input", firstName.length, firstName);
     if (
       firstName.length &&
       lastName.length &&
@@ -44,7 +43,6 @@ export default function SignUp(props) {
 
   async function handleSignUp() {
     try {
-      console.log("handle sign up", password);
       await firebase.register(name, email, password);
       const options = {
         method: "POST",

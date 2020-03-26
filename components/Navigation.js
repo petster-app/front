@@ -8,12 +8,10 @@ import { withNavigation } from "react-navigation";
 
 function Navigation(props) {
   function handleFilterClick() {
-    console.log("handle filter");
     props.navigation.navigate("InputScreen");
   }
 
   function handleAccountClick() {
-    console.log("hanlde account");
     props.navigation.navigate("MyAccountScreen");
   }
   return (
