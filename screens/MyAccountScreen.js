@@ -70,18 +70,6 @@ export default function SignOut(props) {
           </View>
         </View>
       </TouchableOpacity>
-      {/* 
-      <View style={styles.button}>
-        <View style={styles.buttonContent}>
-          <IconIonicons
-            name="ios-notifications-outline"
-            color="rgb(239,89,68)"
-            size={20}
-          ></IconIonicons>
-          <Text style={styles.text}>Notifications</Text>
-          <Text></Text>
-        </View>
-      </View> */}
 
       <TouchableOpacity onPress={handleLogout} style={styles.button}>
         <View style={styles.buttonContent}>
