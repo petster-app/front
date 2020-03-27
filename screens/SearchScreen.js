@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState
+} from "react";
 import {
   Image,
   View,
@@ -9,18 +12,22 @@ import {
 } from "react-native";
 import GestureRecognizer from "react-native-swipe-gestures";
 import PetProfile from "../components/PetProfile";
-import { connect } from "react-redux";
+import {
+  connect
+} from "react-redux";
 import favoriteActions from "../store/actions/favorites";
 import PropTypes from "prop-types";
 import firebase from "../components/firebase";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Navigation from "../components/Navigation";
-import { Dimensions } from "react-native";
+import {
+  Dimensions
+} from "react-native";
 
 const InputScreen = props => {
   const user = firebase.getCurrentUsername();
   const [petArray, setPetArray] = useState([]);
-  const [currentPet, setCurrentPet] = useState(10);
+  const [currentPet, setCurrentPet] = useState(0);
   const [liked, setLiked] = useState(false);
   let type = props.navigation.getParam("type");
   let zipCode = props.navigation.getParam("zipCode");
@@ -38,9 +45,9 @@ const InputScreen = props => {
       `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/null/100`
     );
     fetch(
-      `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/null/100`,
-      options
-    )
+        `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/null/100`,
+        options
+      )
       // MOCK;
       // fetch(
       //   `https://petster3-back-end.herokuapp.com/search/dog/98103/10/2020-03-03T21:06:38-00:00/100`,
@@ -51,26 +58,17 @@ const InputScreen = props => {
       })
       .then(data => {
         setPetArray(data[0]);
+        console.log(data[0].length, data[0][data[0].length - 1]);
       })
       .catch(error => {
         alert("Please try again!");
       });
   }, [type, zipCode, travelDistance]);
 
-  // function onSwipeLeft() {
-  //   console.log("you swiped left");
-  //   setLiked(false);
-  //   if (data.userName) {
-  //     setLiked(true);
-  //   }
-  //   if (currentPet + 1 < data.length) {
-  //     setCurrentPet(currentPet + 1);
-  //   }
-  // }
 
   function onSwipeRight() {
-    if (currentPet > 0) {
-      setCurrentPet(currentPet - 1);
+    if (currentPet < petArray.length - 1) {
+      setCurrentPet(currentPet + 1);
     }
   }
 
@@ -87,120 +85,121 @@ const InputScreen = props => {
   }
 
   function handleDetails() {
-    props.navigation.navigate("PetDetails", { pet: petArray[currentPet] });
+    props.navigation.navigate("PetDetails", {
+      pet: petArray[currentPet]
+    });
   }
 
-  return (
-    <>
-      <View style={styles.container}>
-        {/* <View style={{ width: "90%" }}> */}
-        {petArray.length ? (
-          <>
-            {/* <View style={styles.container}> */}
-            {/* <View> */}
-            <Navigation />
-            {/* <Text
-                style={{
-                  color: "rgb(181, 181, 181)",
-                  fontSize: 16,
-                  textAlign: "center"
-                }}
-              >
-                {petArray.length} results
-              </Text>
-            </View> */}
+  return ( <
+    >
+    <
+    View style = {
+      styles.container
+    } > {
+      petArray.length ? ( <
+        >
+        <
+        Navigation / >
 
-            <View
-              style={{
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "space-around",
-                marginTop: Dimensions.get("window").height * 0.05
-              }}
-            >
-              <View
-                style={{
-                  backgroundColor: "white",
-                  borderRadius: 20,
-                  shadowColor: "rgb(74,74,74)",
-                  shadowOpacity: 0.5,
-                  shadowRadius: 5,
-                  shadowOffset: {
-                    height: 0.5,
-                    width: 0.5
-                  },
-                  width: 340,
-                  zIndex: 2,
-                  marginBottom: Dimensions.get("window").height * 0.1
-                }}
-              >
-                <GestureRecognizer
-                  onSwipeRight={onSwipeRight}
-                  onSwipeDown={handleDislike}
-                  onSwipeUp={handleDetails}
-                >
-                  <PetProfile pet={petArray[currentPet]} />
-                </GestureRecognizer>
-              </View>
-
-              {/* <View
-                style={{
-                  width: 325,
-                  height: 100,
-                  backgroundColor: "white",
-                  borderRadius: 10,
-                  zIndex: 1,
-                  position: "absolute",
-                  top: 600,
-                  shadowColor: "rgb(74,74,74)",
-                  shadowOpacity: 0.5,
-                  shadowRadius: 1,
-                  shadowOffset: {
-                    height: 0.5,
-                    width: 0.5
-                  }
-                }}
-              ></View> */}
-              <View
-                style={[
-                  styles.buttonContainer,
-                  {
-                    zIndex: 3,
-                    position: "absolute",
-                    left: Dimensions.get("window").width * 0.65,
-                    bottom: Dimensions.get("window").width * 0.055,
-                    shadowColor: "rgb(74,74,74)",
-                    shadowOpacity: 0.5,
-                    shadowRadius: 1,
-                    shadowOffset: {
-                      height: 0.5,
-                      width: 0.5
-                    }
-                  }
-                ]}
-              >
-                <TouchableOpacity style={styles.button} onPress={handleLike}>
-                  <Icon name="heart" color="white" size={45}></Icon>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </>
-        ) : (
-          <View
-            style={{
-              justifyContent: "center",
-              alignContent: "center",
-              width: Dimensions.get("window").width,
-              height: Dimensions.get("window").height / 1.2
-            }}
-          >
-            <Text style={styles.loading}>Loading Pets</Text>
-            <ActivityIndicator size="large" color="rgb(74,74,74)" />
-          </View>
-        )}
-      </View>
-      {/* </View> */}
-    </>
+        <
+        View style = {
+          {
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "space-around",
+            marginTop: Dimensions.get("window").height * 0.05
+          }
+        } >
+        <
+        View style = {
+          {
+            backgroundColor: "white",
+            borderRadius: 20,
+            shadowColor: "rgb(74,74,74)",
+            shadowOpacity: 0.5,
+            shadowRadius: 5,
+            shadowOffset: {
+              height: 0.5,
+              width: 0.5
+            },
+            width: 340,
+            zIndex: 2,
+            marginBottom: Dimensions.get("window").height * 0.1
+          }
+        } >
+        <
+        GestureRecognizer onSwipeRight = {
+          onSwipeRight
+        }
+        onSwipeDown = {
+          handleDislike
+        }
+        onSwipeUp = {
+          handleDetails
+        } >
+        <
+        PetProfile pet = {
+          petArray[currentPet]
+        }
+        /> <
+        /GestureRecognizer> <
+        /View> <
+        View style = {
+          [
+            styles.buttonContainer,
+            {
+              zIndex: 3,
+              position: "absolute",
+              left: Dimensions.get("window").width * 0.65,
+              bottom: Dimensions.get("window").width * 0.055,
+              shadowColor: "rgb(74,74,74)",
+              shadowOpacity: 0.5,
+              shadowRadius: 1,
+              shadowOffset: {
+                height: 0.5,
+                width: 0.5
+              }
+            }
+          ]
+        } >
+        <
+        TouchableOpacity style = {
+          styles.button
+        }
+        onPress = {
+          handleLike
+        } >
+        <
+        Icon name = "heart"
+        color = "white"
+        size = {
+          45
+        } > < /Icon> <
+        /TouchableOpacity> <
+        /View> <
+        /View> <
+        />
+      ) : ( <
+        View style = {
+          {
+            justifyContent: "center",
+            alignContent: "center",
+            width: Dimensions.get("window").width,
+            height: Dimensions.get("window").height / 1.2
+          }
+        } >
+        <
+        Text style = {
+          styles.loading
+        } > Loading Pets < /Text> <
+        ActivityIndicator size = "large"
+        color = "rgb(74,74,74)" / >
+        <
+        /View>
+      )
+    } <
+    /View> <
+    />
   );
 };
 

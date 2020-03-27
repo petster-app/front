@@ -43,7 +43,7 @@ export default function SignUp(props) {
 
   async function handleSignUp() {
     try {
-      await firebase.register(name, email, password);
+      await firebase.register(lastName, email, password);
       const options = {
         method: "POST",
         body: JSON.stringify({ userName: email }),

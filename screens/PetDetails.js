@@ -5,7 +5,8 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  Linking
 } from "react-native";
 import Image from "react-native-scalable-image";
 import Constants from "expo-constants";
