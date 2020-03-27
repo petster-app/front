@@ -51,7 +51,7 @@ export default function HomeScreen(props) {
           <Text style={styles.text}>
             Already have an account?{" "}
             <Text onPress={handleLogin} style={styles.login}>
-              Login
+              Sign In
             </Text>
           </Text>
         </View>

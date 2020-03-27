@@ -56,9 +56,9 @@ export default function SignIn(props) {
             color="rgb(184,184,184)"
             size={35}
             style={{ marginBottom: 25, marginTop: 50 }}
-          ></ArrowIcon>
+          />
         </TouchableOpacity>
-        <Text style={styles.header}>Log in</Text>
+        <Text style={styles.header}>Sign In</Text>
         <TextInput
           style={styles.textInput}
           autoCapitalize="none"
@@ -88,7 +88,7 @@ export default function SignIn(props) {
           style={[styles.button, { backgroundColor: buttonColor }]}
           onPress={handleLogin}
         >
-          <Text style={styles.submit}>GET STARTED</Text>
+          <Text style={styles.submit}>Sign In</Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -71,7 +71,7 @@ export default function SignUp(props) {
             color="rgb(184,184,184)"
             size={35}
             style={{ marginBottom: 25, marginTop: 50 }}
-          ></ArrowIcon>
+          />
         </TouchableOpacity>
         <Text style={styles.header}>Let's get started</Text>
 
