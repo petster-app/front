@@ -14,10 +14,11 @@ import {
 import { Dimensions } from "react-native";
 
 export default function PetProfile(props) {
+  console.log(props.pet.photo, "!!!");
   return (
     <View style={styles.container}>
       <View style={[styles.imageContainer, { zIndex: 1 }]}>
-        {props.pet.photo ? (
+        {props.pet.photo !== "null" ? (
           <Image
             // width={Dimensions.get("window").width / 1.3}
             style={[styles.image]}
