@@ -10,6 +10,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import Image from "react-native-scalable-image";
+import ArrowIcon from "react-native-vector-icons/FontAwesome5";
 import { connect } from "react-redux";
 import favoriteActions from "../store/actions/favorites";
 import PropTypes from "prop-types";
@@ -20,7 +21,10 @@ const favoritesScreen = props => {
   const user = firebase.getCurrentUsername();
 
   function handleDetails(pet) {
-    props.navigation.navigate("PetDetails", { pet: pet });
+    props.navigation.navigate("PetDetails", {
+      pet: pet,
+      comingFromScreen: "favorites"
+    });
   }
 
   function handleDelete(pet) {
@@ -42,14 +46,18 @@ const favoritesScreen = props => {
           marginTop: 20
         }}
       >
-        <Text style={{ width: 22 }}></Text>
-        <Text style={styles.header}>Favorite Pets</Text>
-
         <TouchableOpacity
           onPress={() => props.navigation.navigate("MyAccountScreen")}
         >
-          <Image width={22} source={require("../assets/images/x-icon.png")} />
+          <ArrowIcon
+            name="arrow-left"
+            color="rgb(184,184,184)"
+            size={30}
+            style={{ paddingLeft: 50 }}
+          ></ArrowIcon>
         </TouchableOpacity>
+        <Text style={styles.header}>Favorite Pets</Text>
+        <Text style={{ paddingRight: 50 }}></Text>
       </View>
       <SafeAreaView style={styles.container}>
         <ScrollView>

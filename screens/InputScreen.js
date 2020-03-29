@@ -27,7 +27,6 @@ export default function FavoritesScreen(props) {
 
   function handleSubmit() {
     let regex = /^\d{5}$/;
-    console.log(type, zipCode);
     if (!regex.test(zipCode)) {
       alert(`Please Enter A Valid Zip Code`);
     } else if (type === "") {
