@@ -34,9 +34,6 @@ const InputScreen = props => {
         "Content-Type": "application/json"
       }
     };
-    console.log(
-      `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/null/100`
-    );
     fetch(
       `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/null/100`,
       options
@@ -51,7 +48,6 @@ const InputScreen = props => {
       })
       .then(data => {
         setPetArray(data[0]);
-        console.log(data[0].length, data[0][data[0].length - 1]);
       })
       .catch(error => {
         alert("Please try again!");
@@ -67,7 +63,6 @@ const InputScreen = props => {
   function handleLike() {
     data.userName = user;
     props.addFavorite(data);
-    console.log(data);
     setLiked(true);
   }
 
@@ -78,7 +73,8 @@ const InputScreen = props => {
 
   function handleDetails() {
     props.navigation.navigate("PetDetails", {
-      pet: petArray[currentPet]
+      pet: petArray[currentPet],
+      comingFromScreen: "search"
     });
   }
 

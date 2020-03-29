@@ -14,27 +14,16 @@ import {
 import { Dimensions } from "react-native";
 
 export default function PetProfile(props) {
-  console.log(props.pet.photo, "!!!");
   return (
     <View style={styles.container}>
       <View style={[styles.imageContainer, { zIndex: 1 }]}>
         {props.pet.photo !== "null" ? (
-          <Image
-            // width={Dimensions.get("window").width / 1.3}
-            style={[styles.image]}
-            source={{ uri: props.pet.photo }}
-          />
+          <Image style={[styles.image]} source={{ uri: props.pet.photo }} />
         ) : (
           <Image
-            // width={Dimensions.get("window").width / 1.3}
             style={[styles.image]}
             source={{ uri: "https://www.placecage.com/300/300" }}
           />
-          // <View style={[styles.image]}>
-          //   <Text>
-          //     Sorry I haven’t uploaded a selfie, but I promise I’m cute!
-          //   </Text>
-          // </View>
         )}
       </View>
 
