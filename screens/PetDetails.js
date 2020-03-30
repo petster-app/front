@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Linking
 } from "react-native";
+import ArrowIcon from "react-native-vector-icons/FontAwesome5";
 import Image from "react-native-scalable-image";
 import Constants from "expo-constants";
 import { Dimensions } from "react-native";
@@ -15,6 +16,15 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function PetProfile(props) {
   const pet = props.navigation.state.params.pet;
+  const comingFromScreen = props.navigation.state.params.comingFromScreen;
+
+  function handleNavigation() {
+    if (comingFromScreen === "search") {
+      props.navigation.navigate("SearchScreen");
+    } else {
+      props.navigation.navigate("FavoritesScreen");
+    }
+  }
 
   return (
     <>
@@ -22,12 +32,20 @@ export default function PetProfile(props) {
         <View
           style={{
             flexDirection: "row",
-            width: "90%",
+            width: "100%",
             alignItems: "center",
-            justifyContent: "space-between"
+            justifyContent: "space-between",
+            padding: 10
           }}
         >
-          <Text></Text>
+          <TouchableOpacity onPress={handleNavigation}>
+            <ArrowIcon
+              name="arrow-left"
+              color="rgb(184,184,184)"
+              size={30}
+              style={{ paddingLeft: 50 }}
+            ></ArrowIcon>
+          </TouchableOpacity>
           <View
             style={[styles.headerTitle, { marginTop: 20, marginBottom: 20 }]}
           >
@@ -35,11 +53,7 @@ export default function PetProfile(props) {
             <Text style={[styles.text, styles.headerText]}>PETSTER</Text>
           </View>
 
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate("SearchScreen")}
-          >
-            <Image width={22} source={require("../assets/images/x-icon.png")} />
-          </TouchableOpacity>
+          <Text style={{ paddingRight: 50 }}></Text>
         </View>
         <View>
           <SafeAreaView style={{ width: "100%" }}>
@@ -54,7 +68,7 @@ export default function PetProfile(props) {
                   justifyContent: "space-between"
                 }}
               >
-                <View style={{ flexDirection: "row" }}>
+                <View style={{ flexDirection: "row", overflow: "hidden" }}>
                   <Image
                     height={135}
                     style={styles.image}
@@ -131,7 +145,7 @@ export default function PetProfile(props) {
                       Breed
                     </Text>
                     <Text style={[styles.text, { fontFamily: "Nunito-Bold" }]}>
-                      {pet.primaryBreed}
+                      {pet.primaryBreed ? pet.primaryBreed : "N/A"}
                     </Text>
                   </View>
                 </View>
@@ -201,9 +215,7 @@ export default function PetProfile(props) {
                       BEHAVIORAL CHARACTERISTICS
                     </Text>
                     <Text style={[styles.aboutText, { fontFamily: "Nunito" }]}>
-                      {pet.houseTrained
-                        ? "House - Trained"
-                        : "Not House - Trained"}
+                      {pet.houseTrained ? "House-trained" : "Not House-trained"}
                     </Text>
                     <Text style={[styles.aboutText, { fontFamily: "Nunito" }]}>
                       {pet.goodWithKids

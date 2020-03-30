@@ -24,7 +24,15 @@ const InputScreen = props => {
   let type = props.navigation.getParam("type");
   let zipCode = props.navigation.getParam("zipCode");
   let travelDistance = props.navigation.getParam("travelDistance");
+  let date = new Date();
+  date = date.toISOString();
   let data = petArray[currentPet];
+
+  let p = '2020-03-30T18:25:47+0000'
+
+  const regex = /[.+]/g;
+
+  p = p.replace(regex, '-')
 
   useEffect(() => {
     fetchPets();
@@ -32,6 +40,12 @@ const InputScreen = props => {
 
   function fetchPets() {
     console.log('fetching pets');
+    const regex = /[.+]/g;
+    if(data) {
+      let newDate = data[data.length-1];
+      console.log(newDate)
+    }
+
     let options = {
       method: "GET",
       headers: {
@@ -39,7 +53,7 @@ const InputScreen = props => {
       }
     };
     fetch(
-      `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/null/5`,
+      `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/${date}/5`,
       options
     )
       .then(results => {
@@ -50,10 +64,9 @@ const InputScreen = props => {
           setPetArray(data[0]);
         } else {
           let morePets = petArray.concat(data[0]);
-          console.log(morePets);
+          // console.log(morePets);
           setPetArray(morePets);
         }
-        // console.log(data[0].length, data[0][data[0].length - 1]);
       })
       .catch(error => {
         alert("Please try again!");
@@ -81,7 +94,6 @@ const InputScreen = props => {
   function handleLike() {
     data.userName = user;
     props.addFavorite(data);
-    console.log(data);
     setLiked(true);
   }
 
@@ -92,7 +104,8 @@ const InputScreen = props => {
 
   function handleDetails() {
     props.navigation.navigate("PetDetails", {
-      pet: petArray[currentPet]
+      pet: petArray[currentPet],
+      comingFromScreen: "search"
     });
   }
 
