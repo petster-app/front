@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import favoriteActions from "../store/actions/favorites";
 import PropTypes from "prop-types";
 import firebase from "../components/firebase";
+import { setWorldAlignment } from "expo/build/AR";
 
 const favoritesScreen = props => {
   const [updatePage, setUpdatePage] = useState(false);
@@ -37,57 +38,63 @@ const favoritesScreen = props => {
 
   return (
     <>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-around",
-          alignItems: "center",
-          width: "100%",
-          marginTop: 20
-        }}
-      >
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate("MyAccountScreen")}
+      <View style={styles.container}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-around",
+            alignItems: "center",
+            width: "100%",
+            marginTop: 20
+          }}
         >
-          <ArrowIcon
-            name="arrow-left"
-            color="rgb(184,184,184)"
-            size={30}
-            style={{ paddingLeft: 50 }}
-          ></ArrowIcon>
-        </TouchableOpacity>
-        <Text style={styles.header}>Favorite Pets</Text>
-        <Text style={{ paddingRight: 50 }}></Text>
-      </View>
-      <SafeAreaView style={styles.container}>
-        <ScrollView>
-          <View>
-            {props.favorites.map((pet, index) => (
-              <View style={styles.container} key={index}>
-                <Image style={styles.image} source={{ uri: pet.photo }} />
-                <Text style={[styles.name, styles.text]}>{pet.name}</Text>
-                <View style={styles.buttons}>
-                  <Text
-                    style={[styles.link, styles.text]}
-                    onPress={() => Linking.openURL(pet.url)}
-                  >
-                    ADOPT ME!
-                  </Text>
-                  <TouchableHighlight onPress={() => handleDetails(pet)}>
-                    <Text style={[styles.link, styles.text]}>MORE INFO</Text>
-                  </TouchableHighlight>
-                  <Text
-                    style={[styles.link, styles.text]}
-                    onPress={() => handleDelete(pet)}
-                  >
-                    DELETE
-                  </Text>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate("MyAccountScreen")}
+          >
+            <ArrowIcon
+              name="arrow-left"
+              color="rgb(184,184,184)"
+              size={30}
+              style={{ paddingLeft: 50 }}
+            ></ArrowIcon>
+          </TouchableOpacity>
+          <Text style={styles.header}>Favorite Pets</Text>
+          <Text style={{ paddingRight: 50 }}></Text>
+        </View>
+        <SafeAreaView>
+          <ScrollView>
+            <View>
+              {props.favorites.map((pet, index) => (
+                <View style={styles.petCard}>
+                  <View style={styles.imageContainer}>
+                    <Image style={styles.image} source={{ uri: pet.photo }} />
+                    <Text style={[styles.name, styles.text]}>{pet.name}</Text>
+                    <View style={styles.buttons}>
+                      <Text
+                        style={[styles.button, styles.text]}
+                        onPress={() => Linking.openURL(pet.url)}
+                      >
+                        ADOPT ME!
+                      </Text>
+                      <TouchableHighlight onPress={() => handleDetails(pet)}>
+                        <Text style={[styles.button, styles.text]}>
+                          MORE INFO
+                        </Text>
+                      </TouchableHighlight>
+                      <Text
+                        style={[styles.button, styles.text]}
+                        onPress={() => handleDelete(pet)}
+                      >
+                        DELETE
+                      </Text>
+                    </View>
+                  </View>
                 </View>
-              </View>
-            ))}
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+              ))}
+            </View>
+          </ScrollView>
+        </SafeAreaView>
+      </View>
     </>
   );
 };
@@ -114,7 +121,21 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    padding: 30
+    padding: 30,
+    backgroundColor: "rgb(248,248,248)"
+  },
+  petCard: {
+    backgroundColor: "white",
+    borderRadius: 20,
+    shadowColor: "rgb(74,74,74)",
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    shadowOffset: {
+      height: 0.5,
+      width: 0.5
+    },
+    width: 300,
+    margin: 30
   },
   text: {
     textAlign: "center",
@@ -124,19 +145,27 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     width: 300,
-    justifyContent: "space-around"
+    padding: 10,
+    justifyContent: "space-around",
+    alignItems: "center"
   },
-  link: {
+  button: {
     fontFamily: "Nunito",
-    fontSize: 14,
-    borderRadius: 4,
-    borderWidth: 0.5,
-    borderColor: "#ffffff",
-    width: 75
+    fontSize: 12,
+    borderColor: "rgb(74,74,74)",
+    marginTop: 10,
+    marginBottom: 10,
+    paddingTop: 5,
+    paddingBottom: 5,
+    width: 85,
+    borderWidth: 0.6,
+    borderRadius: 10
   },
   name: {
-    margin: 5,
-    fontSize: 20,
+    marginTop: 10,
+    fontSize: 21,
+    textAlign: "center",
+    color: "black",
     fontFamily: "Nunito-Bold"
   },
   header: {
@@ -145,8 +174,13 @@ const styles = StyleSheet.create({
     margin: 10
   },
   image: {
-    width: 350,
-    height: 380,
-    borderRadius: 20
+    width: "100%",
+    height: 380
+  },
+  imageContainer: {
+    width: "100%",
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    overflow: "hidden"
   }
 });

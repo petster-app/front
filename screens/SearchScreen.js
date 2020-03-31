@@ -34,8 +34,12 @@ const InputScreen = props => {
         "Content-Type": "application/json"
       }
     };
+
+    console.log(
+      `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/2019-07-30T09:58:48.841Z/100`
+    );
     fetch(
-      `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/null/100`,
+      `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/2019-07-30T09:58:48.841Z/100`,
       options
     )
       // MOCK;
