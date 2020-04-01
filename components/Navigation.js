@@ -29,7 +29,7 @@ function Navigation(props) {
             <IconOcticons
               name="person"
               color="rgb(169,169,169)"
-              size={50}
+              size={40}
             ></IconOcticons>
           </TouchableOpacity>
 
@@ -39,7 +39,11 @@ function Navigation(props) {
           </View>
 
           <TouchableOpacity onPress={handleFilterClick}>
-            <Icon name="navicon" color="rgb(232,118,46)" size={50}></Icon>
+            <IconOcticons
+              name="search"
+              color="rgb(232,118,46)"
+              size={40}
+            ></IconOcticons>
           </TouchableOpacity>
         </View>
       </View>

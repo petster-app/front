@@ -8,6 +8,7 @@ import {
   TouchableHighlight
 } from "react-native";
 import Image from "react-native-scalable-image";
+import IconOcticons from "react-native-vector-icons/Octicons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -73,14 +74,17 @@ export default function FavoritesScreen(props) {
           marginTop: 20
         }}
       >
-        <Text></Text>
-        <Text style={styles.header}>Filters</Text>
-
         <TouchableOpacity
           onPress={() => props.navigation.navigate("MyAccountScreen")}
         >
-          <Image width={22} source={require("../assets/images/x-icon.png")} />
+          <IconOcticons
+            name="person"
+            color="rgb(184,184,184)"
+            size={40}
+          ></IconOcticons>
         </TouchableOpacity>
+        <Text style={styles.header}>Filters</Text>
+        <Text></Text>
       </View>
       <View style={styles.typeContainer}>
         <Text style={styles.title}>Animal type</Text>

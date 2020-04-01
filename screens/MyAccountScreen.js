@@ -33,11 +33,11 @@ export default function SignOut(props) {
         <TouchableOpacity
           onPress={() => props.navigation.navigate("InputScreen")}
         >
-          <ArrowIcon
-            name="arrow-right"
+          <IconOcticons
+            name="search"
             color="rgb(184,184,184)"
-            size={35}
-          ></ArrowIcon>
+            size={40}
+          ></IconOcticons>
         </TouchableOpacity>
       </View>
 

@@ -65,7 +65,7 @@ const favoritesScreen = props => {
           <ScrollView>
             <View>
               {props.favorites.map((pet, index) => (
-                <View style={styles.petCard}>
+                <View key={index} style={styles.petCard}>
                   <View style={styles.imageContainer}>
                     <Image style={styles.image} source={{ uri: pet.photo }} />
                     <Text style={[styles.name, styles.text]}>{pet.name}</Text>

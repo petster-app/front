@@ -54,7 +54,7 @@ export default function SignIn(props) {
           <ArrowIcon
             name="arrow-left"
             color="rgb(184,184,184)"
-            size={35}
+            size={30}
             style={{ marginBottom: 25, marginTop: 50 }}
           />
         </TouchableOpacity>
