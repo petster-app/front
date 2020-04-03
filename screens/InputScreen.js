@@ -10,6 +10,7 @@ import {
 import Image from "react-native-scalable-image";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/FontAwesome";
+import IconOcticons from "react-native-vector-icons/Octicons";
 
 export default function FavoritesScreen(props) {
   const toggleColors = [
@@ -73,13 +74,17 @@ export default function FavoritesScreen(props) {
           marginTop: 20
         }}
       >
-        <Text></Text>
         <Text style={styles.header}>Filters</Text>
 
         <TouchableOpacity
           onPress={() => props.navigation.navigate("MyAccountScreen")}
         >
-          <Image width={22} source={require("../assets/images/x-icon.png")} />
+          <IconOcticons
+            alignSelf="flex-start"
+            name="person"
+            color="rgb(239,89,68)"
+            size={35}
+          />
         </TouchableOpacity>
       </View>
       <View style={styles.typeContainer}>

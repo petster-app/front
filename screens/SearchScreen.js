@@ -49,10 +49,6 @@ const InputScreen = props => {
         "Content-Type": "application/json"
       }
     };
-
-    console.log(
-      `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/2019-07-30T09:58:48.841Z/100`
-    );
     fetch(
       `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/${date}/5`,
       options
@@ -65,12 +61,13 @@ const InputScreen = props => {
           setPetArray(data[0]);
         } else {
           let morePets = petArray.concat(data[0]);
-          // console.log(morePets);
           setPetArray(morePets);
+          setCurrentPet(currentPet + 1);
         }
       })
       .catch(error => {
-        alert("Please try again!");
+        props.navigation.navigate("InputScreen");
+        alert("Sorry it doesn't look like there are any pets here. Please broaden your search and try again");
       });
   }
   function onSwipeRight() {
