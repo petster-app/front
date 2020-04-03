@@ -27,23 +27,20 @@ const InputScreen = props => {
   let date = new Date();
   date = date.toISOString();
   let data = petArray[currentPet];
-
-  let p = '2020-03-30T18:25:47+0000'
-
-  const regex = /[.+]/g;
-
-  p = p.replace(regex, '-')
-
   useEffect(() => {
     fetchPets();
   }, [type, zipCode, travelDistance]);
 
   function fetchPets() {
-    console.log('fetching pets');
-    const regex = /[.+]/g;
+
     if(data) {
-      let newDate = data[data.length-1];
-      console.log(newDate)
+      data = petArray[currentPet];
+      let newDate = data.published_at;
+      newDate = newDate.slice(0, -5);
+      newDate = new Date(newDate);
+      newDate.setSeconds(newDate.getSeconds() - 1);
+      newDate = newDate.toISOString();
+      date = newDate;
     }
 
     let options = {
@@ -73,21 +70,20 @@ const InputScreen = props => {
       });
   }
   function onSwipeRight() {
-    console.log("you swiped right");
     if (currentPet > 0) {
       setCurrentPet(currentPet - 1);
     }
   }
 
   function onSwipeLeft() {
-    console.log("you swiped left");
     setLiked(false);
     if (data.userName) {
       setLiked(true);
     }
     if (currentPet + 1 < petArray.length) {
       setCurrentPet(currentPet + 1);
-    } if (currentPet < petArray.length) {
+    }
+    if (currentPet > petArray.length - 3) {
       fetchPets()
     }
   }
