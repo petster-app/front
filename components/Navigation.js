@@ -5,6 +5,7 @@ import IconOcticons from "react-native-vector-icons/Octicons";
 import SignUp from "../screens/SignUp";
 import InputScreen from "../screens/InputScreen";
 import { withNavigation } from "react-navigation";
+import ArrowIcon from "react-native-vector-icons/FontAwesome5";
 
 function Navigation(props) {
   function handleFilterClick() {
@@ -25,12 +26,12 @@ function Navigation(props) {
             width: 325
           }}
         >
-          <TouchableOpacity onPress={handleAccountClick}>
-            <IconOcticons
-              name="person"
-              color="rgb(169,169,169)"
+          <TouchableOpacity onPress={handleFilterClick}>
+            <ArrowIcon
+              name="arrow-left"
+              color="rgb(184,184,184)"
               size={50}
-            ></IconOcticons>
+            />
           </TouchableOpacity>
 
           <View style={styles.headerTitle}>
@@ -38,8 +39,12 @@ function Navigation(props) {
             <Text style={[styles.text, styles.headerText]}>PETSTER</Text>
           </View>
 
-          <TouchableOpacity onPress={handleFilterClick}>
-            <Icon name="navicon" color="rgb(232,118,46)" size={50}></Icon>
+          <TouchableOpacity onPress={handleAccountClick}>
+            <IconOcticons
+              name="person"
+              color="rgb(169,169,169)"
+              size={50}
+            />
           </TouchableOpacity>
         </View>
       </View>
