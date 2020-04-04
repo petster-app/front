@@ -4,7 +4,6 @@ import {
   Text,
   TextInput,
   View,
-  Button,
   TouchableOpacity
 } from "react-native";
 import SignIn from "./SignIn";

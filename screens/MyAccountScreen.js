@@ -24,25 +24,19 @@ export default function SignOut(props) {
           margin: 30
         }}
       >
-        <Text style={{ width: 35 }}></Text>
-        <IconOcticons
-          name="person"
-          color="rgb(239,89,68)"
-          size={50}
-        ></IconOcticons>
         <TouchableOpacity
           onPress={() => props.navigation.navigate("InputScreen")}
         >
           <ArrowIcon
-            name="arrow-right"
+            name="arrow-left"
             color="rgb(184,184,184)"
             size={35}
-          ></ArrowIcon>
+          />
         </TouchableOpacity>
       </View>
 
       <View style={styles.paw}>
-        <Icon name="paw" color="rgb(239,89,68)" size={50}></Icon>
+        <Icon name="paw" color="rgb(239,89,68)" size={50}/>
       </View>
       <Text
         style={{
@@ -64,9 +58,8 @@ export default function SignOut(props) {
       >
         <View style={styles.button}>
           <View style={styles.buttonContent}>
-            <Icon name="heart" color="rgb(239,89,68)" size={20}></Icon>
+            <Icon name="heart" color="rgb(239,89,68)" size={20}/>
             <Text style={styles.text}>Favorites</Text>
-            <Text></Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -77,9 +70,8 @@ export default function SignOut(props) {
             name="logout"
             color="rgb(239,89,68)"
             size={20}
-          ></IconMaterialCommunityIcons>
+          />
           <Text style={styles.text}>Logout</Text>
-          <Text></Text>
         </View>
       </TouchableOpacity>
     </View>
