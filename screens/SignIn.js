@@ -14,8 +14,8 @@ import {
 import firebase from "../components/firebase";
 
 export default function SignIn(props) {
-  const [email, setEmail] = useState("evanbc1@gmail.com");
-  const [password, setPassword] = useState("1234Asdf");
+  const [email, setEmail] = useState("testing@test.com");
+  const [password, setPassword] = useState("testingtest");
   const [inputComplete, setInputComplete] = useState(false);
   const [buttonColor, setButtonColor] = useState("rgb(202,202,202)");
 
