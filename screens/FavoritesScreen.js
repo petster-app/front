@@ -56,7 +56,7 @@ const favoritesScreen = props => {
               color="rgb(184,184,184)"
               size={30}
               style={{ paddingLeft: 50 }}
-            ></ArrowIcon>
+            />
           </TouchableOpacity>
           <Text style={styles.header}>Favorite Pets</Text>
           <Text style={{ paddingRight: 50 }}></Text>

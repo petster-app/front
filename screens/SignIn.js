@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Icon from "react-native-vector-icons/FontAwesome";
 import ArrowIcon from "react-native-vector-icons/FontAwesome5";
-import { Dimensions } from "react-native";
 import {
   StyleSheet,
   Text,
   TextInput,
   View,
-  Button,
   TouchableOpacity,
-  Slider
 } from "react-native";
 import firebase from "../components/firebase";
 

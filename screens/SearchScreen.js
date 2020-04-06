@@ -21,6 +21,8 @@ const InputScreen = props => {
   const [petArray, setPetArray] = useState([]);
   const [currentPet, setCurrentPet] = useState(0);
   const [liked, setLiked] = useState(false);
+  const [fetching, setFetching] = useState(true);
+  // let fetching = false;
   let type = props.navigation.getParam("type");
   let zipCode = props.navigation.getParam("zipCode");
   let travelDistance = props.navigation.getParam("travelDistance");
@@ -32,7 +34,7 @@ const InputScreen = props => {
   }, [type, zipCode, travelDistance]);
 
   function fetchPets() {
-
+    setFetching(true);
     if(data) {
       data = petArray[currentPet];
       let newDate = data.published_at;
@@ -50,7 +52,7 @@ const InputScreen = props => {
       }
     };
     fetch(
-      `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/${date}/5`,
+      `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/${date}/20`,
       options
     )
       .then(results => {
@@ -59,10 +61,12 @@ const InputScreen = props => {
       .then(data => {
         if(!petArray[0]) {
           setPetArray(data[0]);
+          setFetching(false);
         } else {
           let morePets = petArray.concat(data[0]);
           setPetArray(morePets);
           setCurrentPet(currentPet + 1);
+          setFetching(false);
         }
       })
       .catch(error => {
@@ -84,7 +88,7 @@ const InputScreen = props => {
     if (currentPet + 1 < petArray.length) {
       setCurrentPet(currentPet + 1);
     }
-    if (currentPet > petArray.length - 3) {
+    if (currentPet > petArray.length - 2 && !fetching) {
       fetchPets()
     }
   }
@@ -109,7 +113,7 @@ const InputScreen = props => {
   return (
     <>
       <View style={styles.container}>
-        {petArray.length ? (
+        {!fetching ? (
           <>
             <Navigation />
 
