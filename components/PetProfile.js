@@ -1,28 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Text,
   View,
   StyleSheet,
-  Button,
-  Animated,
-  Linking,
-  TouchableHighlight,
-  TouchableOpacity,
   Image
 } from "react-native";
-//import Image from "react-native-scalable-image";
 import { Dimensions } from "react-native";
 
 export default function PetProfile(props) {
   return (
     <View style={styles.container}>
       <View style={[styles.imageContainer, { zIndex: 1 }]}>
-        {props.pet.photo !== "null" ? (
+        {props.pet.photo ? (
           <Image style={[styles.image]} source={{ uri: props.pet.photo }} />
         ) : (
           <Image
             style={[styles.image]}
-            source={{ uri: "https://www.placecage.com/300/300" }}
+            source={require("../assets/images/noPet.png")}
           />
         )}
       </View>
@@ -39,7 +33,6 @@ export default function PetProfile(props) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
-    justifyContent: "center",
     alignItems: "center",
     justifyContent: "space-between"
   },

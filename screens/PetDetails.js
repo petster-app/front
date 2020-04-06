@@ -44,16 +44,16 @@ export default function PetProfile(props) {
               color="rgb(184,184,184)"
               size={30}
               style={{ paddingLeft: 50 }}
-            ></ArrowIcon>
+            />
           </TouchableOpacity>
           <View
             style={[styles.headerTitle, { marginTop: 20, marginBottom: 20 }]}
           >
-            <Icon name="paw" color="rgb(239,89,68)" size={30}></Icon>
+            <Icon name="paw" color="rgb(239,89,68)" size={30}/>
             <Text style={[styles.text, styles.headerText]}>PETSTER</Text>
           </View>
 
-          <Text style={{ paddingRight: 50 }}></Text>
+          <Text style={{ paddingRight: 50 }}/>
         </View>
         <View>
           <SafeAreaView style={{ width: "100%" }}>
