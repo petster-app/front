@@ -22,13 +22,13 @@ const InputScreen = props => {
   const [currentPet, setCurrentPet] = useState(0);
   const [liked, setLiked] = useState(false);
   const [fetching, setFetching] = useState(true);
-  // let fetching = false;
   let type = props.navigation.getParam("type");
   let zipCode = props.navigation.getParam("zipCode");
   let travelDistance = props.navigation.getParam("travelDistance");
   let date = new Date();
   date = date.toISOString();
   let data = petArray[currentPet];
+
   useEffect(() => {
     fetchPets();
   }, [type, zipCode, travelDistance]);
@@ -77,30 +77,39 @@ const InputScreen = props => {
   function onSwipeRight() {
     if (currentPet > 0) {
       setCurrentPet(currentPet - 1);
+      checkIfLiked(-1)
     }
   }
 
   function onSwipeLeft() {
     setLiked(false);
-    if (data.userName) {
-      setLiked(true);
-    }
     if (currentPet + 1 < petArray.length) {
       setCurrentPet(currentPet + 1);
+      checkIfLiked(1)
     }
     if (currentPet > petArray.length - 2 && !fetching) {
       fetchPets()
     }
   }
-  function handleLike() {
-    data.userName = user;
-    props.addFavorite(data);
-    setLiked(true);
+
+  function toggleLike() {
+    if (!data.userName) {
+      data.userName = user;
+      props.addFavorite(data);
+      setLiked(true);
+    } else {
+      props.deleteFavorite(data);
+      setLiked(false);
+    }
   }
 
-  function handleDislike() {
-    setLiked(false);
-    props.deleteFavorite(data);
+  function checkIfLiked (direction) {
+    let tempData = petArray[currentPet + direction];
+    if (tempData.userName) {
+      setLiked(true);
+    } else {
+      setLiked(false);
+    }
   }
 
   function handleDetails() {
@@ -144,7 +153,6 @@ const InputScreen = props => {
                 <GestureRecognizer
                   onSwipeRight={onSwipeRight}
                   onSwipeLeft={onSwipeLeft}
-                  onSwipeDown={handleDislike}
                   onSwipeUp={handleDetails}
                 >
                   <PetProfile pet={petArray[currentPet]} />
@@ -168,7 +176,7 @@ const InputScreen = props => {
                   }
                 ]}
               >
-                <TouchableOpacity style={styles.button} onPress={handleLike}>
+                <TouchableOpacity style={liked ? styles.button : styles.buttonGray} onPress={toggleLike}>
                   <Icon name="heart" color="white" size={45}/>
                 </TouchableOpacity>
               </View>
@@ -228,6 +236,14 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "rgb(239,89,68)",
+    borderRadius: 150,
+    width: 90,
+    height: 90,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  buttonGray: {
+    backgroundColor: "rgb(190,190,190)",
     borderRadius: 150,
     width: 90,
     height: 90,
