@@ -51,7 +51,7 @@ export default function SignIn(props) {
             name="arrow-left"
             color="rgb(184,184,184)"
             size={35}
-            style={{ marginBottom: 25, marginTop: 50 }}
+            style={{ marginBottom: 25, marginTop: 75 }}
           />
         </TouchableOpacity>
         <Text style={styles.header}>Sign In</Text>

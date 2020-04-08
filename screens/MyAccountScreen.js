@@ -18,10 +18,8 @@ export default function SignOut(props) {
       <View
         style={{
           flexDirection: "row",
-          justifyContent: "space-around",
-          alignItems: "center",
+          alignItems: "flex-start",
           width: "100%",
-          margin: 30
         }}
       >
         <TouchableOpacity
@@ -31,6 +29,7 @@ export default function SignOut(props) {
             name="arrow-left"
             color="rgb(184,184,184)"
             size={35}
+            style={{ marginLeft: 35, marginTop: 35 }}
           />
         </TouchableOpacity>
       </View>

@@ -145,7 +145,7 @@ const InputScreen = props => {
                     height: 0.5,
                     width: 0.5
                   },
-                  width: 340,
+                  width: Dimensions.get("window").width * .9,
                   zIndex: 2,
                   marginBottom: Dimensions.get("window").height * 0.1
                 }}
