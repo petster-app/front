@@ -20,7 +20,9 @@ const deletePet = payload => {
 };
 
 const fetchFavorites = user => dispatch => {
-  return fetch(`http://localhost:3002/users/favorites/${user}`)
+  return fetch(
+    `https://petster3-back-end.herokuapp.com/users/favorites/${user}`
+  )
     .then(results => results.json())
     .then(data => dispatch(get(data)));
 };
@@ -35,9 +37,10 @@ const addFavorite = favorite => dispatch => {
     }
   };
 
-  return fetch(`http://localhost:3002/users/favorites`, options).then(
-    dispatch(add(favorite))
-  );
+  return fetch(
+    `https://petster3-back-end.herokuapp.com/users/favorites`,
+    options
+  ).then(dispatch(add(favorite)));
 };
 
 const deleteFavorite = favorite => dispatch => {
@@ -50,9 +53,10 @@ const deleteFavorite = favorite => dispatch => {
     }
   };
 
-  return fetch(`http://localhost:3002/users/favorites`, options).then(
-    dispatch(deletePet(favorite))
-  );
+  return fetch(
+    `https://petster3-back-end.herokuapp.com/users/favorites`,
+    options
+  ).then(dispatch(deletePet(favorite)));
 };
 
 export default {

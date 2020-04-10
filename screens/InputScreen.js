@@ -38,7 +38,6 @@ export default function FavoritesScreen(props) {
     fetch(`http://localhost:3002/users/${user}`, options)
       .then(data => data.json())
       .then(userArray => {
-        console.log(userArray);
         setZipCode(userArray[0].zipcode.toString());
         zipcodeFromDatabase = userArray[0].zipcode.toString();
       })
