@@ -5,7 +5,7 @@ import {
   TextInput,
   Slider,
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
 } from "react-native";
 import firebase from "../components/firebase";
 import Image from "react-native-scalable-image";
@@ -16,7 +16,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 export default function FavoritesScreen(props) {
   const toggleColors = [
     { display: "flex", color: "rgb(239,89,68)" },
-    { display: "none", color: "rgb(74,74,74)" }
+    { display: "none", color: "rgb(74,74,74)" },
   ];
   const [type, setType] = useState("");
   const [zipCode, setZipCode] = useState("");
@@ -32,16 +32,16 @@ export default function FavoritesScreen(props) {
     let options = {
       method: "GET",
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
-    fetch(`http://localhost:3002/users/${user}`, options)
-      .then(data => data.json())
-      .then(userArray => {
+    fetch(`https://petster3-back-end.herokuapp.com/users/${user}`, options)
+      .then((data) => data.json())
+      .then((userArray) => {
         setZipCode(userArray[0].zipcode.toString());
         zipcodeFromDatabase = userArray[0].zipcode.toString();
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, []);
@@ -57,7 +57,7 @@ export default function FavoritesScreen(props) {
       props.navigation.navigate("SearchScreen", {
         type: type,
         zipCode: zipCode,
-        travelDistance: travelDistance
+        travelDistance: travelDistance,
       });
     }
   }
@@ -89,11 +89,11 @@ export default function FavoritesScreen(props) {
       let options = {
         method: "PATCH",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ userName: user, zipCode: zipCode })
+        body: JSON.stringify({ userName: user, zipCode: zipCode }),
       };
-      fetch(`http://localhost:3002/users`, options);
+      fetch(`https://petster3-back-end.herokuapp.com/users`, options);
     }
   }
 
@@ -105,7 +105,7 @@ export default function FavoritesScreen(props) {
           justifyContent: "space-between",
           alignItems: "center",
           width: "100%",
-          marginTop: 20
+          marginTop: 20,
         }}
       >
         <TouchableOpacity
@@ -126,7 +126,7 @@ export default function FavoritesScreen(props) {
           <TouchableOpacity
             style={[
               styles.type,
-              { backgroundColor: toggleColors[dogTypeColor].backgroundColor }
+              { backgroundColor: toggleColors[dogTypeColor].backgroundColor },
             ]}
             onPress={() => handleToggle("Dog")}
           >
@@ -140,7 +140,7 @@ export default function FavoritesScreen(props) {
               <Text
                 style={[
                   styles.typeText,
-                  { color: toggleColors[dogTypeColor].color }
+                  { color: toggleColors[dogTypeColor].color },
                 ]}
               >
                 Dog
@@ -148,9 +148,9 @@ export default function FavoritesScreen(props) {
               <Icon
                 style={[
                   {
-                    display: toggleColors[dogTypeColor].display
+                    display: toggleColors[dogTypeColor].display,
                   },
-                  styles.icon
+                  styles.icon,
                 ]}
                 name="check"
                 color="rgb(239,89,68)"
@@ -162,7 +162,7 @@ export default function FavoritesScreen(props) {
           <TouchableOpacity
             style={[
               styles.type,
-              { backgroundColor: toggleColors[catTypeColor].backgroundColor }
+              { backgroundColor: toggleColors[catTypeColor].backgroundColor },
             ]}
             onPress={() => handleToggle("Cat")}
           >
@@ -176,7 +176,7 @@ export default function FavoritesScreen(props) {
               <Text
                 style={[
                   styles.typeText,
-                  { color: toggleColors[catTypeColor].color }
+                  { color: toggleColors[catTypeColor].color },
                 ]}
               >
                 Cat
@@ -184,7 +184,7 @@ export default function FavoritesScreen(props) {
               <Icon
                 style={[
                   { display: toggleColors[catTypeColor].display },
-                  styles.icon
+                  styles.icon,
                 ]}
                 name="check"
                 color="rgb(239,89,68)"
@@ -196,7 +196,9 @@ export default function FavoritesScreen(props) {
           <TouchableOpacity
             style={[
               styles.type,
-              { backgroundColor: toggleColors[rabbitTypeColor].backgroundColor }
+              {
+                backgroundColor: toggleColors[rabbitTypeColor].backgroundColor,
+              },
             ]}
             onPress={() => handleToggle("Rabbit")}
           >
@@ -212,8 +214,8 @@ export default function FavoritesScreen(props) {
                   styles.typeText,
                   {
                     backgroundColor:
-                      toggleColors[rabbitTypeColor].backgroundColor
-                  }
+                      toggleColors[rabbitTypeColor].backgroundColor,
+                  },
                 ]}
               >
                 Rabbit
@@ -221,7 +223,7 @@ export default function FavoritesScreen(props) {
               <Icon
                 style={[
                   { display: toggleColors[rabbitTypeColor].display },
-                  styles.icon
+                  styles.icon,
                 ]}
                 name="check"
                 color="rgb(239,89,68)"
@@ -238,7 +240,7 @@ export default function FavoritesScreen(props) {
           style={styles.input}
           maxLength={5}
           value={zipCode}
-          onChangeText={value => {
+          onChangeText={(value) => {
             setZipCode(value);
           }}
         />
@@ -272,7 +274,7 @@ export default function FavoritesScreen(props) {
 const styles = StyleSheet.create({
   header: {
     fontFamily: "Nunito-Bold",
-    fontSize: 30
+    fontSize: 30,
   },
   container: {
     flex: 1,
@@ -281,36 +283,36 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     fontFamily: "Nunito",
-    width: "80%"
+    width: "80%",
   },
   typeTitle: {
     flexDirection: "row",
-    fontFamily: "Nunito-Light"
+    fontFamily: "Nunito-Light",
   },
   distanceContainer: {
-    width: "100%"
+    width: "100%",
   },
   distance: {
-    color: "rgb(239,89,68)"
+    color: "rgb(239,89,68)",
   },
   icon: {
     marginLeft: 5,
-    alignSelf: "center"
+    alignSelf: "center",
   },
   typeText: {
     justifyContent: "center",
     marginTop: 5,
     fontSize: 16,
     color: "rgb(74,74,74)",
-    fontFamily: "Nunito-Light"
+    fontFamily: "Nunito-Light",
   },
   slider: {
-    width: "100%"
+    width: "100%",
   },
   typeSelector: {
     flexDirection: "row",
     width: "100%",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   type: {
     flexDirection: "column",
@@ -319,7 +321,7 @@ const styles = StyleSheet.create({
     height: 120,
     alignItems: "center",
     justifyContent: "center",
-    color: "rgb(74,74,74)"
+    color: "rgb(74,74,74)",
   },
   title: {
     color: "rgb(74,74,74)",
@@ -327,23 +329,23 @@ const styles = StyleSheet.create({
     textAlign: "left",
     marginBottom: "5%",
     fontSize: 16,
-    fontFamily: "Nunito-Light"
+    fontFamily: "Nunito-Light",
   },
   submit: {
     textAlign: "center",
     fontFamily: "Nunito-Bold",
     color: "white",
-    fontSize: 14
+    fontSize: 14,
   },
   zipCodeContainer: {
-    width: "100%"
+    width: "100%",
   },
   typeContainer: {
-    width: "100%"
+    width: "100%",
   },
   image: {
     width: 50,
-    height: 60
+    height: 60,
   },
   input: {
     fontSize: 16,
@@ -351,10 +353,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     textAlign: "left",
     fontFamily: "Nunito",
-    color: "rgb(74, 74, 74)"
+    color: "rgb(74, 74, 74)",
   },
   buttonContainer: {
-    marginBottom: "10%"
+    marginBottom: "10%",
   },
   button: {
     backgroundColor: "rgb(239,89,68)",
@@ -362,6 +364,6 @@ const styles = StyleSheet.create({
     width: 340,
     height: 50,
     justifyContent: "center",
-    alignContent: "center"
-  }
+    alignContent: "center",
+  },
 });
