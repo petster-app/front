@@ -52,8 +52,8 @@ export default function SignUp(props) {
           Accept: "application/json"
         }
       };
-
-      fetch(`https://petster3-back-end.herokuapp.com/users`, options);
+      console.log(JSON.stringify({ userName: email, zipCode: zipCode }));
+      fetch(`http://localhost:3002/users`, options);
       props.navigation.navigate("SignIn");
     } catch (error) {
       alert(error.message);

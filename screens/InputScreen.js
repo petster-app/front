@@ -35,7 +35,7 @@ export default function FavoritesScreen(props) {
         "Content-Type": "application/json"
       }
     };
-    fetch(`https://petster3-back-end.herokuapp.com/users/${user}`, options)
+    fetch(`http://localhost:3002/users/${user}`, options)
       .then(data => data.json())
       .then(userArray => {
         setZipCode(userArray[0].zipcode.toString());
@@ -93,7 +93,7 @@ export default function FavoritesScreen(props) {
         },
         body: JSON.stringify({ userName: user, zipCode: zipCode })
       };
-      fetch(`https://petster3-back-end.herokuapp.com/users`, options);
+      fetch(`http://localhost:3002/users`, options);
     }
   }
 
