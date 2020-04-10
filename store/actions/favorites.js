@@ -1,61 +1,66 @@
-const get = (payload) => {
+const get = payload => {
   return {
-    type: 'FETCH_FAVORITES',
-    payload,
+    type: "FETCH_FAVORITES",
+    payload
   };
 };
 
-const add = (payload) => {
+const add = payload => {
   return {
-    type: 'ADD_FAVORITE',
-    payload,
+    type: "ADD_FAVORITE",
+    payload
   };
 };
 
-const deletePet = (payload) => {
+const deletePet = payload => {
   return {
-    type: 'DELETE_FAVORITE',
-    payload,
+    type: "DELETE_FAVORITE",
+    payload
   };
 };
 
-
-const fetchFavorites = (user) => (dispatch) => {
-  return fetch(`https://petster3-back-end.herokuapp.com/favorites/${user}`)
-    .then((results) => results.json())
-    .then((data) => dispatch(get(data)));
+const fetchFavorites = user => dispatch => {
+  return fetch(
+    `https://petster3-back-end.herokuapp.com/users/favorites/${user}`
+  )
+    .then(results => results.json())
+    .then(data => dispatch(get(data)));
 };
 
-const addFavorite = (favorite) => (dispatch) => {
+const addFavorite = favorite => dispatch => {
   const options = {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify(favorite),
     headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    }
   };
 
-  return fetch(`https://petster3-back-end.herokuapp.com/favorites`, options)
-  .then(dispatch(add(favorite)));
+  return fetch(
+    `https://petster3-back-end.herokuapp.com/users/favorites`,
+    options
+  ).then(dispatch(add(favorite)));
 };
 
-const deleteFavorite = (favorite) => (dispatch) => {
+const deleteFavorite = favorite => dispatch => {
   const options = {
-    method: 'DELETE',
+    method: "DELETE",
     body: JSON.stringify(favorite),
     headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    }
   };
 
-  return fetch(`https://petster3-back-end.herokuapp.com/favorites`, options)
-  .then(dispatch(deletePet(favorite)))
+  return fetch(
+    `https://petster3-back-end.herokuapp.com/users/favorites`,
+    options
+  ).then(dispatch(deletePet(favorite)));
 };
 
 export default {
   fetchFavorites,
   addFavorite,
-  deleteFavorite,
+  deleteFavorite
 };

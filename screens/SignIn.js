@@ -5,13 +5,15 @@ import {
   Text,
   TextInput,
   View,
-  TouchableOpacity,
+  TouchableOpacity
 } from "react-native";
 import firebase from "../components/firebase";
 
 export default function SignIn(props) {
-  const [email, setEmail] = useState("evanbc1@gmail.com");
-  const [password, setPassword] = useState("1234Asdf");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("lilliangales@gmail.com");
+  const [password, setPassword] = useState("lilliangales");
   const [inputComplete, setInputComplete] = useState(false);
   const [buttonColor, setButtonColor] = useState("rgb(202,202,202)");
 
@@ -50,8 +52,8 @@ export default function SignIn(props) {
           <ArrowIcon
             name="arrow-left"
             color="rgb(184,184,184)"
-            size={35}
-            style={{ marginBottom: 25, marginTop: 75 }}
+            size={30}
+            style={{ marginBottom: 25, marginTop: 50 }}
           />
         </TouchableOpacity>
         <Text style={styles.header}>Sign In</Text>

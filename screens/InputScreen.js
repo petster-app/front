@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -7,24 +7,44 @@ import {
   StyleSheet,
   TouchableHighlight
 } from "react-native";
+import firebase from "../components/firebase";
 import Image from "react-native-scalable-image";
+import IconOcticons from "react-native-vector-icons/Octicons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/FontAwesome";
-import IconOcticons from "react-native-vector-icons/Octicons";
 
 export default function FavoritesScreen(props) {
   const toggleColors = [
     { display: "flex", color: "rgb(239,89,68)" },
     { display: "none", color: "rgb(74,74,74)" }
   ];
-
-  const [type, setType] = useState("dog");
-  const [zipCode, setZipCode] = useState("98105");
-  const [travelDistance, setTravelDistance] = useState(20);
+  const [type, setType] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [travelDistance, setTravelDistance] = useState(5);
   const [dogTypeColor, setDogTypeColor] = useState(1);
   const [catTypeColor, setCatTypeColor] = useState(1);
   const [rabbitTypeColor, setRabbitTypeColor] = useState(1);
   const [selected, setSelected] = useState([]);
+  const user = firebase.getCurrentUsername();
+  let zipcodeFromDatabase;
+
+  useEffect(() => {
+    let options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    fetch(`http://localhost:3002/users/${user}`, options)
+      .then(data => data.json())
+      .then(userArray => {
+        setZipCode(userArray[0].zipcode.toString());
+        zipcodeFromDatabase = userArray[0].zipcode.toString();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
 
   function handleSubmit() {
     let regex = /^\d{5}$/;
@@ -33,6 +53,7 @@ export default function FavoritesScreen(props) {
     } else if (type === "") {
       alert(`Please Select An Animal`);
     } else {
+      checkForZipChange(zipCode);
       props.navigation.navigate("SearchScreen", {
         type: type,
         zipCode: zipCode,
@@ -63,6 +84,19 @@ export default function FavoritesScreen(props) {
     setType(type);
   }
 
+  function checkForZipChange(zipCode) {
+    if (zipCode !== zipcodeFromDatabase) {
+      let options = {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ userName: user, zipCode: zipCode })
+      };
+      fetch(`http://localhost:3002/users`, options);
+    }
+  }
+
   return (
     <View style={styles.container}>
       <View
@@ -74,18 +108,17 @@ export default function FavoritesScreen(props) {
           marginTop: 20
         }}
       >
-        <Text style={styles.header}>Filters</Text>
-
         <TouchableOpacity
           onPress={() => props.navigation.navigate("MyAccountScreen")}
         >
           <IconOcticons
-            alignSelf="flex-start"
             name="person"
-            color="rgb(239,89,68)"
-            size={35}
-          />
+            color="rgb(184,184,184)"
+            size={40}
+          ></IconOcticons>
         </TouchableOpacity>
+        <Text style={styles.header}>Filters</Text>
+        <Text></Text>
       </View>
       <View style={styles.typeContainer}>
         <Text style={styles.title}>Animal type</Text>
@@ -204,6 +237,7 @@ export default function FavoritesScreen(props) {
         <TextInput
           style={styles.input}
           maxLength={5}
+          value={zipCode}
           onChangeText={value => {
             setZipCode(value);
           }}

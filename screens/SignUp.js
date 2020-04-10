@@ -45,14 +45,13 @@ export default function SignUp(props) {
       await firebase.register(firstName, email, password);
       const options = {
         method: "POST",
-        body: JSON.stringify({ userName: email }),
+        body: JSON.stringify({ userName: email, zipCode: zipCode }),
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json"
         }
       };
-
-      fetch(`https://petster3-back-end.herokuapp.com/users`, options);
+      fetch(`http://localhost:3002/users`, options);
       props.navigation.navigate("SignIn");
     } catch (error) {
       alert(error.message);
@@ -68,7 +67,7 @@ export default function SignUp(props) {
           <ArrowIcon
             name="arrow-left"
             color="rgb(184,184,184)"
-            size={35}
+            size={30}
             style={{ marginBottom: 25, marginTop: 50 }}
           />
         </TouchableOpacity>

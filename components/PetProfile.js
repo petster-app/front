@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  Image
-} from "react-native";
+import { Text, View, StyleSheet, Image } from "react-native";
 import { Dimensions } from "react-native";
 
 export default function PetProfile(props) {
@@ -48,7 +43,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: Dimensions.get("window").height / 1.8
+    height: Dimensions.get("window").height / 1.9
   },
   text: {
     marginTop: 10,

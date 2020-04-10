@@ -51,12 +51,7 @@ const favoritesScreen = props => {
           <TouchableOpacity
             onPress={() => props.navigation.navigate("MyAccountScreen")}
           >
-            <ArrowIcon
-              name="arrow-left"
-              color="rgb(184,184,184)"
-              size={30}
-              style={{ paddingLeft: 50 }}
-            />
+            <ArrowIcon name="arrow-left" color="rgb(184,184,184)" size={30} />
           </TouchableOpacity>
           <Text style={styles.header}>Favorite Pets</Text>
           <Text style={{ paddingRight: 50 }}></Text>
@@ -65,7 +60,7 @@ const favoritesScreen = props => {
           <ScrollView>
             <View>
               {props.favorites.map((pet, index) => (
-                <View style={styles.petCard}>
+                <View key={index} style={styles.petCard}>
                   <View style={styles.imageContainer}>
                     <Image style={styles.image} source={{ uri: pet.photo }} />
                     <Text style={[styles.name, styles.text]}>{pet.name}</Text>

@@ -25,25 +25,25 @@ function Navigation(props) {
             width: 325
           }}
         >
-          <TouchableOpacity onPress={handleFilterClick}>
-            <ArrowIcon
-              name="arrow-left"
-              color="rgb(184,184,184)"
-              size={35}
-            />
-          </TouchableOpacity>
-
-          <View style={styles.headerTitle}>
-            <Icon name="paw" color="rgb(239,89,68)" size={35}/>
-            <Text style={[styles.text, styles.headerText]}>PETSTER</Text>
-          </View>
-
           <TouchableOpacity onPress={handleAccountClick}>
             <IconOcticons
               name="person"
-              color="rgb(239,89,68)"
-              size={35}
-            />
+              color="rgb(169,169,169)"
+              size={40}
+            ></IconOcticons>
+          </TouchableOpacity>
+
+          <View style={styles.headerTitle}>
+            <Icon name="paw" color="rgb(239,89,68)" size={35} />
+            <Text style={[styles.text, styles.headerText]}>PETSTER</Text>
+          </View>
+
+          <TouchableOpacity onPress={handleFilterClick}>
+            <IconOcticons
+              name="search"
+              color="rgb(232,118,46)"
+              size={40}
+            ></IconOcticons>
           </TouchableOpacity>
         </View>
       </View>

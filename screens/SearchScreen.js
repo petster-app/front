@@ -35,7 +35,7 @@ const InputScreen = props => {
 
   function fetchPets() {
     setFetching(true);
-    if(data) {
+    if (data) {
       data = petArray[currentPet];
       let newDate = data.published_at;
       newDate = newDate.slice(0, -5);
@@ -59,7 +59,7 @@ const InputScreen = props => {
         return results.json();
       })
       .then(data => {
-        if(!petArray[0]) {
+        if (!petArray[0]) {
           setPetArray(data[0]);
           setFetching(false);
         } else {
@@ -71,13 +71,15 @@ const InputScreen = props => {
       })
       .catch(error => {
         props.navigation.navigate("InputScreen");
-        alert("Sorry it doesn't look like there are any pets here. Please broaden your search and try again");
+        alert(
+          "Sorry it doesn't look like there are any pets here. Please broaden your search and try again"
+        );
       });
   }
   function onSwipeRight() {
     if (currentPet > 0) {
       setCurrentPet(currentPet - 1);
-      checkIfLiked(-1)
+      checkIfLiked(-1);
     }
   }
 
@@ -85,10 +87,10 @@ const InputScreen = props => {
     setLiked(false);
     if (currentPet + 1 < petArray.length) {
       setCurrentPet(currentPet + 1);
-      checkIfLiked(1)
+      checkIfLiked(1);
     }
     if (currentPet > petArray.length - 2 && !fetching) {
-      fetchPets()
+      fetchPets();
     }
   }
 
@@ -103,7 +105,7 @@ const InputScreen = props => {
     }
   }
 
-  function checkIfLiked (direction) {
+  function checkIfLiked(direction) {
     let tempData = petArray[currentPet + direction];
     if (tempData.userName) {
       setLiked(true);
@@ -145,7 +147,7 @@ const InputScreen = props => {
                     height: 0.5,
                     width: 0.5
                   },
-                  width: Dimensions.get("window").width * .9,
+                  width: Dimensions.get("window").width * 0.9,
                   zIndex: 2,
                   marginBottom: Dimensions.get("window").height * 0.1
                 }}
@@ -176,8 +178,11 @@ const InputScreen = props => {
                   }
                 ]}
               >
-                <TouchableOpacity style={liked ? styles.button : styles.buttonGray} onPress={toggleLike}>
-                  <Icon name="heart" color="white" size={45}/>
+                <TouchableOpacity
+                  style={liked ? styles.button : styles.buttonGray}
+                  onPress={toggleLike}
+                >
+                  <Icon name="heart" color="white" size={45} />
                 </TouchableOpacity>
               </View>
             </View>
