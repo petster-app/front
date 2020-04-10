@@ -4,7 +4,7 @@ import {
   Text,
   TextInput,
   View,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import SignIn from "./SignIn";
 import firebase from "../components/firebase";
@@ -48,10 +48,10 @@ export default function SignUp(props) {
         body: JSON.stringify({ userName: email, zipCode: zipCode }),
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json"
-        }
+          Accept: "application/json",
+        },
       };
-      fetch(`http://localhost:3002/users`, options);
+      fetch(`https://petster3-back-end.herokuapp.com/favorites/users`, options);
       props.navigation.navigate("SignIn");
     } catch (error) {
       alert(error.message);
@@ -79,7 +79,7 @@ export default function SignUp(props) {
             label="First name"
             autoCapitalize="none"
             style={styles.textInput}
-            onChangeText={firstName => {
+            onChangeText={(firstName) => {
               setFirstName(firstName);
               checkInput();
             }}
@@ -93,7 +93,7 @@ export default function SignUp(props) {
             label="First name"
             autoCapitalize="none"
             style={styles.textInput}
-            onChangeText={lastName => {
+            onChangeText={(lastName) => {
               setLastName(lastName);
               checkInput();
             }}
@@ -106,7 +106,7 @@ export default function SignUp(props) {
             placeholder="Zip Code (to search for nearby pets)"
             autoCapitalize="none"
             style={styles.textInput}
-            onChangeText={zipCode => {
+            onChangeText={(zipCode) => {
               setZipCode(zipCode);
               checkInput();
             }}
@@ -119,7 +119,7 @@ export default function SignUp(props) {
             placeholder="Email address"
             autoCapitalize="none"
             style={styles.textInput}
-            onChangeText={email => {
+            onChangeText={(email) => {
               setEmail(email);
               checkInput();
             }}
@@ -133,7 +133,7 @@ export default function SignUp(props) {
             secureTextEntry
             autoCapitalize="none"
             style={styles.textInput}
-            onChangeText={password => {
+            onChangeText={(password) => {
               setPassword(password);
               checkInput();
             }}
@@ -158,17 +158,17 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     fontFamily: "Nunito-Bold",
     fontSize: 40,
-    width: "80%"
+    width: "80%",
   },
   container: {
     flex: 1,
     justifyContent: "space-between",
     alignItems: "center",
     alignSelf: "center",
-    width: "80%"
+    width: "80%",
   },
   inputContainer: {
-    width: "100%"
+    width: "100%",
   },
   textInput: {
     borderBottomColor: "rgb(193, 193, 193)",
@@ -177,22 +177,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Nunito-Light",
     paddingBottom: 5,
-    color: "rgb(74, 74, 74)"
+    color: "rgb(74, 74, 74)",
   },
   submit: {
     textAlign: "center",
     fontFamily: "Nunito-Bold",
     color: "white",
-    fontSize: 14
+    fontSize: 14,
   },
   buttonContainer: {
-    marginBottom: "10%"
+    marginBottom: "10%",
   },
   button: {
     borderRadius: 40,
     width: 340,
     height: 50,
     justifyContent: "center",
-    alignContent: "center"
-  }
+    alignContent: "center",
+  },
 });
