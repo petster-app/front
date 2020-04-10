@@ -4,7 +4,6 @@ import firebase from "../components/firebase";
 import Icon from "react-native-vector-icons/FontAwesome";
 import ArrowIcon from "react-native-vector-icons/FontAwesome5";
 import IconOcticons from "react-native-vector-icons/Octicons";
-import IconIonicons from "react-native-vector-icons/Ionicons";
 import IconMaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function SignOut(props) {
@@ -18,18 +17,10 @@ export default function SignOut(props) {
       <View
         style={{
           flexDirection: "row",
-          justifyContent: "space-around",
-          alignItems: "center",
-          width: "100%",
-          margin: 30
+          justifyContent: "flex-end",
+          width: "100%"
         }}
       >
-        <Text style={{ width: 35 }}></Text>
-        <IconOcticons
-          name="person"
-          color="rgb(239,89,68)"
-          size={50}
-        ></IconOcticons>
         <TouchableOpacity
           onPress={() => props.navigation.navigate("InputScreen")}
         >
@@ -37,12 +28,13 @@ export default function SignOut(props) {
             name="search"
             color="rgb(184,184,184)"
             size={40}
+            style={{ marginTop: 15, marginRight: 25 }}
           ></IconOcticons>
         </TouchableOpacity>
       </View>
 
       <View style={styles.paw}>
-        <Icon name="paw" color="rgb(239,89,68)" size={50}></Icon>
+        <Icon name="paw" color="rgb(239,89,68)" size={50} />
       </View>
       <Text
         style={{
@@ -64,7 +56,7 @@ export default function SignOut(props) {
       >
         <View style={styles.button}>
           <View style={styles.buttonContent}>
-            <Icon name="heart" color="rgb(239,89,68)" size={20}></Icon>
+            <Icon name="heart" color="rgb(239,89,68)" size={20} />
             <Text style={styles.text}>Favorites</Text>
             <Text></Text>
           </View>
@@ -77,7 +69,7 @@ export default function SignOut(props) {
             name="logout"
             color="rgb(239,89,68)"
             size={20}
-          ></IconMaterialCommunityIcons>
+          />
           <Text style={styles.text}>Logout</Text>
           <Text></Text>
         </View>

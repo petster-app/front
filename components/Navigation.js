@@ -2,9 +2,9 @@ import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import IconOcticons from "react-native-vector-icons/Octicons";
-import SignUp from "../screens/SignUp";
 import InputScreen from "../screens/InputScreen";
 import { withNavigation } from "react-navigation";
+import ArrowIcon from "react-native-vector-icons/FontAwesome5";
 
 function Navigation(props) {
   function handleFilterClick() {
@@ -34,7 +34,7 @@ function Navigation(props) {
           </TouchableOpacity>
 
           <View style={styles.headerTitle}>
-            <Icon name="paw" color="rgb(239,89,68)" size={40}></Icon>
+            <Icon name="paw" color="rgb(239,89,68)" size={35} />
             <Text style={[styles.text, styles.headerText]}>PETSTER</Text>
           </View>
 

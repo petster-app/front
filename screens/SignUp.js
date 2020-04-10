@@ -4,7 +4,6 @@ import {
   Text,
   TextInput,
   View,
-  Button,
   TouchableOpacity
 } from "react-native";
 import SignIn from "./SignIn";
@@ -43,16 +42,15 @@ export default function SignUp(props) {
 
   async function handleSignUp() {
     try {
-      await firebase.register(lastName, email, password);
+      await firebase.register(firstName, email, password);
       const options = {
         method: "POST",
-        body: JSON.stringify({ userName: email }),
+        body: JSON.stringify({ userName: email, zipCode: zipCode }),
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json"
         }
       };
-      console.log(JSON.stringify({ userName: email, zipCode: zipCode }));
       fetch(`http://localhost:3002/users`, options);
       props.navigation.navigate("SignIn");
     } catch (error) {

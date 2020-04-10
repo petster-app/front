@@ -38,6 +38,7 @@ export default function FavoritesScreen(props) {
     fetch(`http://localhost:3002/users/${user}`, options)
       .then(data => data.json())
       .then(userArray => {
+        console.log(userArray);
         setZipCode(userArray[0].zipcode.toString());
         zipcodeFromDatabase = userArray[0].zipcode.toString();
       })
@@ -134,7 +135,7 @@ export default function FavoritesScreen(props) {
               height={70}
               style={styles.image}
               source={require("../assets/images/dog.png")}
-            ></Image>
+            />
 
             <View style={styles.typeTitle}>
               <Text
@@ -155,7 +156,7 @@ export default function FavoritesScreen(props) {
                 name="check"
                 color="rgb(239,89,68)"
                 size={20}
-              ></Icon>
+              />
             </View>
           </TouchableOpacity>
 
@@ -170,7 +171,7 @@ export default function FavoritesScreen(props) {
               height={70}
               style={styles.image}
               source={require("../assets/images/cat.png")}
-            ></Image>
+            />
 
             <View style={styles.typeTitle}>
               <Text
@@ -189,7 +190,7 @@ export default function FavoritesScreen(props) {
                 name="check"
                 color="rgb(239,89,68)"
                 size={20}
-              ></Icon>
+              />
             </View>
           </TouchableOpacity>
 
@@ -204,7 +205,7 @@ export default function FavoritesScreen(props) {
               height={70}
               style={[styles.image]}
               source={require("../assets/images/bunny.png")}
-            ></Image>
+            />
 
             <View style={styles.typeTitle}>
               <Text
@@ -226,7 +227,7 @@ export default function FavoritesScreen(props) {
                 name="check"
                 color="rgb(239,89,68)"
                 size={20}
-              ></Icon>
+              />
             </View>
           </TouchableOpacity>
         </View>
@@ -282,9 +283,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontFamily: "Nunito",
     width: "80%"
-  },
-  buttonContainer: {
-    marginBottom: "10%"
   },
   typeTitle: {
     flexDirection: "row",

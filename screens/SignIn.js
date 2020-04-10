@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
-import Icon from "react-native-vector-icons/FontAwesome";
 import ArrowIcon from "react-native-vector-icons/FontAwesome5";
-import { Dimensions } from "react-native";
 import {
   StyleSheet,
   Text,
   TextInput,
   View,
-  Button,
-  TouchableOpacity,
-  Slider
+  TouchableOpacity
 } from "react-native";
 import firebase from "../components/firebase";
 
 export default function SignIn(props) {
-  const [email, setEmail] = useState("lillian@lillian.com");
-  const [password, setPassword] = useState("lillianlillian");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("lilliangales@gmail.com");
+  const [password, setPassword] = useState("lilliangales");
   const [inputComplete, setInputComplete] = useState(false);
   const [buttonColor, setButtonColor] = useState("rgb(202,202,202)");
 

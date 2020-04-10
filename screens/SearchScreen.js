@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  Image,
   View,
   StyleSheet,
   ActivityIndicator,
@@ -22,57 +21,97 @@ const InputScreen = props => {
   const [petArray, setPetArray] = useState([]);
   const [currentPet, setCurrentPet] = useState(0);
   const [liked, setLiked] = useState(false);
+  const [fetching, setFetching] = useState(true);
   let type = props.navigation.getParam("type");
   let zipCode = props.navigation.getParam("zipCode");
   let travelDistance = props.navigation.getParam("travelDistance");
+  let date = new Date();
+  date = date.toISOString();
   let data = petArray[currentPet];
 
   useEffect(() => {
+    fetchPets();
+  }, [type, zipCode, travelDistance]);
+
+  function fetchPets() {
+    setFetching(true);
+    if (data) {
+      data = petArray[currentPet];
+      let newDate = data.published_at;
+      newDate = newDate.slice(0, -5);
+      newDate = new Date(newDate);
+      newDate.setSeconds(newDate.getSeconds() - 1);
+      newDate = newDate.toISOString();
+      date = newDate;
+    }
+
     let options = {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
       }
     };
-
-    console.log(
-      `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/2019-07-30T09:58:48.841Z/100`
-    );
     fetch(
-      `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/2019-07-30T09:58:48.841Z/100`,
+      `https://petster3-back-end.herokuapp.com/search/${type}/${zipCode}/${travelDistance}/${date}/20`,
       options
     )
-      // MOCK;
-      // fetch(
-      //   `https://petster3-back-end.herokuapp.com/search/dog/98103/10/2020-03-03T21:06:38-00:00/100`,
-      //   options
-      // )
       .then(results => {
         return results.json();
       })
       .then(data => {
-        setPetArray(data[0]);
+        if (!petArray[0]) {
+          setPetArray(data[0]);
+          setFetching(false);
+        } else {
+          let morePets = petArray.concat(data[0]);
+          setPetArray(morePets);
+          setCurrentPet(currentPet + 1);
+          setFetching(false);
+        }
       })
       .catch(error => {
-        alert("Please try again!");
+        props.navigation.navigate("InputScreen");
+        alert(
+          "Sorry it doesn't look like there are any pets here. Please broaden your search and try again"
+        );
       });
-  }, [type, zipCode, travelDistance]);
-
+  }
   function onSwipeRight() {
-    if (currentPet < petArray.length - 1) {
-      setCurrentPet(currentPet + 1);
+    if (currentPet > 0) {
+      setCurrentPet(currentPet - 1);
+      checkIfLiked(-1);
     }
   }
 
-  function handleLike() {
-    data.userName = user;
-    props.addFavorite(data);
-    setLiked(true);
+  function onSwipeLeft() {
+    setLiked(false);
+    if (currentPet + 1 < petArray.length) {
+      setCurrentPet(currentPet + 1);
+      checkIfLiked(1);
+    }
+    if (currentPet > petArray.length - 2 && !fetching) {
+      fetchPets();
+    }
   }
 
-  function handleDislike() {
-    setLiked(false);
-    props.deleteFavorite(data);
+  function toggleLike() {
+    if (!data.userName) {
+      data.userName = user;
+      props.addFavorite(data);
+      setLiked(true);
+    } else {
+      props.deleteFavorite(data);
+      setLiked(false);
+    }
+  }
+
+  function checkIfLiked(direction) {
+    let tempData = petArray[currentPet + direction];
+    if (tempData.userName) {
+      setLiked(true);
+    } else {
+      setLiked(false);
+    }
   }
 
   function handleDetails() {
@@ -85,7 +124,7 @@ const InputScreen = props => {
   return (
     <>
       <View style={styles.container}>
-        {petArray.length ? (
+        {!fetching ? (
           <>
             <Navigation />
 
@@ -108,14 +147,14 @@ const InputScreen = props => {
                     height: 0.5,
                     width: 0.5
                   },
-                  width: 340,
+                  width: Dimensions.get("window").width * 0.9,
                   zIndex: 2,
                   marginBottom: Dimensions.get("window").height * 0.1
                 }}
               >
                 <GestureRecognizer
                   onSwipeRight={onSwipeRight}
-                  onSwipeDown={handleDislike}
+                  onSwipeLeft={onSwipeLeft}
                   onSwipeUp={handleDetails}
                 >
                   <PetProfile pet={petArray[currentPet]} />
@@ -139,8 +178,11 @@ const InputScreen = props => {
                   }
                 ]}
               >
-                <TouchableOpacity style={styles.button} onPress={handleLike}>
-                  <Icon name="heart" color="white" size={45}></Icon>
+                <TouchableOpacity
+                  style={liked ? styles.button : styles.buttonGray}
+                  onPress={toggleLike}
+                >
+                  <Icon name="heart" color="white" size={45} />
                 </TouchableOpacity>
               </View>
             </View>
@@ -199,6 +241,14 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "rgb(239,89,68)",
+    borderRadius: 150,
+    width: 90,
+    height: 90,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  buttonGray: {
+    backgroundColor: "rgb(190,190,190)",
     borderRadius: 150,
     width: 90,
     height: 90,
