@@ -29,7 +29,7 @@ export default function HomeScreen(props) {
             name="paw"
             color="rgb(239,89,68)"
             size={30}
-          ></Icon>
+          />
           <Text style={[styles.text, styles.headerText]}>PETSTER</Text>
         </View>
         <Text style={styles.bodyText}>
