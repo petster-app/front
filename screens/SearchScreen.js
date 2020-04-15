@@ -59,14 +59,21 @@ const InputScreen = props => {
         return results.json();
       })
       .then(data => {
-        if (!petArray[0]) {
-          setPetArray(data[0]);
+        if (data[0].length === 0) {
+          alert(
+            "Sorry it doesn't look like there are any more pets here. Please broaden your search and try again"
+          );
           setFetching(false);
-        } else {
-          let morePets = petArray.concat(data[0]);
-          setPetArray(morePets);
-          setCurrentPet(currentPet + 1);
-          setFetching(false);
+          return;
+        }
+          if (!petArray[0]) {
+            setPetArray(data[0]);
+            setFetching(false);
+          } else {
+            let morePets = petArray.concat(data[0]);
+            setPetArray(morePets);
+            setCurrentPet(currentPet + 1);
+            setFetching(false);
         }
       })
       .catch(error => {
