@@ -4,7 +4,11 @@ import {
   StyleSheet,
   ActivityIndicator,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions,
+  Animated,
+  Image,
+  PanResponder
 } from "react-native";
 import GestureRecognizer from "react-native-swipe-gestures";
 import PetProfile from "../components/PetProfile";
@@ -14,9 +18,10 @@ import PropTypes from "prop-types";
 import firebase from "../components/firebase";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Navigation from "../components/Navigation";
-import { Dimensions } from "react-native";
 
 const InputScreen = props => {
+  const SCREEN_HEIGHT = Dimensions.get('window').height;
+  const SCREEN_WIDTH = Dimensions.get('window').width;
   const user = firebase.getCurrentUsername();
   const [petArray, setPetArray] = useState([]);
   const [currentPet, setCurrentPet] = useState(0);
@@ -32,6 +37,20 @@ const InputScreen = props => {
   useEffect(() => {
     fetchPets();
   }, [type, zipCode, travelDistance]);
+
+  useEffect(() => {
+    position = new Animated.ValueXY();
+    _panResponder = PanResponder.create({
+      onStartShouldSetPanResponder: (evt, gestureState) => true,
+      onPanResponderMove: (evt, gestureState) => {
+        console.log(gestureState)
+        position.setValue({ x: gestureState.dx, y: gestureState.dy })
+      },
+      onPanResponderRelease: (evt, gestureState) => {
+
+      }
+    })
+  }, []);
 
   function fetchPets() {
     setFetching(true);
@@ -66,14 +85,14 @@ const InputScreen = props => {
           setFetching(false);
           return;
         }
-          if (!petArray[0]) {
-            setPetArray(data[0]);
-            setFetching(false);
-          } else {
-            let morePets = petArray.concat(data[0]);
-            setPetArray(morePets);
-            setCurrentPet(currentPet + 1);
-            setFetching(false);
+        if (!petArray[0]) {
+          setPetArray(data[0]);
+          setFetching(false);
+        } else {
+          let morePets = petArray.concat(data[0]);
+          setPetArray(morePets);
+          setCurrentPet(currentPet + 1);
+          setFetching(false);
         }
       })
       .catch(error => {
@@ -92,6 +111,7 @@ const InputScreen = props => {
 
   function onSwipeLeft() {
     setLiked(false);
+    console.log(currentPet)
     if (currentPet + 1 < petArray.length) {
       setCurrentPet(currentPet + 1);
       checkIfLiked(1);
@@ -134,79 +154,127 @@ const InputScreen = props => {
         {!fetching ? (
           <>
             <Navigation />
-
-            <View
-              style={{
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "space-around",
-                marginTop: Dimensions.get("window").height * 0.05
-              }}
-            >
-              <View
-                style={{
-                  backgroundColor: "white",
-                  borderRadius: 20,
-                  shadowColor: "rgb(74,74,74)",
-                  shadowOpacity: 0.5,
-                  shadowRadius: 5,
-                  shadowOffset: {
-                    height: 0.5,
-                    width: 0.5
-                  },
-                  width: Dimensions.get("window").width * 0.9,
-                  zIndex: 2,
-                  marginBottom: Dimensions.get("window").height * 0.1
-                }}
-              >
-                <GestureRecognizer
-                  onSwipeRight={onSwipeRight}
-                  onSwipeLeft={onSwipeLeft}
-                  onSwipeUp={handleDetails}
-                >
-                  <PetProfile pet={petArray[currentPet]} />
-                </GestureRecognizer>
-              </View>
-              <View
-                style={[
-                  styles.buttonContainer,
-                  {
-                    zIndex: 3,
-                    position: "absolute",
-                    left: Dimensions.get("window").width * 0.65,
-                    bottom: Dimensions.get("window").width * 0.055,
-                    shadowColor: "rgb(74,74,74)",
-                    shadowOpacity: 0.5,
-                    shadowRadius: 1,
-                    shadowOffset: {
-                      height: 0.5,
-                      width: 0.5
-                    }
-                  }
-                ]}
-              >
-                <TouchableOpacity
-                  style={liked ? styles.button : styles.buttonGray}
-                  onPress={toggleLike}
-                >
-                  <Icon name="heart" color="white" size={45} />
-                </TouchableOpacity>
-              </View>
-            </View>
+            {petArray.map((pet, index) => (
+              index === currentPet ?
+                <>
+                  <Animated.View {..._panResponder.panHandlers}
+                    key={index}
+                    style={
+                      [{ transform: position.getTranslateTransform() }, {
+                        backgroundColor: "white",
+                        borderRadius: 20,
+                        overflow: "hidden",
+                        height: SCREEN_HEIGHT - 275,
+                        width: SCREEN_WIDTH - 40,
+                        shadowColor: "rgb(74,74,74)",
+                        shadowOpacity: 0.5,
+                        shadowRadius: 5,
+                        shadowOffset: {
+                          height: 0.5,
+                          width: 0.5
+                        },
+                        width: Dimensions.get("window").width * 0.9,
+                        zIndex: 2,
+                        marginBottom: Dimensions.get("window").height * 0.1,
+                        position: 'absolute',
+                        top: 110
+                      }]}
+                  >
+                    < Image style={{ height: "100%", width: "100%" }} source={{ uri: pet.photo }} />
+                    <View
+                      style={[
+                        styles.buttonContainer,
+                        {
+                          zIndex: 3,
+                          position: "absolute",
+                          left: Dimensions.get("window").width * 0.65,
+                          bottom: Dimensions.get("window").width * 0.055,
+                          shadowColor: "rgb(74,74,74)",
+                          shadowOpacity: 0.5,
+                          shadowRadius: 1,
+                          shadowOffset: {
+                            height: 0.5,
+                            width: 0.5
+                          }
+                        }
+                      ]}
+                    >
+                      <TouchableOpacity
+                        style={liked ? styles.button : styles.buttonGray}
+                        onPress={toggleLike}
+                      >
+                        <Icon name="heart" color="white" size={45} />
+                      </TouchableOpacity>
+                    </View>
+                  </Animated.View>
+                </> :
+                <>
+                  <View
+                    key={index}
+                    style={{
+                      backgroundColor: "white",
+                      borderRadius: 20,
+                      overflow: "hidden",
+                      height: SCREEN_HEIGHT - 275,
+                      width: SCREEN_WIDTH - 40,
+                      shadowColor: "rgb(74,74,74)",
+                      shadowOpacity: 0.5,
+                      shadowRadius: 5,
+                      shadowOffset: {
+                        height: 0.5,
+                        width: 0.5
+                      },
+                      width: Dimensions.get("window").width * 0.9,
+                      zIndex: 2,
+                      marginBottom: Dimensions.get("window").height * 0.1,
+                      position: 'absolute',
+                      position: 'absolute',
+                      top: 110
+                    }}
+                  >
+                    < Image style={{ height: "100%", width: "100%" }} source={{ uri: pet.photo }} />
+                    <View
+                      style={[
+                        styles.buttonContainer,
+                        {
+                          zIndex: 3,
+                          position: "absolute",
+                          left: Dimensions.get("window").width * 0.65,
+                          bottom: Dimensions.get("window").width * 0.055,
+                          shadowColor: "rgb(74,74,74)",
+                          shadowOpacity: 0.5,
+                          shadowRadius: 1,
+                          shadowOffset: {
+                            height: 0.5,
+                            width: 0.5
+                          }
+                        }
+                      ]}
+                    >
+                      <TouchableOpacity
+                        style={liked ? styles.button : styles.buttonGray}
+                        onPress={toggleLike}
+                      >
+                        <Icon name="heart" color="white" size={45} />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </>
+            )).reverse()}
           </>
         ) : (
-          <View
-            style={{
-              justifyContent: "center",
-              alignContent: "center",
-              width: Dimensions.get("window").width,
-              height: Dimensions.get("window").height / 1.2
-            }}
-          >
-            <Text style={styles.loading}>Loading Pets</Text>
-            <ActivityIndicator size="large" color="rgb(74,74,74)" />
-          </View>
-        )}
+            <View
+              style={{
+                justifyContent: "center",
+                alignContent: "center",
+                width: Dimensions.get("window").width,
+                height: Dimensions.get("window").height / 1.2
+              }}
+            >
+              <Text style={styles.loading}>Loading Pets</Text>
+              <ActivityIndicator size="large" color="rgb(74,74,74)" />
+            </View>
+          )}
       </View>
     </>
   );
