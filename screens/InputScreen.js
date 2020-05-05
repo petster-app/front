@@ -18,10 +18,10 @@ export default function FavoritesScreen(props) {
     { display: "flex", color: "rgb(239,89,68)" },
     { display: "none", color: "rgb(74,74,74)" },
   ];
-  const [type, setType] = useState("");
+  const [type, setType] = useState("dog");
   const [zipCode, setZipCode] = useState("");
   const [travelDistance, setTravelDistance] = useState(5);
-  const [dogTypeColor, setDogTypeColor] = useState(1);
+  const [dogTypeColor, setDogTypeColor] = useState(0);
   const [catTypeColor, setCatTypeColor] = useState(1);
   const [rabbitTypeColor, setRabbitTypeColor] = useState(1);
   const [selected, setSelected] = useState([]);

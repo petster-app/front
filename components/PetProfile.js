@@ -9,11 +9,11 @@ export default function PetProfile(props) {
         {props.pet.photo ? (
           <Image style={[styles.image]} source={{ uri: props.pet.photo }} />
         ) : (
-          <Image
-            style={[styles.image]}
-            source={require("../assets/images/noPet.png")}
-          />
-        )}
+            <Image
+              style={[styles.image]}
+              source={require("../assets/images/noPet.png")}
+            />
+          )}
       </View>
 
       <Text style={styles.name}>{props.pet.name}</Text>
@@ -29,7 +29,13 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    // flex: 1,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: "#a9a9a9",
+    justifyContent: "center",
+    backgroundColor: "white"
   },
   signUp: {
     fontSize: 30,
@@ -61,8 +67,8 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: "100%",
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
+    borderTopLeftRadius: 4,
+    borderTopRightRadius: 4,
     overflow: "hidden"
   }
 });

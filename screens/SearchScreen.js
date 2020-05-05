@@ -5,12 +5,10 @@ import {
   ActivityIndicator,
   Text,
   TouchableOpacity,
+  TouchableHighlight,
   Dimensions,
-  Animated,
-  Image,
-  PanResponder
 } from "react-native";
-import GestureRecognizer from "react-native-swipe-gestures";
+import Swiper from "react-native-deck-swiper";
 import PetProfile from "../components/PetProfile";
 import { connect } from "react-redux";
 import favoriteActions from "../store/actions/favorites";
@@ -32,24 +30,10 @@ const InputScreen = props => {
   let travelDistance = props.navigation.getParam("travelDistance");
   let date = new Date();
   date = date.toISOString();
-  let data = petArray[currentPet];
+  let data;
 
   useEffect(() => {
     fetchPets();
-  }, [type, zipCode, travelDistance]);
-
-  useEffect(() => {
-    position = new Animated.ValueXY();
-    _panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: (evt, gestureState) => true,
-      onPanResponderMove: (evt, gestureState) => {
-        console.log(gestureState)
-        position.setValue({ x: gestureState.dx, y: gestureState.dy })
-      },
-      onPanResponderRelease: (evt, gestureState) => {
-
-      }
-    })
   }, []);
 
   function fetchPets() {
@@ -102,16 +86,16 @@ const InputScreen = props => {
         );
       });
   }
-  function onSwipeRight() {
+
+  function onSwipedRight() {
     if (currentPet > 0) {
       setCurrentPet(currentPet - 1);
       checkIfLiked(-1);
     }
   }
 
-  function onSwipeLeft() {
+  function onSwipedLeft() {
     setLiked(false);
-    console.log(currentPet)
     if (currentPet + 1 < petArray.length) {
       setCurrentPet(currentPet + 1);
       checkIfLiked(1);
@@ -121,7 +105,9 @@ const InputScreen = props => {
     }
   }
 
-  function toggleLike() {
+  function toggleLike(index) {
+    console.log('whatsup', index)
+    data = petArray[index];
     if (!data.userName) {
       data.userName = user;
       props.addFavorite(data);
@@ -141,9 +127,9 @@ const InputScreen = props => {
     }
   }
 
-  function handleDetails() {
+  function handleDetails(index) {
     props.navigation.navigate("PetDetails", {
-      pet: petArray[currentPet],
+      pet: petArray[index],
       comingFromScreen: "search"
     });
   }
@@ -154,113 +140,55 @@ const InputScreen = props => {
         {!fetching ? (
           <>
             <Navigation />
-            {petArray.map((pet, index) => (
-              index === currentPet ?
-                <>
-                  <Animated.View {..._panResponder.panHandlers}
-                    key={index}
-                    style={
-                      [{ transform: position.getTranslateTransform() }, {
-                        backgroundColor: "white",
-                        borderRadius: 20,
-                        overflow: "hidden",
-                        height: SCREEN_HEIGHT - 275,
-                        width: SCREEN_WIDTH - 40,
-                        shadowColor: "rgb(74,74,74)",
-                        shadowOpacity: 0.5,
-                        shadowRadius: 5,
-                        shadowOffset: {
-                          height: 0.5,
-                          width: 0.5
-                        },
-                        width: Dimensions.get("window").width * 0.9,
-                        zIndex: 2,
-                        marginBottom: Dimensions.get("window").height * 0.1,
-                        position: 'absolute',
-                        top: 110
-                      }]}
-                  >
-                    < Image style={{ height: "100%", width: "100%" }} source={{ uri: pet.photo }} />
-                    <View
-                      style={[
-                        styles.buttonContainer,
-                        {
-                          zIndex: 3,
-                          position: "absolute",
-                          left: Dimensions.get("window").width * 0.65,
-                          bottom: Dimensions.get("window").width * 0.055,
-                          shadowColor: "rgb(74,74,74)",
-                          shadowOpacity: 0.5,
-                          shadowRadius: 1,
-                          shadowOffset: {
-                            height: 0.5,
-                            width: 0.5
-                          }
-                        }
-                      ]}
-                    >
-                      <TouchableOpacity
-                        style={liked ? styles.button : styles.buttonGray}
-                        onPress={toggleLike}
-                      >
-                        <Icon name="heart" color="white" size={45} />
-                      </TouchableOpacity>
-                    </View>
-                  </Animated.View>
-                </> :
-                <>
-                  <View
-                    key={index}
-                    style={{
-                      backgroundColor: "white",
-                      borderRadius: 20,
-                      overflow: "hidden",
-                      height: SCREEN_HEIGHT - 275,
-                      width: SCREEN_WIDTH - 40,
-                      shadowColor: "rgb(74,74,74)",
-                      shadowOpacity: 0.5,
-                      shadowRadius: 5,
-                      shadowOffset: {
-                        height: 0.5,
-                        width: 0.5
-                      },
-                      width: Dimensions.get("window").width * 0.9,
-                      zIndex: 2,
-                      marginBottom: Dimensions.get("window").height * 0.1,
-                      position: 'absolute',
-                      position: 'absolute',
-                      top: 110
-                    }}
-                  >
-                    < Image style={{ height: "100%", width: "100%" }} source={{ uri: pet.photo }} />
-                    <View
-                      style={[
-                        styles.buttonContainer,
-                        {
-                          zIndex: 3,
-                          position: "absolute",
-                          left: Dimensions.get("window").width * 0.65,
-                          bottom: Dimensions.get("window").width * 0.055,
-                          shadowColor: "rgb(74,74,74)",
-                          shadowOpacity: 0.5,
-                          shadowRadius: 1,
-                          shadowOffset: {
-                            height: 0.5,
-                            width: 0.5
-                          }
-                        }
-                      ]}
-                    >
-                      <TouchableOpacity
-                        style={liked ? styles.button : styles.buttonGray}
-                        onPress={toggleLike}
-                      >
-                        <Icon name="heart" color="white" size={45} />
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                </>
-            )).reverse()}
+
+            <Swiper
+              disableLeftSwipe={true}
+              cards={petArray}
+              renderCard={(card, index) => {
+                return (
+                  <>
+                    <TouchableHighlight onPress={() => handleDetails(index)} style={{ marginTop: 60 }}>
+                      <>
+                        <PetProfile pet={card} />
+                        <View
+                          style={[
+                            styles.buttonContainer,
+                            {
+                              zIndex: 3,
+                              position: "absolute",
+                              left: Dimensions.get("window").width * 0.65,
+                              bottom: 0,
+                              shadowColor: "rgb(74,74,74)",
+                              shadowOpacity: 0.5,
+                              shadowRadius: 1,
+                              shadowOffset: {
+                                height: 0.5,
+                                width: 0.5
+                              }
+                            }
+                          ]}
+                        >
+                          {console.log(liked)}
+                          <TouchableOpacity
+                            style={liked ? styles.button : styles.buttonGray}
+                            onPress={() => toggleLike(index)}
+                          >
+                            <Icon name="heart" color="white" size={45} />
+                          </TouchableOpacity>
+                        </View>
+                      </>
+                    </TouchableHighlight>
+                  </>
+                )
+              }}
+              onSwiped={(cardIndex) => { console.log(cardIndex) }}
+              onSwipedAll={() => { console.log('onSwipedAll') }}
+              onSwipedLeft={() => console.log('swiped left')}
+              onSwipedRight={() => console.log('swiped right')}
+              cardIndex={0}
+              backgroundColor={"#f8f8f8"}
+              stackSize={5}>
+            </Swiper>
           </>
         ) : (
             <View
@@ -281,6 +209,11 @@ const InputScreen = props => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#f8f8f8",
+    alignItems: "center"
+  },
   headerTitle: {
     flexDirection: "row",
     justifyContent: "center",
@@ -294,12 +227,6 @@ const styles = StyleSheet.create({
   navContainer: {
     paddingBottom: 20,
     zIndex: 3
-  },
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    backgroundColor: "rgb(248,248,248)"
   },
   text: {
     fontSize: 15,
