@@ -10,10 +10,8 @@ import {
 import firebase from "../components/firebase";
 
 export default function SignIn(props) {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("lilliangales@gmail.com");
-  const [password, setPassword] = useState("lilliangales");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [inputComplete, setInputComplete] = useState(false);
   const [buttonColor, setButtonColor] = useState("rgb(202,202,202)");
 
